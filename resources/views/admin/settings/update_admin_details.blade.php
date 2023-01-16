@@ -61,7 +61,7 @@
               </div>
             @endif
 
-            <form class="forms-sample" action="{{ url('admin/update-admin-details') }}" method="post">@csrf
+            <form class="forms-sample" action="{{ url('admin/update-admin-details') }}" method="post" enctype="multipart/form-data">@csrf
               <div class="form-group">
                 <label>Admin Username/Email</label>
                 <input class="form-control" value="{{ Auth::guard('admin')->user()->email }}" readonly="">
@@ -77,6 +77,14 @@
               <div class="form-group">
                 <label for="admin_mobile">Mobile</label>
                 <input type="text" class="form-control" id="admin_mobile" placeholder="Enter 10 Digits Mobile Number" name="admin_mobile" value="{{ Auth::guard('admin')->user()->mobile }}" required="">
+              </div>
+              <div class="form-group">
+                <label for="admin_image">Profile Photo</label>
+                <input type="file" class="form-control" id="admin_image" name="admin_image">
+                @if(!empty(Auth::guard('admin')->user()->image))
+                  <a target="_blank" href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}">View Photo</a>
+                  <input type="hidden" name="current_admin_image" value="{{ Auth::guard('admin')->user()->image }}">
+                @endif
               </div>
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
               <button class="btn btn-light">Cancel</button>
