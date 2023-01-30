@@ -17,8 +17,8 @@ class AdminsTableSeeder extends Seeder
     {
         // password has the encrypted form of 123456 from bcrypt-generator
         $adminRecords = [
-            ['id'=>1, 'name'=>'Super Admin', 'type'=>'superadmin', 'vendor_id'=>0, 'mobile'=>'9800000000',
-            'email'=>'admin@admin.com', 'password'=>'$2a$12$ZF9RRjZR.64cHjCC9Ex8aeinPwXtf.b5kgS0XTNOdM8FMRuW6rXVK', 'image'=>'', 'status'=>1],
+            ['id'=>2, 'name'=>'John', 'type'=>'vendor', 'vendor_id'=>1, 'mobile'=>'9700000000',
+            'email'=>'john@admin.com', 'password'=>'$2a$12$ZF9RRjZR.64cHjCC9Ex8aeinPwXtf.b5kgS0XTNOdM8FMRuW6rXVK', 'image'=>'', 'status'=>0],
         ];
         Admin::insert($adminRecords);
     }
