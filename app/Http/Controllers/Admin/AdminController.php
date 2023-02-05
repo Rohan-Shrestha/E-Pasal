@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Vendor;
+use App\Models\VendorsBusinessDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -149,8 +150,10 @@ class AdminController extends Controller
             return redirect()->back()->with('success_message', 'Vendor details updated successfully!');
             }
             $vendorDetails = Vendor::where('id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
+        }else if($slug=="business"){
+            $vendorDetails = VendorsBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
+            // dd($vendorDetails);
         }
-        else if($slug=="business"){}
         else if($slug=="bank"){}
         return view('admin.settings.update_vendor_details')->with(compact('slug', 'vendorDetails'));
     }
