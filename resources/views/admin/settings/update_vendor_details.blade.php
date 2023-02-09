@@ -153,7 +153,7 @@
               </div>
               <div class="form-group">
                 <label for="shop_name">Shop Name</label>
-                <input type="text" class="form-control" id="shop_name" placeholder="Enter Shop Name" name="shop_name" value="{{ Auth::guard('admin')->user()->name }}" required="">
+                <input type="text" class="form-control" id="shop_name" placeholder="Enter Shop Name" name="shop_name" value="{{ $vendorDetails['shop_name'] }}" required="">
               </div>
 
               <div class="form-group">
@@ -195,11 +195,11 @@
               <div class="form-group">
                 <label for="address_proof">Address Proof</label>
                 <select class="form-control" name="address_proof" id="address_proof">
-                  <option value="Passport">Passport</option>
-                  <option value="Citizenship Card">Citizenship Card</option>
-                  <option value="PAN">PAN</option>
-                  <option value="Driving License">Driving License</option>
-                  <option value="Driving License">Voting Card</option>
+                  <option value="Passport" @if($vendorDetails['address_proof']=="Passport") selected @endif>Passport</option>
+                  <option value="Citizenship Card" @if($vendorDetails['address_proof']=="Citizenship Card") selected @endif>Citizenship Card</option>
+                  <option value="PAN" @if($vendorDetails['address_proof']=="PAN") selected @endif>PAN</option>
+                  <option value="Driving License" @if($vendorDetails['address_proof']=="Driving License") selected @endif>Driving License</option>
+                  <option value="Driving License" @if($vendorDetails['address_proof']=="Voting Card") selected @endif>Voting Card</option>
                 </select>
               </div>
               <div class="form-group">
@@ -207,7 +207,7 @@
                 <input type="file" class="form-control" id="address_proof_image" name="address_proof_image">
                 @if(!empty($vendorDetails['address_proof_image']))
                   <a target="_blank" href="{{ url('admin/images/proofs/'.$vendorDetails['address_proof_image']) }}">View Photo</a>
-                  <input type="hidden" name="current_shop_image" value="{{ $vendorDetails['address_proof_image'] }}">
+                  <input type="hidden" name="current_address_proof" value="{{ $vendorDetails['address_proof_image'] }}">
                 @endif
               </div>
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -218,6 +218,69 @@
       </div>
     </div>
     @elseif($slug=="bank")
+    <div class="row">
+      <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Update Bank Information</h4>
+            @if(Session::has('error_message'))
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <li>{{ Session::get('error_message')}}</li>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
+
+            @if(Session::has('success_message'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <li>{{ Session::get('success_message')}}</li>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
+
+            @if ($errors->any())
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
+
+            <form class="forms-sample" action="{{ url('admin/update-vendor-details/bank') }}" method="post" enctype="multipart/form-data">@csrf
+              <div class="form-group">
+                <label>Vendor Username/Email</label>
+                <input class="form-control" value="{{ Auth::guard('admin')->user()->email }}" readonly="">
+              </div>
+              <div class="form-group">
+                <label for="account_holder_name">Account Holder Name</label>
+                <input type="text" class="form-control" id="account_holder_name" placeholder="Enter Account Holder Name" name="account_holder_name" value="{{ $vendorDetails['account_holder_name'] }}">
+              </div>
+
+              <div class="form-group">
+                <label for="bank_name">Bank Name</label>
+                <input type="text" class="form-control" id="bank_name" placeholder="Enter Bank Name" name="bank_name" value="{{ $vendorDetails['bank_name'] }}">
+              </div>
+              <div class="form-group">
+                <label for="account_number">Account Number</label>
+                <input type="text" class="form-control" id="account_number" placeholder="Enter Account Number" name="account_number" value="{{ $vendorDetails['account_number'] }}">
+              </div>
+              <div class="form-group">
+                <label for="bank_swift_code">Bank SWIFT Code</label>
+                <input type="text" class="form-control" id="bank_swift_code" placeholder="Enter Bank SWIFT Code" name="bank_swift_code" value="{{ $vendorDetails['bank_swift_code'] }}">
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <button class="btn btn-light">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     @endif
   </div>
