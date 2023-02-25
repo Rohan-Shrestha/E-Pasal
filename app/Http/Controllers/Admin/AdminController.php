@@ -12,17 +12,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
     //
     public function dashboard()
     {
+        Session::put('page', 'dashboard');
         return view('admin.dashboard');
     }
 
     public function updateAdminPassword(Request $request)
     {
+        Session::put('page', 'update_admin_password');
         if ($request->isMethod('post')) {
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -59,6 +62,7 @@ class AdminController extends Controller
 
     public function updateAdminDetails(Request $request)
     {
+        Session::put('page', 'update_admin_details');
         if ($request->isMethod('post')) {
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -106,6 +110,7 @@ class AdminController extends Controller
     public function updateVendorDetails($slug, Request $request)
     {
         if ($slug == "personal") {
+            Session::put('page', 'update_personal_details');
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 // echo "<pre>"; print_r($data); die;
@@ -159,6 +164,7 @@ class AdminController extends Controller
             }
             $vendorDetails = Vendor::where('id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         } else if ($slug == "business") {
+            Session::put('page', 'update_business_details');
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 // echo "<pre>"; print_r($data); die;
@@ -216,6 +222,7 @@ class AdminController extends Controller
             $vendorDetails = VendorsBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
             // dd($vendorDetails);
         } else if ($slug == "bank") {
+            Session::put('page', 'update_bank_details');
             if ($request->isMethod('post')) {
                 $data = $request->all();
                 // echo "<pre>"; print_r($data); die;
@@ -288,8 +295,10 @@ class AdminController extends Controller
         if(!empty($type)){
             $admins = $admins->where('type', $type);
             $title = ucfirst($type)."s";
+            Session::put('page', 'view_'.strtolower($title));
         }else{
             $title = "All Admins/Subadmins/Vendors";
+            Session::put('page', 'view_all');
         }
         $admins = $admins->get()->toArray();
         // dd($admins);
