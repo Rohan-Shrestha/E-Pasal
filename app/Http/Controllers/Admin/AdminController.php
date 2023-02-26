@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Country;
 use App\Models\Vendor;
 use App\Models\VendorsBankDetails;
 use App\Models\VendorsBusinessDetails;
@@ -256,7 +257,9 @@ class AdminController extends Controller
             }
             $vendorDetails = VendorsBankDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }
-        return view('admin.settings.update_vendor_details')->with(compact('slug', 'vendorDetails'));
+
+        $countries = Country::where('status', 1)->get()->toArray();
+        return view('admin.settings.update_vendor_details')->with(compact('slug', 'vendorDetails', 'countries'));
     }
 
     public function login(Request $request)
