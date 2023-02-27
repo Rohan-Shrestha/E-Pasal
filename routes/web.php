@@ -63,7 +63,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // Admin Logout
         Route::get('logout', 'AdminController@logout');
 
-        // Sections
+        // START of SECTIONS
         Route::get('sections', 'SectionController@sections');
 
         // Update section Status
@@ -74,6 +74,14 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
         // Add/ Edit section in admin page
         Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@addEditSection');
+        // END of SECTIONS
+
+        // START of CATEGORIES
+        Route::get('categories', 'CategoryController@categories');
+
+        // Update Categories Status
+        Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
+        // END of CATEGORIES
     });
     
     
