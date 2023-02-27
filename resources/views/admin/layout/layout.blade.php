@@ -67,6 +67,9 @@
   <!-- Custom Admin JS -->
   <script src="{{ url('admin/js/custom.js') }}"></script>
   <!-- End Custom Admin JS -->
+
+  <!-- Confirm section deletion, Sweet Alert 2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
