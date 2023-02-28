@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function addEditCategory(Request $request, $id=null)
     {
-        Session::put('page', 'categories');
+        Session::put('page','categories');
         if($id==""){
             // Add Category
             $title = "Add Category";
@@ -91,7 +91,7 @@ class CategoryController extends Controller
                     $extension = $image_tmp->getClientOriginalExtension();
                     // Generate New Image Name
                     $imageName = rand(111, 99999) . '.' . $extension;
-                    $imagePath = 'admin/images/category_images/' . $imageName;
+                    $imagePath = 'front/images/category_images/' . $imageName;
                     // Upload the image
                     Image::make($image_tmp)->save($imagePath);
                     $category->category_image = $imageName;
@@ -129,5 +129,33 @@ class CategoryController extends Controller
             // dd($getCategories);
             return view('admin.categories.append_categories_level')->with(compact('getCategories'));
         }
+    }
+
+    public function deleteCategory($id)
+    {
+        # Delete Category
+        Category::where('id',$id)->delete();
+        $message = "Category has been deleted successfully!";
+        return redirect()->back()->with('success_message',$message);
+    }
+
+    public function deleteCategoryImage($id)
+    {
+        # Get category image
+        $categoryImage = Category::select('category_image')->where('id',$id)->first();
+
+        # Get Category Image Path
+        $category_image_path = 'front/images/category_images/';
+
+        # Delete Category Image from category_images folder if the image exists.
+        if(file_exists($category_image_path.$categoryImage->category_image)){
+            unlink($category_image_path.$categoryImage->category_image);
+        }
+
+        # Delete Category Image name from categories table in the database.
+        Category::where('id',$id)->update(['category_image'=>'']);
+
+        $message = "Category Photo has been deleted successfully!";
+        return redirect()->back()->with('success_message',$message);
     }
 }

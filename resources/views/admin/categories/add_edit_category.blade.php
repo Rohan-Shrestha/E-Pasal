@@ -90,6 +90,10 @@
                             <div class="form-group">
                                 <label for="admin_image">Category Photo</label>
                                 <input type="file" class="form-control" id="category_image" name="category_image">
+                                @if (!empty($category['category_image']))
+                                    <a target="_blank" href="{{ url('front/images/category_images/'.$category['category_image']) }}">View Photo</a>&nbsp;|&nbsp;
+                                    <a href="javascript:void(0)" class="confirmDelete" module="category-image" module_id="{{ $category['id'] }}">Delete Photo</a>
+                                @endif
                                 <!-- @if(!empty(Auth::guard('admin')->user()->image))
                                 <a target="_blank" href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}">View Photo</a>
                                 <input type="hidden" name="current_category_image" value="{{ Auth::guard('admin')->user()->image }}">
