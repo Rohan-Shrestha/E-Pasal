@@ -65,36 +65,37 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
         // START of SECTIONS
         Route::get('sections', 'SectionController@sections');
-
         // Update section Status
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
-
         // Delete Section
         Route::get('delete-section/{id}', 'SectionController@deleteSection');
-
         // Add/ Edit section in admin page
         Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@addEditSection');
         // END of SECTIONS
 
         // START of CATEGORIES
         Route::get('categories', 'CategoryController@categories');
-
         // Update Categories Status
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
-
         // Add  and Edit Categories
         Route::match(['get', 'post'], 'add-edit-category/{id?}', 'CategoryController@addEditCategory');
-
         // Admin can appen sub category inside a category.
         Route::get('append-categories-level','CategoryController@appendCategoryLevel');
-
         // Delete Category
         Route::get('delete-category/{id}','CategoryController@deleteCategory');
-
         // Delete Image
         Route::get('delete-category-image/{id}','CategoryController@deleteCategoryImage');
-
         // END of CATEGORIES
+
+        // START of BRANDS
+        Route::get('brands', 'BrandController@brands');
+        // Update Brand Status
+        Route::post('update-brand-status', 'BrandController@updateBrandStatus');
+        // Delete Brand
+        Route::get('delete-brand/{id}', 'BrandController@deleteBrand');
+        // Add/ Edit Brand in admin page
+        Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@addEditBrand');
+        // END of BRANDS
     });
     
     

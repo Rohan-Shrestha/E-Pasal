@@ -110,6 +110,10 @@
                     style="background:#4B49AC !important; color: #fff !important;"
                     @else style="background:#fff !important; color: #4B49AC !important;"
                     @endif class="nav-link" href="{{ url('admin/categories') }}">Categories</a></li>
+                    <li class="nav-item"> <a @if (Session::get('page')=="brands")
+                    style="background:#4B49AC !important; color: #fff !important;"
+                    @else style="background:#fff !important; color: #4B49AC !important;"
+                    @endif class="nav-link" href="{{ url('admin/brands') }}">Brands</a></li>
                     <li class="nav-item"> <a @if (Session::get('page')=="products")
                     style="background:#4B49AC !important; color: #fff !important;"
                     @else style="background:#fff !important; color: #4B49AC !important;"
