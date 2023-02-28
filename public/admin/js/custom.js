@@ -122,6 +122,26 @@ $(document).ready(function () {
         })
     })
 
+    // Append Categories Level
+    $("#section_id").change(function(){
+        var section_id = $(this).val();
+        // alert(section_id);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'get',
+            url:'/admin/append-categories-level',
+            data:{section_id:section_id},
+            success:function(resp){
+                // alert(resp);
+                $("#appendCategoriesLevel").html(resp);
+            },error:function(){
+                alert("Error");
+            }
+        })
+    });
+
     // Update Category Status
     $(document).on("click", ".updateCategoryStatus", function () {
         // alert("test");

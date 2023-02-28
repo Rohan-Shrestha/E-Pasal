@@ -48,9 +48,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($categories as $category)
-                                    @if(isset($category['parentCategory']['category_name'])
-                                    &&!empty($category['parentCategory']['category_name']))
-                                        @php $parent_category = $category['parentCategory']['category_name']; @endphp
+                                    @if(isset($category['parentcategory']['category_name'])
+                                    &&!empty($category['parentcategory']['category_name']))
+                                        @php $parent_category = $category['parentcategory']['category_name']; @endphp
                                     @else
                                         @php $parent_category = "Root"; @endphp
                                     @endif

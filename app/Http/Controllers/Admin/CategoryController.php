@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function categories()
     {
         Session::put('page', 'categories');
-        $categories = Category::with(['section','parentCategory'])->get()->toArray();
+        $categories = Category::with(['section','parentcategory'])->get()->toArray();
         // dd($categories);
         return view('admin.categories.categories')->with(compact('categories'));
     }
@@ -41,18 +41,48 @@ class CategoryController extends Controller
             // Add Category
             $title = "Add Category";
             $category = new Category;
+            $getCategories = array();
             $message = "Category added successfully!";
         }else{
             // Edit Category
             $title = "Edit Category";
             $category = Category::find($id);
+            // echo "<pre>"; print_r($category); die;
+            // echo "<pre>"; print_r($category['category_name']); die;
+            $getCategories = Category::with('subcategories')->where(['parent_id'=>0,'section_id'=>$category['section_id']])->get();
             $message = "Category updated successfully!";
         }
 
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
+            
+            // Categories form validations
+            $rules = [
+                'category_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'section_id' => 'required',
+                'url' => 'required',
+            ];
 
+            $customMessages = [
+                'category_name.required' => 'Please fill out the Category Name.',
+                'category_name.regex' => 'The category name must be valid.',
+                'section_id.required' => 'Please select the Section.',
+                'url.required' => 'Pleas fill out the Category URL.',
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
+            // if discount value isn't provided, set it to 0
+            if($data['category_discount']==""){
+                $data['category_discount'] = 0;
+            }
+
+            // // description can be null
+            // if($data['description']==""){
+            //     $data['description'] = "";
+            // }
+            
             // Upload Category Photo
             if ($request->hasFile('category_image')) {
                 $image_tmp = $request->file('category_image');
@@ -88,29 +118,16 @@ class CategoryController extends Controller
         // Get All Sections
         $getSections = Section::get()->toArray();
 
-        return view('admin.categories.add_edit_category')->with(compact('title', 'category', 'getSections'));
+        return view('admin.categories.add_edit_category')->with(compact('title', 'category', 'getSections', 'getCategories'));
+    }
 
-        // if($request->isMethod('post')){
-        //     $data = $request->all();
-        //     // echo "<pre>"; print_r($data); die;
-        //     $rules = [
-        //         'category_name' => 'required|regex:/^[\pL\s\-]+$/u',
-        //     ];
-
-        //     $customMessages = [
-        //         'category_name.required' => 'Please fill out the Category Name.',
-        //         'category_name.regex' => 'The category name must be valid.',
-        //     ];
-
-        //     $this->validate($request, $rules, $customMessages);
-
-        //     $category->name = $data['category_name'];
-        //     $category->status = 1;
-        //     $category->save();
-        //     return redirect('admin/categories')->with('success_message', $message);
-
-        // }
-
-        // return view('admin.categories.add_edit_categories')->with(compact('title', 'category'));
+    public function appendCategoryLevel(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            $getCategories = Category::with('subcategories')->where(['parent_id'=>0,'section_id'=>$data['section_id']])->get()->toArray();
+            // dd($getCategories);
+            return view('admin.categories.append_categories_level')->with(compact('getCategories'));
+        }
     }
 }
