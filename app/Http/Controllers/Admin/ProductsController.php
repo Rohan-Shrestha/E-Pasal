@@ -5,11 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
 {
     public function products(){
-        $products = Product::get()->toArray();
+        Session::put('page', 'products');
+        $products = Product::with(['section'=>function($query){
+            $query->select('id','name');
+        },'category'=>function($query){
+            $query->select('id','category_name');
+        }])->get()->toArray();
         // dd($products);
         return view('admin.products.products')->with(compact('products'));
     }
