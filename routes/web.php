@@ -98,6 +98,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // END of BRANDS
 
         // START of PRODUCTS
+        Route::get('products', 'ProductsController@products');
+        Route::post('update-product-status', 'ProductsController@updateProductStatus');
+        Route::get('delete-product/{id}','ProductsController@deleteProduct');
         // END of PRODUCTS
     });
     
