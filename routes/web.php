@@ -96,6 +96,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // Add/ Edit Brand in admin page
         Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@addEditBrand');
         // END of BRANDS
+
+        // START of PRODUCTS
+        // END of PRODUCTS
     });
     
     
