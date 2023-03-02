@@ -114,7 +114,7 @@
                                 <input type="text" class="form-control" id="Product_weight" placeholder="Enter Product Weight" name="product_weight" @if(!empty($product['product_weight'])) value="{{ $product['product_weight'] }}" @else value="{{ old('product_weight') }}" @endif>
                             </div>
                             <div class="form-group">
-                                <label for="product_image">Product Photo</label>
+                                <label for="product_image">Product Photo (Recommended Size:1000x1000)</label>
                                 <input type="file" class="form-control" id="product_image" name="product_image">
                                 @if (!empty($product['product_image']))
                                     <a target="_blank" href="{{ url('front/images/product_images/'.$product['product_image']) }}">View Photo</a>&nbsp;|&nbsp;
@@ -126,7 +126,7 @@
                                 @endif -->
                             </div>
                             <div class="form-group">
-                                <label for="product_video">Product Video</label>
+                                <label for="product_video">Product Video (Recommended Size: Less than 2 MB)</label>
                                 <input type="file" class="form-control" id="product_video" name="product_video">
                                 @if (!empty($product['product_video']))
                                     <a target="_blank" href="{{ url('front/videos/product_videos/'.$product['product_video']) }}">View Video</a>&nbsp;|&nbsp;
