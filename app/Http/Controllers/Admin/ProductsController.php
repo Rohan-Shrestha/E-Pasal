@@ -8,6 +8,7 @@ use App\Models\Section;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\ProductsAttribute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
@@ -115,9 +116,10 @@ class ProductsController extends Controller
                 $video_tmp = $request->file('product_video');
                 if($video_tmp->isValid()){
                     // Upload Video in videos folder
-                    $video_name = $video_tmp->getClientOriginalName();
+                    // $video_name = $video_tmp->getClientOriginalName();
                     $extension = $video_tmp->getClientOriginalExtension();
-                    $videoName = $video_name.'-'.rand().'.'.$extension;
+                    // $videoName = $video_name.'-'.rand().'.'.$extension;
+                    $videoName = rand(111, 99999).'.'.$extension;
                     $videoPath = 'front/videos/product_videos/';
                     $video_tmp->move($videoPath,$videoName);
                     // Insert Video Name in Products Table
@@ -229,5 +231,46 @@ class ProductsController extends Controller
 
         $message = "Product's Video has been deleted successfully!";
         return redirect()->back()->with('success_message',$message);
+    }
+
+    public function addAttributes(Request $request, $id){
+        $product = Product::select(
+            'id',
+            'product_name',
+            'product_code',
+            'product_color',
+            'product_price',
+            'product_image'
+        )->with('attributes')->find($id);
+        // $product = json_decode(json_encode($product),true);
+        // dd($product);
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>";print_r($data); die;
+
+            foreach ($data['sku'] as $key => $value) {
+                if(!empty($value)){
+
+                    // Duplicate SKU check
+                    $skuCount = ProductsAttribute::where('sku',$value)->count();
+                    if($skuCount>0){
+                        return redirect()->back()->with('error_message','SKU already exists! Please enter a new one.');
+                    }
+
+                    $attribute = new ProductsAttribute;
+                    $attribute->product_id = $id;
+                    $attribute->sku = $value;
+                    $attribute->size = $data['size'][$key];
+                    $attribute->price = $data['price'][$key];
+                    $attribute->stock = $data['stock'][$key];
+                    $attribute->status = 1;
+                    $attribute->save();
+                }
+            }
+
+            return redirect()->back()->with('success_message','Product Attributes has been added successfully!');
+        }
+        return view('admin.attributes.add_edit_attributes')->with(compact('product'));
     }
 }

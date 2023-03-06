@@ -129,8 +129,11 @@
             </a>
             <div class="collapse" id="ui-users">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ url('admin/users') }}">Users</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ url('admin/subscribers') }}">Subscribers</a></li>
+                    <!-- these navs below keep getting highlighted in the admin side panel,
+                    therefore, I have commented them out, will be using them when 
+                    i get in the users and subscribers part -->
+                    <!-- <li class="nav-item"> <a class="nav-link" href="{{ url('admin/users') }}">Users</a></li> -->
+                    <!-- <li class="nav-item"> <a class="nav-link" href="{{ url('admin/subscribers') }}">Subscribers</a></li> -->
                 </ul>
             </div>
         </li>
