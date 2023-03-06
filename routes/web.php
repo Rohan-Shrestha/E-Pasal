@@ -107,7 +107,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // END of PRODUCTS
 
         // ATTRIBUTES
-        Route::match(['get', 'post'], 'add-edit-attributes/{id}', 'ProductsController@addAttributes');
+        Route::match(['get', 'post'], 'add-edit-attributes/{id}', 'AttributesController@addAttributes');
+        Route::post('update-attribute-status', 'AttributesController@updateAttributeStatus');
+        Route::get('delete-attribute/{id}', 'AttributesController@deleteAttribute');
+        Route::match(['get', 'post'], 'edit-attributes/{id}','AttributesController@editAttributes');
     });
     
     

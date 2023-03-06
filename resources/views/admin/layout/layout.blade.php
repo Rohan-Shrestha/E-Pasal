@@ -26,6 +26,8 @@
   <!-- datatable -->
   <link rel="stylesheet" href="{{ url('admin/css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url('admin/css/dataTables.bootstrap4.min.css') }}">
+
+  <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}">
 </head>
 <body>
   <div class="container-scroller">

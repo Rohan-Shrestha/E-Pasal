@@ -228,6 +228,34 @@ $(document).ready(function () {
         })
     });
 
+    // Update Attribute Status
+    $(document).on("click", ".updateAttributeStatus", function () {
+        // alert("test");
+        var status = $(this).children("i").attr("status");
+        var attribute_id = $(this).attr("attribute_id");
+        // alert(attribute_id);
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'post',
+            url: '/admin/update-attribute-status',
+            data: { status: status, attribute_id: attribute_id },
+            success: function (resp) {
+                // alert(resp);
+                if (resp['status'] == 0) {
+                    $('#attribute-' + attribute_id).html("<i style='font-size: 25px;' class='mdi mdi-bookmark-remove' status='Inactive'></i>")
+                }
+                else if (resp['status'] == 1) {
+                    $('#attribute-' + attribute_id).html("<i style='font-size: 25px;' class='mdi mdi-bookmark-check' status='Active'></i>")
+                }
+            }, error: function () {
+                alert("Error");
+            }
+        })
+    });
+
     // Products Attributes Add/Remove Script
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector

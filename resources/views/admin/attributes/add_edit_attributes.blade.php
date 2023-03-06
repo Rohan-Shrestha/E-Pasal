@@ -110,58 +110,65 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Product Attributes</h4>
-                        <table id="products" class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Size
-                                    </th>
-                                    <th>
-                                        SKU
-                                    </th>
-                                    <th>
-                                        Price
-                                    </th>
-                                    <th>
-                                        Stock
-                                    </th>
-                                    <th>
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($product['attributes'] as $attribute)
-                                <tr>
-                                    <td>
-                                        {{ $attribute['id'] }}
-                                    </td>
-                                    <td>
-                                        {{ $attribute['size'] }}
-                                    </td>
-                                    <td>
-                                        {{ $attribute['sku'] }}
-                                    </td>
-                                    <td>
-                                        {{ $attribute['price'] }}
-                                    </td>
-                                    <td>
-                                        {{ $attribute['stock'] }}
-                                    </td>
-                                    <td>
-                                        @if($attribute['status']==1)
-                                        <a class="updateProductStatus" id="attribute-{{ $attribute['id'] }}" attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)"><i style="font-size: 25px;" class="mdi mdi-bookmark-check" status="Active"></i></a>
-                                        @else
-                                        <a class="updateProductStatus" id="attribute-{{ $attribute['id'] }}" attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)"><i style="font-size: 25px;" class="mdi mdi-bookmark-remove" status="Inactive"></i></a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <form method="post" action="{{ url('admin/edit-attributes/'.$product['id']) }}">@csrf
+                            <table id="products" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            ID
+                                        </th>
+                                        <th>
+                                            Size
+                                        </th>
+                                        <th>
+                                            SKU
+                                        </th>
+                                        <th>
+                                            Price
+                                        </th>
+                                        <th>
+                                            Stock
+                                        </th>
+                                        <th>
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($product['attributes'] as $attribute)
+                                    <input type="text" class="attributeId" name="attributeId[]" value="{{ $attribute['id'] }}">
+                                    <tr>
+                                        <td>
+                                            {{ $attribute['id'] }}
+                                        </td>
+                                        <td>
+                                            {{ $attribute['size'] }}
+                                        </td>
+                                        <td>
+                                            {{ $attribute['sku'] }}
+                                        </td>
+                                        <td>
+                                            <input type="number" name="price[]" value="{{ $attribute['price'] }}" required="" style="width: 80px;">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="stock[]" value="{{ $attribute['stock'] }}" required="" style="width: 80px;">
+                                        </td>
+                                        <td>
+                                            @if($attribute['status']==1)
+                                            <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}" attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)"><i style="font-size: 25px;" class="mdi mdi-bookmark-check" status="Active"></i></a>
+                                            @else
+                                            <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}" attribute_id="{{ $attribute['id'] }}" href="javascript:void(0)"><i style="font-size: 25px;" class="mdi mdi-bookmark-remove" status="Inactive"></i></a>
+                                            @endif
+                                        </td>
+                                    </tr>
+
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="button-container">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
