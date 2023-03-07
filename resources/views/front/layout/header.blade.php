@@ -250,7 +250,7 @@ $sections = Section::sections();
                                                                 <li>
                                                                     <a href="{{ url($subcategory['url']) }}">{{ $subcategory['category_name'] }}</a>
                                                                 </li>
-                                                                @endforeach
+                                                                @endforeachPsider
                                                             </ul>
                                                         </li>
                                                     </ul>
