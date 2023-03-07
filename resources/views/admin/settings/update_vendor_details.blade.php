@@ -113,7 +113,7 @@
                 @endif
               </div>
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
-              <button class="btn btn-light">Cancel</button>
+              <button type="reset" class="btn btn-light">Cancel</button>
             </form>
           </div>
         </div>
@@ -227,7 +227,7 @@
                 @endif
               </div>
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
-              <button class="btn btn-light">Cancel</button>
+              <button type="reset" class="btn btn-light">Cancel</button>
             </form>
           </div>
         </div>
@@ -291,7 +291,7 @@
                 <input type="text" class="form-control" id="bank_swift_code" placeholder="Enter Bank SWIFT Code" name="bank_swift_code" value="{{ $vendorDetails['bank_swift_code'] }}">
               </div>
               <button type="submit" class="btn btn-primary mr-2">Submit</button>
-              <button class="btn btn-light">Cancel</button>
+              <button type="reset" class="btn btn-light">Cancel</button>
             </form>
           </div>
         </div>

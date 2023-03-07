@@ -256,6 +256,34 @@ $(document).ready(function () {
         })
     });
 
+    // Update Image Status
+    $(document).on("click", ".updateImageStatus", function () {
+        // alert("test");
+        var status = $(this).children("i").attr("status");
+        var image_id = $(this).attr("image_id");
+        // alert(image_id);
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'post',
+            url: '/admin/update-image-status',
+            data: { status: status, image_id: image_id },
+            success: function (resp) {
+                // alert(resp);
+                if (resp['status'] == 0) {
+                    $('#image-' + image_id).html("<i style='font-size: 25px;' class='mdi mdi-bookmark-remove' status='Inactive'></i>")
+                }
+                else if (resp['status'] == 1) {
+                    $('#image-' + image_id).html("<i style='font-size: 25px;' class='mdi mdi-bookmark-check' status='Active'></i>")
+                }
+            }, error: function () {
+                alert("Error");
+            }
+        })
+    });
+
     // Products Attributes Add/Remove Script
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector

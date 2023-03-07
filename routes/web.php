@@ -111,6 +111,11 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::post('update-attribute-status', 'AttributesController@updateAttributeStatus');
         Route::get('delete-attribute/{id}', 'AttributesController@deleteAttribute');
         Route::match(['get', 'post'], 'edit-attributes/{id}','AttributesController@editAttributes');
+
+        // IMAGES
+        Route::match(['get', 'post'], 'add-images/{id}','ProductsController@addImages');
+        Route::post('update-image-status', 'ProductsController@updateImageStatus');
+        Route::get('delete-image/{id}', 'ProductsController@deleteImage');
     });
     
     
