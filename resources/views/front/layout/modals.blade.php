@@ -29,8 +29,8 @@
                 <div class="row align-items-center u-s-m-x-0">
                     <div class="col-lg-6 col-md-6 col-sm-12 u-s-p-x-0">
                         <div class="newsletter-image">
-                            <a target="_blank" rel="nofollow" href="https://youtube.com" class="banner-hover effect-dark-opacity">
-                                <!-- <img class="img-fluid" src="{{ asset('front/images/banners/e-pasal-modal-popup.png') }}" alt="Newsletter Image"> -->
+                            <a rel="nofollow" href="javascript:;" class="banner-hover effect-light-opacity">
+                                <img class="img-fluid" src="{{ asset('front/images/banner_images/e-pasal-modal-popup.png') }}" alt="Newsletter Image">
                             </a>
                         </div>
                     </div>
