@@ -3,7 +3,7 @@
 <!-- Main Slider -->
 <div class="default-height ph-item">
     <div class="slider-main owl-carousel">
-        @foreach ($banners as $banner)
+        @foreach ($sliderBanners as $banner)
             <div class="bg-image">
                 <div class="slide-content">
                     <h1>
@@ -16,17 +16,19 @@
     </div>
 </div>
 <!-- Main Slider /- -->
+@if(isset($fixedBanners[0]['image']))
 <!-- Banner Layer -->
 <div class="banner-layer">
     <div class="container">
         <div class="image-banner">
-            <!-- <a target="_blank" rel="nofollow" href="https://youtube.com" class="mx-auto banner-hover effect-dark-opacity"> -->
-            <!-- <img class="img-fluid" src="{{ asset('front/images/banners/e-pasal.png') }}" alt="Winter Season Banner"> -->
+            <a target="_blank" rel="nofollow" href="{{ url($fixedBanners[0]['link']) }}" class="mx-auto banner-hover effect-dark-opacity">
+            <img class="img-fluid" src="{{ asset('front/images/banner_images/'.$fixedBanners[0]['image']) }}" alt="{{ $fixedBanners[0]['alt'] }}" title="{{ $fixedBanners[0]['title'] }}">
             </a>
         </div>
     </div>
 </div>
 <!-- Banner Layer /- -->
+@endif
 <!-- Tops Collection -->
 <section class="section-maker">
     <div class="container">
@@ -1082,17 +1084,19 @@
     </div>
 </section>
 <!-- Tops Collection /- -->
-<!-- Banner-Layer -->
+@if(isset($fixedBanners[1]['image']))
+<!-- Banner Layer -->
 <div class="banner-layer">
     <div class="container">
         <div class="image-banner">
-            <a target="_blank" rel="nofollow" href="https://youtube.com" class="mx-auto banner-hover effect-dark-opacity">
-                <!-- <img class="img-fluid" src="{{ asset('front/images/banners/e-pasal.png') }}" alt="Winter Season Banner"> -->
+            <a target="_blank" rel="nofollow" href="{{ url($fixedBanners[1]['link']) }}" class="mx-auto banner-hover effect-dark-opacity">
+            <img class="img-fluid" src="{{ asset('front/images/banner_images/'.$fixedBanners[1]['image']) }}" alt="{{ $fixedBanners[1]['alt'] }}" title="{{ $fixedBanners[1]['title'] }}">
             </a>
         </div>
     </div>
 </div>
-<!-- Banner-Layer /- -->
+<!-- Banner Layer /- -->
+@endif
 <!-- Site-Priorities -->
 <section class="app-priority">
     <div class="container">

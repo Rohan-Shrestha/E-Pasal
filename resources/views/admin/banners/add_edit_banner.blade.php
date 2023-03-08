@@ -6,7 +6,7 @@
             <div class="col-md-12 grid-margin">
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                        <h4 class="card-title">Banners</h4>
+                        <h4 class="card-title">Home Page Banners</h4>
                         <!-- <h6 class="font-weight-normal mb-0">Update Admin Password</h6> -->
                     </div>
                     <div class="col-12 col-xl-4">
@@ -62,6 +62,14 @@
                         @endif
 
                         <form class="forms-sample" @if(empty($banner['id'])) action="{{ url('admin/add-edit-banner') }}" @else action="{{ url('admin/add-edit-banner/'.$banner['id']) }}" @endif method="post" enctype="multipart/form-data">@csrf
+                            <div class="form-group">
+                                <label for="type">Banner Type</label>
+                                <select class="form-control" id="type" name="type" required="">
+                                    <option value="">Select</option>
+                                    <option @if(!empty($banner['type'])  && $banner['type']=="Slider") selected="" @endif value="Slider">Slider</option>
+                                    <option @if(!empty($banner['type'])  && $banner['type']=="Fixed") selected="" @endif value="Fixed">Fixed</option>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="banner_image">Banner Photo</label>
                                 <input type="file" class="form-control" id="image" name="image">

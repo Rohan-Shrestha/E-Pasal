@@ -6,7 +6,7 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Banners</h4>
+                        <h4 class="card-title">Home Page Banners</h4>
                         <!-- <p class="card-description">
                             Add class <code>.table-bordered</code>
                         </p> -->
@@ -28,6 +28,9 @@
                                         </th>
                                         <th>
                                             Image
+                                        </th>
+                                        <th>
+                                            Type
                                         </th>
                                         <th>
                                             Link
@@ -54,6 +57,9 @@
                                         </td>
                                         <td>
                                             <img style="width: 280px; height: 180px" src="{{ asset('front/images/banner_images/'.$banner['image']) }}" alt="">
+                                        </td>
+                                        <td>
+                                            {{ $banner['type'] }}
                                         </td>
                                         <td>
                                             {{ $banner['link'] }}
