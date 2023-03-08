@@ -10,3 +10,17 @@
 input.attributeId {
     display: none;
 }
+
+.sidebar ul li div .banners {
+    background: #fff !important;
+    color: #4B49AC !important;
+}
+
+/* <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+
+    <li class="nav-item">
+
+    <div class="collapse" id="ui-banners">
+
+    <ul class="nav flex-column sub-menu banners"> */
