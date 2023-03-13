@@ -15,9 +15,11 @@ class IndexController extends Controller
         $newProducts = Product::orderBy('id','Desc')->where('status',1)->limit(8)->get()->toArray();
         $bestSellers = Product::where(['is_bestseller'=>'Yes','status'=>1])->inRandomOrder()->get()->toArray();
         $discountedProducts = Product::where('product_discount','>',0)->where('status',1)->limit(8)->inRandomOrder()->get()->toArray();
+        $featuredProducts = Product::where(['is_featured'=>'Yes','status'=>1])->limit(6)->get()->toArray();
         // dd($bestSellers);
         // dd($newProducts);
         // dd($discountedProducts);
-        return view('front.index')->with(compact('sliderBanners','fixedBanners','newProducts','bestSellers','discountedProducts'));
+        // dd($featuredProducts);
+        return view('front.index')->with(compact('sliderBanners','fixedBanners','newProducts','bestSellers','discountedProducts','featuredProducts'));
     }
 }
