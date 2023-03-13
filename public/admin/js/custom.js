@@ -129,7 +129,7 @@ $(document).ready(function () {
     // })
 
     // Confirm section Deletion (sweet alert library)
-    $(".confirmDelete").click(function () {
+    $(document).on("click",".confirmDelete",function(){
         var module = $(this).attr('module');
         var module_id = $(this).attr('module_id');
         // alert(module_id);
