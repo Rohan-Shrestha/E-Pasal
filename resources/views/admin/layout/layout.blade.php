@@ -28,17 +28,24 @@
   <link rel="stylesheet" href="{{ url('admin/css/dataTables.bootstrap4.min.css') }}">
 
   <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}">
+  <link rel="stylesheet" href="{{ url('admin/css/admin.css') }}">
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('admin.layout.header')
     <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper pr-0">
       <!-- partial:partials/_sidebar.html -->
       @include('admin.layout.sidebar')
-      <!-- partial -->
-      @yield('content')
+      <div class="main-panel">
+        <div class="content-wrapper layoutScroll">
+          @yield('content')
+                <!-- partial -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+  <!-- con
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->

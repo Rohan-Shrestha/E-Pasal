@@ -1,4 +1,4 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar sidebar-offcanvas sidebarScroll" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
             <a @if (Session::get('page')=="dashboard") style="background:#4B49AC !important; color: #fff !important;"
@@ -65,7 +65,7 @@
             style="background:#4B49AC !important; color: #fff !important;"
             @endif class="nav-link" data-toggle="collapse" href="#ui-admins" aria-expanded="false" aria-controls="ui-admins">
             <i class="icon-layout menu-icon"></i>
-            <span class="menu-title">Admin Management</span>
+            <span class="menu-title">Manage Admin</span>
             <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-admins">
@@ -98,7 +98,7 @@
                 @endif class="nav-link" data-toggle="collapse" href="#ui-catalogue" aria-expanded="false" aria-controls="ui-catalogue">
 
                 <i class="icon-layout menu-icon"></i>
-                <span class="menu-title">Catalogue Management</span>
+                <span class="menu-title">Manage Catalogue</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-catalogue">
@@ -132,7 +132,7 @@
             style="background:#4B49AC !important; color: #fff !important;"
             @endif class="nav-link" data-toggle="collapse" href="#ui-users" aria-expanded="false" aria-controls="ui-users">
             <i class="icon-layout menu-icon"></i>
-            <span class="menu-title">User Management</span>
+            <span class="menu-title">Manage User</span>
             <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-users">
@@ -154,7 +154,7 @@
             style="background:#4B49AC !important; color: #fff !important;"
             @endif class="nav-link" data-toggle="collapse" href="#ui-banners" aria-expanded="false" aria-controls="ui-banners">
             <i class="icon-layout menu-icon"></i>
-            <span class="menu-title">Banners Management</span>
+            <span class="menu-title">Manage Banners</span>
             <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-banners">

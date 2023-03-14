@@ -1,0 +1,14 @@
+body {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.main-panel .layoutScroll {
+    height: 100vh;
+    overflow: scroll;
+}
+
+.container-scroller div .sidebarScroll {
+    height: 100vh;
+    overflow: scroll;
+}
