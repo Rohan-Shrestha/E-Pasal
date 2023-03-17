@@ -53,4 +53,23 @@ class FilterController extends Controller
             return response()->json(['status'=>$status, 'filter_id'=>$data['filter_id']]);
         }
     }
+
+    public function addEditFilter($id=null){
+        Session::put('page','filters');
+        if($id==""){
+            $title = "Add Filter";
+            $filter = new ProductsFilter;
+            $message = "Filter Column added successfully!";
+        }else {
+            $title = "Edit Filter";
+            $filter = ProductsFilter::find($id);
+            $message = "Filter Column updated successfully!";
+        }
+
+        // Get Sections with Categories and Sub Categories
+        $categories = Section::with('categories')->get()->toArray();
+        // dd($categories);
+
+        return view('admin.filters.add_edit_filter')->with(compact('title','categories','filter'));
+    }
 }
