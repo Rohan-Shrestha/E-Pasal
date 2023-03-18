@@ -63,7 +63,7 @@ class FilterController extends Controller
             $filter = new ProductsFilter;
             $message = "Filter Column added successfully!";
         }else {
-            $title = "Edit Filter";
+            $title = "Edit Filter Columns";
             $filter = ProductsFilter::find($id);
             $message = "Filter Column updated successfully!";
         }
@@ -74,7 +74,7 @@ class FilterController extends Controller
 
             $cat_ids = implode(',',$data['cat_ids']);
 
-            // Save filter column details in filters table.
+            // Save filter column details in products_filters table.
             $filter->cat_ids = $cat_ids;
             $filter->filter_name = $data['filter_name'];
             $filter->filter_column = $data['filter_column'];
@@ -91,5 +91,37 @@ class FilterController extends Controller
         // dd($categories);
 
         return view('admin.filters.add_edit_filter')->with(compact('title','categories','filter'));
+    }
+
+    public function addEditFilterValue(Request $request, $id=null){
+        Session::put('page','filters');
+        if($id==""){
+            $title = "Add Filter Value";
+            $filter = new ProductsFiltersValue;
+            $message = "Filter Value added successfully!";
+        }else {
+            $title = "Edit Filter Value";
+            $filter = ProductsFiltersValue::find($id);
+            $message = "Filter Value updated successfully!";
+        }
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            // Save filter values details in products_filters_values table.
+            $filter->filter_id = $data['filter_id'];
+            $filter->filter_value = $data['filter_value'];
+            $filter->status = 1;
+            $filter->save();
+
+            return redirect('admin/filters-values')->with('success_message',$message);
+        }
+
+        // Get Filters
+        $filters = ProductsFilter::where('status',1)->get()->toArray();
+
+
+        return view('admin.filters.add_edit_filter_value')->with(compact('title','filter','filters'));
     }
 }
