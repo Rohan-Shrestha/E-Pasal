@@ -61,7 +61,7 @@
                                         $catIds = explode(",",$filter['cat_ids']);
                                         foreach ($catIds as $key => $catId) {
                                             $category_name = Category::getCategoryName($catId);
-                                            echo $category_name. ", ";
+                                            echo $category_name. " ";
                                         }
                                     ?>
                                 </td>

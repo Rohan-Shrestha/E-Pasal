@@ -80,6 +80,9 @@
                                 @if(!empty($product['name'])) value="{{ $product['name'] }}" 
                                 @else value="{{ old('section_id') }}" @endif> -->
                     </div>
+                    <div class="loadFilters">
+                        @include('admin.filters.category_filters')
+                    </div>
                     <div class="form-group">
                         <label for="brand_id">Select Brand</label>
                         <!-- <select name="brand_id" id="brand_id" class="form-control" style="color: #495057;"> -->
