@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductsFilter;
 use Illuminate\Support\Facades\Route;
 
 class ProductsController extends Controller
@@ -25,9 +26,14 @@ class ProductsController extends Controller
                 // dd($categoryDetails);
                 $categoryProducts = Product::with('brand')->whereIn('category_id', $categoryDetails['catIds'])->where('status', 1);
 
-                // Checking for Fabric
-                if(isset($data['fabric'])  && !empty($data['fabric'])){
-                    $categoryProducts->whereIn('products.fabric',$data['fabric']);
+                // Checking for Dynamic Filters
+                $productFilters = ProductsFilter::productFilters();
+                foreach ($productFilters as $key => $filter) {
+                    # If filter is selected
+                    if(isset($filter['filter_column']) && isset($data[$filter['filter_column']]) 
+                    && !empty($filter['filter_column']) && !empty($data[$filter['filter_column']])){
+                        $categoryProducts->whereIn($filter['filter_column'],$data[$filter['filter_column']]);
+                    }
                 }
                 
                 // Checking for Sort
