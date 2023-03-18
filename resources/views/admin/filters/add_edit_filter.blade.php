@@ -61,8 +61,8 @@
 
                 <form class="forms-sample" @if(empty($filter['id'])) action="{{ url('admin/add-edit-filter') }}" @else action="{{ url('admin/add-edit-filter/'.$filter['id']) }}" @endif method="post" enctype="multipart/form-data">@csrf
                     <div class="form-group">
-                        <label for="category_id">Select Category</label>
-                        <select name="category_id" id="category_id" class="form-control text-dark">
+                        <label for="cat_ids">Select Category</label>
+                        <select name="cat_ids[]" id="cat_ids" class="form-control text-dark" multiple="" style="height: 200px;">
                             <option value="">Select</option>
                             @foreach ($categories as $section)
                             <optgroup label="{{ $section['name'] }}"></optgroup>
@@ -82,10 +82,6 @@
                     <div class="form-group">
                         <label for="filter_column">Filter Column</label>
                         <input type="text" class="form-control" id="filter_column" placeholder="Enter Filter Column" name="filter_column" @if(!empty($filter['filter_column'])) value="{{ $filter['filter_column'] }}" @else value="{{ old('filter_column') }}" @endif>
-                    </div>
-                    <div class="form-group">
-                        <label for="filter_color">Filter Color</label>
-                        <input type="text" class="form-control" id="filter_color" placeholder="Enter Filter Color" name="filter_color" @if(!empty($filter['filter_color'])) value="{{ $filter['filter_color'] }}" @else value="{{ old('filter_color') }}" @endif>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <button type="reset" class="btn btn-light">Cancel</button>
