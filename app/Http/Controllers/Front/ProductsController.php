@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductsAttribute;
 use App\Models\ProductsFilter;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,12 @@ class ProductsController extends Controller
                     } else if ($_GET['sort'] == "name_z_a") {
                         $categoryProducts->orderby('products.product_name', 'Desc');
                     }
+                }
+
+                // Checking for Size
+                if (isset($data['size']) && !empty($data['size'])) {
+                    $productIds = ProductsAttribute::select('product_id')->whereIn('size',$data['size'])->pluck('product_id')->toArray();
+                    $categoryProducts->whereIn('products.id',$productIds);
                 }
 
                 $categoryProducts = $categoryProducts->Paginate(30);

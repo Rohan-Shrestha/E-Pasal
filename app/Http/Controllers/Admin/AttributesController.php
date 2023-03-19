@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Session;
 
 class AttributesController extends Controller
 {
-    public function addAttributes(Request $request, $id){
+    public function addAttributes(Request $request, $id)
+    {
         Session::put('page', 'products');
         $product = Product::select(
             'id',
@@ -23,23 +24,23 @@ class AttributesController extends Controller
         // $product = json_decode(json_encode($product),true);
         // dd($product);
 
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $data = $request->all();
             // echo "<pre>";print_r($data); die;
 
             foreach ($data['sku'] as $key => $value) {
-                if(!empty($value)){
+                if (!empty($value)) {
 
                     // Duplicate SKU check
-                    $skuCount = ProductsAttribute::where('sku',$value)->count();
-                    if($skuCount>0){
-                        return redirect()->back()->with('error_message','SKU already exists! Please enter a new SKU.');
+                    $skuCount = ProductsAttribute::where('sku', $value)->count();
+                    if ($skuCount > 0) {
+                        return redirect()->back()->with('error_message', 'SKU already exists! Please enter a new SKU.');
                     }
 
                     // Duplicate Size check
-                    $sizeCount = ProductsAttribute::where(['product_id'=>$id],'size',$data['size'][$key])->count();
-                    if($sizeCount>0){
-                        return redirect()->back()->with('error_message','Size already exists! Please enter a new Size.');
+                    $sizeCount = ProductsAttribute::where(['product_id' => $id, 'size' => $data['size'][$key]])->count();
+                    if ($sizeCount > 0) {
+                        return redirect()->back()->with('error_message', 'Size already exists! Please add another Size!');
                     }
 
                     $attribute = new ProductsAttribute;
@@ -53,36 +54,37 @@ class AttributesController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success_message','Product Attributes has been added successfully!');
+            return redirect()->back()->with('success_message', 'Product Attributes has been added successfully!');
         }
         return view('admin.attributes.add_edit_attributes')->with(compact('product'));
     }
 
     public function updateAttributeStatus(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
-            if($data['status']=="Active"){
+            if ($data['status'] == "Active") {
                 $status = 0;
-            }else{
+            } else {
                 $status = 1;
             }
-            ProductsAttribute::where('id', $data['attribute_id'])->update(['status'=>$status]);
-            return response()->json(['status'=>$status, 'attribute_id'=>$data['attribute_id']]);
+            ProductsAttribute::where('id', $data['attribute_id'])->update(['status' => $status]);
+            return response()->json(['status' => $status, 'attribute_id' => $data['attribute_id']]);
         }
     }
 
-    public function editAttributes(Request $request){
-        if($request->isMethod('post')){
+    public function editAttributes(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
             foreach ($data['attributeId'] as $key => $attribute) {
-                if(!empty($attribute)){
-                    ProductsAttribute::where(['id'=>$data['attributeId'][$key]])->update(['price'=>$data['price'][$key],'stock'=>$data['stock'][$key]]);
+                if (!empty($attribute)) {
+                    ProductsAttribute::where(['id' => $data['attributeId'][$key]])->update(['price' => $data['price'][$key], 'stock' => $data['stock'][$key]]);
                 }
             }
-            return redirect()->back()->with('success_message','Product Attributes has been updated successfully!');
+            return redirect()->back()->with('success_message', 'Product Attributes has been updated successfully!');
         }
     }
 
