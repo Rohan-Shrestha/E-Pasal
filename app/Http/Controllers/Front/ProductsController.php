@@ -68,7 +68,7 @@ class ProductsController extends Controller
                 if (isset($data['price']) && !empty($data['price'])) {
                     // echo "<pre>"; print_r($data['price']); die;
                     foreach ($data['price'] as $key => $price) {
-                        $priceArr = explode('-',$price);
+                        $priceArr = explode("-",$price);
                         $productIds[] = Product::select('id')->whereBetween('product_price',[$priceArr[0],$priceArr[1]])->pluck('id')->toArray();
                     }
                     $productIds = call_user_func_array('array_merge', $productIds);
@@ -81,6 +81,12 @@ class ProductsController extends Controller
                     /* echo "<pre>"; print_r($explodePrices); die; */
                     // $productIds = Product::select('id')->whereBetween('product_price',[$min,$max])->pluck('id')->toArray();
                     // $categoryProducts->whereIn('products.id',$productIds);
+                }
+
+                // Checking for Brand
+                if (isset($data['brand']) && !empty($data['brand'])) {
+                    $productIds = Product::select('id')->whereIn('brand_id',$data['brand'])->pluck('id')->toArray();
+                    $categoryProducts->whereIn('products.id',$productIds);
                 }
 
                 $categoryProducts = $categoryProducts->Paginate(30);
