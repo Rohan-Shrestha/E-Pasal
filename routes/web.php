@@ -147,4 +147,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         Route::match(['get','post'], '/'.$url,'ProductsController@listing');
     }
 
+    // Vendor Login/Register Routes
+    Route::get('/vendor/login-register','VendorController@loginRegister');
+
 });
