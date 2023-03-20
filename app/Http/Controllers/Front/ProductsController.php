@@ -64,6 +64,17 @@ class ProductsController extends Controller
                     $categoryProducts->whereIn('products.id',$productIds);
                 }
 
+                // Checking for Price
+                if (isset($data['price']) && !empty($data['price'])) {
+                    $implodePrices = implode('-',$data['price']);
+                    $explodePrices = explode('-',$implodePrices);
+                    $min = reset($explodePrices);
+                    $max = end($explodePrices);
+                    // echo "<pre>"; print_r($explodePrices); die;
+                    $productIds = Product::select('id')->whereBetween('product_price',[$min,$max])->pluck('id')->toArray();
+                    $categoryProducts->whereIn('products.id',$productIds);
+                }
+
                 $categoryProducts = $categoryProducts->Paginate(30);
                 // dd($categoryProducts);
                 // echo "Category exists"; die;

@@ -106,6 +106,23 @@ $productFilters = ProductsFilter::productFilters();
         </form>
     </div>
     <!-- Filter-Brand /- -->
+    <!-- Filter-Price -->
+    <div class="facet-filter-associates">
+        <h3 class="title-name">Price</h3>
+        <form class="facet-form" action="#" method="post">
+            <div class="associate-wrapper">
+                <?php $prices = array('0-1000','1000-2000','2000-5000','5000-10000','10000-20000','20000-100000'); ?>
+                @foreach($prices as $key => $price)
+                <input type="checkbox" class="check-box price" name="price[]" id="price{{ $key }}" value="{{ $price }}">
+                <label class="label-text" for="price{{ $key }}">Rs. {{ $price }}
+                    <!-- <span class="total-fetch-items">(0)</span> -->
+                </label>
+                @endforeach
+            </div>
+        </form>
+    </div>
+    <!-- Filter-Price /- -->
+
     <!-- Filter -->
     @foreach ($productFilters as $filter)
         <?php
@@ -130,6 +147,7 @@ $productFilters = ProductsFilter::productFilters();
         @endif
     @endforeach
     <!-- Filter /- -->
+    <?php /*
     <!-- Filter-Price -->
     <div class="facet-filter-by-price">
         <h3 class="title-name">Price</h3>
@@ -217,5 +235,6 @@ $productFilters = ProductsFilter::productFilters();
     </div>
     <!-- Filter-Rating -->
     <!-- Filters /- -->
+    */ ?>
 </div>
 <!-- Shop-Left-Side-Bar-Wrapper /- -->
