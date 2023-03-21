@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -41,6 +44,39 @@ class VendorController extends Controller
             if($validator->fails()){
                 return Redirect::back()->withErrors($validator);
             }
+
+            DB::beginTransaction();
+
+            // Create Vendor Account
+
+            // Insert the Vendors details in the vendors table
+            $vendor = new Vendor;
+            $vendor->name = $data['name'];
+            $vendor->mobile = $data['mobile'];
+            $vendor->email = $data['email'];
+            $vendor->status = 0;
+            $vendor->save();
+
+            $vendor_id = DB::getPdo()->lastInsertId();
+
+            // Insert the Vendors details in the admins table
+            $admin = new Admin;
+            $admin->type = 'vendor';
+            $admin->vendor_id = $vendor_id;
+            $admin->name = $data['name'];
+            $admin->mobile = $data['mobile'];
+            $admin->email = $data['email'];
+            $admin->password = bcrypt($data['password']);
+            $admin->status = 0;
+            $admin->save();
+
+            DB::commit();
+
+            // Send Confirmation email to vendor
+
+            // Redirect Vendor back with success message
+            $message = "Thank You for registering as Vendor. We will confirm you through email once your account is approved.";
+            return redirect()->back()->with('success_message',$message);
         }
     }
 }
