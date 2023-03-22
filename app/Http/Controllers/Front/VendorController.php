@@ -55,6 +55,11 @@ class VendorController extends Controller
             $vendor->mobile = $data['mobile'];
             $vendor->email = $data['email'];
             $vendor->status = 0;
+
+            // Set Default Time Zone to Nepal
+            date_default_timezone_set("Asia/Kathmandu");
+            $vendor->created_at = date("Y-m-d H:i:s");
+            $vendor->updated_at = date("Y-m-d H:i:s");
             $vendor->save();
 
             $vendor_id = DB::getPdo()->lastInsertId();
@@ -68,6 +73,10 @@ class VendorController extends Controller
             $admin->email = $data['email'];
             $admin->password = bcrypt($data['password']);
             $admin->status = 0;
+            // Set Default Time Zone to Nepal
+            date_default_timezone_set("Asia/Kathmandu");
+            $admin->created_at = date("Y-m-d H:i:s");
+            $admin->updated_at = date("Y-m-d H:i:s");
             $admin->save();
 
             DB::commit();
