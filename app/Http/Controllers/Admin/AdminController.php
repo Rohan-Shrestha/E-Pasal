@@ -12,6 +12,7 @@ use App\Models\VendorsBusinessDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 
@@ -220,7 +221,13 @@ class AdminController extends Controller
                 ]);
                 return redirect()->back()->with('success_message', 'Vendor details updated successfully!');
             }
-            $vendorDetails = VendorsBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
+            $vendorCount = VendorsBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->count();
+            if($vendorCount>0)
+            {
+                $vendorDetails = VendorsBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
+            }else {
+                $vendorDetails = array();
+            }
             // dd($vendorDetails);
         } else if ($slug == "bank") {
             Session::put('page', 'update_bank_details');
@@ -340,6 +347,22 @@ class AdminController extends Controller
                 $status = 1;
             }
             Admin::where('id', $data['admin_id'])->update(['status'=>$status]);
+            $adminDetails = Admin::where('id', $data['admin_id'])->first()->toArray();
+            if($adminDetails['type']=="vendor" && $status==1)
+            {
+                // Send Approval email to vendor
+                $email = $adminDetails['email'];
+                $messageData = [
+                    'email' => $adminDetails['email'],
+                    'name' => $adminDetails['name'],
+                    'mobile' => $adminDetails['mobile']
+                ];
+
+                Mail::send('emails.vendor_approved', $messageData, function ($message) use ($email) {
+                    $message->to($email)->subject('Vendor Account has been Approved.');
+                });
+            }
+            $adminType = Auth::guard('admin')->user()->type;
             return response()->json(['status'=>$status, 'admin_id'=>$data['admin_id']]);
         }
     }
