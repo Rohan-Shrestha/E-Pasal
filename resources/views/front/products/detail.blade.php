@@ -1,3 +1,4 @@
+<?php use App\Models\Product; ?>
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
@@ -67,28 +68,43 @@
                     </div>
                     <div class="section-2-short-description u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Description:</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <p>{{ $productDetails['description'] }}
                         </p>
                     </div>
                     <div class="section-3-price-original-discount u-s-p-y-14">
-                        <div class="price">
-                            <h4>$100.00</h4>
-                        </div>
-                        <div class="original-price">
-                            <span>Original Price:</span>
-                            <span>$120.00</span>
-                        </div>
-                        <div class="discount-price">
+                        <?php $getDiscountPrice = Product::getDiscountPrice($productDetails['id']); ?>
+                        @if($getDiscountPrice>0)
+                            <div class="price">
+                                <h4>Rs. {{ $getDiscountPrice }}</h4>
+                            </div>
+                            <div class="original-price">
+                                <span>Original Price:</span>
+                                <span>Rs. {{ $productDetails['product_price'] }}</span>
+                            </div>
+                        @else
+                            <div class="price">
+                                <h4>Rs. {{ $productDetails['product_price'] }}</h4>
+                            </div>
+                        @endif
+                        <!-- <div class="discount-price">
                             <span>Discount:</span>
                             <span>15%</span>
                         </div>
                         <div class="total-save">
                             <span>Save:</span>
                             <span>$20</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="section-4-sku-information u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Sku Information:</h6>
+                        <div class="left">
+                            <span>Product Code:</span>
+                            <span>{{ $productDetails['product_code'] }}</span>
+                        </div>
+                        <div class="left">
+                            <span>Product Color:</span>
+                            <span>{{ $productDetails['product_color'] }}</span>
+                        </div>
                         <div class="availability">
                             <span>Availability:</span>
                             <span>In Stock</span>
@@ -208,8 +224,7 @@
                             <div class="description-whole-container">
                                 <p class="desc-p u-s-m-b-26">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                                 </p>
-                                <img class="desc-img img-fluid u-s-m-b-26" src="{{ asset('front/images/product/product@3x.jpg') }}" alt="Product">
-                                <iframe class="desc-iframe u-s-m-b-45" width="710" height="400" src="{{ asset('front/images/product/iframe-youtube.jpg') }}" allowfullscreen></iframe>
+                                <!-- <iframe class="desc-iframe u-s-m-b-45" width="710" height="400" src="{{ asset('front/images/product/iframe-youtube.jpg') }}" allowfullscreen></iframe> -->
                             </div>
                         </div>
                         <!-- Description-Tab /- -->
