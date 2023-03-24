@@ -8,10 +8,10 @@
             <ul class="bread-crumb">
                 <li class="has-separator">
                     <i class="ion ion-md-home"></i>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="single-product.html">Detail</a>
+                    <a href="javascript:(0);">Detail</a>
                 </li>
             </ul>
         </div>
@@ -56,22 +56,17 @@
                     <div class="section-1-title-breadcrumb-rating">
                         <div class="product-title">
                             <h1>
-                                <a href="single-product.html">Product Name</a>
+                                <a href="javascript:;">{{ $productDetails['product_name'] }}</a>
                             </h1>
                         </div>
                         <ul class="bread-crumb">
                             <li class="has-separator">
-                                <a href="index.html">Home</a>
+                                <a href="{{ url('/') }}">Home</a>
                             </li>
                             <li class="has-separator">
-                                <a href="shop-v1-root-category.html">Men Clothing </a>
+                                <a href="javascript:;">{{ $productDetails['section']['name'] }}</a>
                             </li>
-                            <li class="has-separator">
-                                <a href="listing.html">Tops</a>
-                            </li>
-                            <li class="is-marked">
-                                <a href="shop-v3-sub-sub-category.html">Hoodies</a>
-                            </li>
+                            <?php echo $categoryDetails['breadcrumbs']; ?>
                         </ul>
                         <div class="product-rating">
                             <div class='star' title="4.5 out of 5 - based on 23 Reviews">
