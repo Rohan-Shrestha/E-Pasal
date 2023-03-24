@@ -148,6 +148,7 @@
         <h4 class="card-title">Bank Information</h4>
         <div class="form-group">
           <label for="vendor_name">Account Holder Name</label>
+          <!-- The if isset line and endif was added for the all the input elements, but video added them from update_vendor_details.blade.php no. 103 #86 -->
           <input type="text" class="form-control" @if(isset($vendorDetails['account_holder_name'])) value="{{ $vendorDetails['vendor_bank']['account_holder_name'] }}" @endif readonly="">
         </div>
         <div class="form-group">
