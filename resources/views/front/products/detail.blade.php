@@ -26,26 +26,16 @@
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <!-- Product-zoom-area -->
                 <div class="zoom-area">
-                    <img id="zoom-pro" class="img-fluid" src="{{ asset('front/images/product/product@4x.jpg') }}" data-zoom-image="{{ asset('front/images/product/product@4x.jpg') }}" alt="Zoom Image">
+                    <img id="zoom-pro" class="img-fluid" src="{{ asset('front/images/product_images/large/'.$productDetails['product_image']) }}" data-zoom-image="{{ asset('front/images/product_images/large/'.$productDetails['product_image']) }}" alt="Zoom Image">
                     <div id="gallery" class="u-s-m-t-10">
-                        <a class="active" data-image="{{ asset('front/images/product/product@4x.jpg') }}" data-zoom-image="{{ asset('front/images/product/product@4x.jpg') }}">
-                            <img src="{{ asset('front/images/product/product@2x.jpg') }}" alt="Product">
+                        <a class="active" data-image="{{ asset('front/images/product_images/large/'.$productDetails['product_image']) }}" data-zoom-image="{{ asset('front/images/product_images/large/'.$productDetails['product_image']) }}">
+                            <img src="{{ asset('front/images/product_images/large/'.$productDetails['product_image']) }}" alt="Product">
                         </a>
-                        <a data-image="{{ asset('front/images/product/product@4x.jpg') }}" data-zoom-image="{{ asset('front/images/product/product@4x.jpg') }}">
-                            <img src="{{ asset('front/images/product/product@2x.jpg') }}" alt="Product">
-                        </a>
-                        <a data-image="{{ asset('front/images/product/product@4x.jpg') }}" data-zoom-image="{{ asset('front/images/product/product@4x.jpg') }}">
-                            <img src="{{ asset('front/images/product/product@2x.jpg') }}" alt="Product">
-                        </a>
-                        <a data-image="{{ asset('front/images/product/product@4x.jpg') }}" data-zoom-image="{{ asset('front/images/product/product@4x.jpg') }}">
-                            <img src="{{ asset('front/images/product/product@2x.jpg') }}" alt="Product">
-                        </a>
-                        <a data-image="{{ asset('front/images/product/product@4x.jpg') }}" data-zoom-image="{{ asset('front/images/product/product@4x.jpg') }}">
-                            <img src="{{ asset('front/images/product/product@2x.jpg') }}" alt="Product">
-                        </a>
-                        <a data-image="{{ asset('front/images/product/product@4x.jpg') }}" data-zoom-image="{{ asset('front/images/product/product@4x.jpg') }}">
-                            <img src="{{ asset('front/images/product/product@2x.jpg') }}" alt="Product">
-                        </a>
+                        @foreach($productDetails['images'] as $image)
+                            <a data-image="{{ asset('front/images/product_images/large/'.$image['image']) }}" data-zoom-image="{{ asset('front/images/product_images/large/'.$image['image']) }}">
+                                <img src="{{ asset('front/images/product_images/large/'.$image['image']) }}" alt="Product">
+                            </a>
+                        @endforeach
                     </div>
                 </div>
                 <!-- Product-zoom-area /- -->
