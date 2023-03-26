@@ -107,11 +107,15 @@
                         </div>
                         <div class="availability">
                             <span>Availability:</span>
-                            <span>In Stock</span>
+                            @if($totalStock>0)
+                                <span>In Stock</span>
+                            @else
+                                <span>Out of Stock</span>
+                            @endif
                         </div>
                         <div class="left">
                             <span>Only:</span>
-                            <span>50 left</span>
+                            <span>{{ $totalStock }} left</span>
                         </div>
                     </div>
                     <div class="section-5-product-variants u-s-p-y-14">

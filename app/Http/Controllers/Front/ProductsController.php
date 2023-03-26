@@ -138,6 +138,7 @@ class ProductsController extends Controller
         // dd($productDetails);
         $categoryDetails = Category::categoryDetails($productDetails['category']['url']);
         // dd($categoryDetails);
-        return view('front.products.detail')->with(compact('productDetails','categoryDetails'));
+        $totalStock = ProductsAttribute::where('product_id',$id)->sum('stock');
+        return view('front.products.detail')->with(compact('productDetails','categoryDetails','totalStock'));
     }
 }
