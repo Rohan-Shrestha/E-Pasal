@@ -1,6 +1,12 @@
 <?php
 
-use App\Models\Product; ?>
+use App\Models\Product;
+use App\Models\ProductsFilter;
+
+$productFilters = ProductsFilter::productFilters();
+// dd($productFilters);
+
+?>
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
@@ -77,17 +83,17 @@ use App\Models\Product; ?>
                         <?php $getDiscountPrice = Product::getDiscountPrice($productDetails['id']); ?>
                         <span class="getAttributePrice">
                             @if($getDiscountPrice>0)
-                                <div class="price">
-                                    <h4>Rs. {{ $getDiscountPrice }}</h4>
-                                </div>
-                                <div class="original-price">
-                                    <span>Original Price:</span>
-                                    <span>Rs. {{ $productDetails['product_price'] }}</span>
-                                </div>
+                            <div class="price">
+                                <h4>Rs. {{ $getDiscountPrice }}</h4>
+                            </div>
+                            <div class="original-price">
+                                <span>Original Price:</span>
+                                <span>Rs. {{ $productDetails['product_price'] }}</span>
+                            </div>
                             @else
-                                <div class="price">
-                                    <h4>Rs. {{ $productDetails['product_price'] }}</h4>
-                                </div>
+                            <div class="price">
+                                <h4>Rs. {{ $productDetails['product_price'] }}</h4>
+                            </div>
                             @endif
                         </span>
                         <?php /*
@@ -214,7 +220,7 @@ use App\Models\Product; ?>
                                 <a class="nav-link active" data-toggle="tab" href="#video">Product Video</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#specification">Specifications</a>
+                                <a class="nav-link" data-toggle="tab" href="#detail">Product Detail</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#review">Reviews (15)</a>
@@ -230,79 +236,41 @@ use App\Models\Product; ?>
                                     <source src="{{ url('front/videos/product_videos/'.$productDetails['product_video']) }}" type="video/mp4">
                                 </video>
                                 @else
-                                    Product Video doesn't exist.
+                                Product Video doesn't exist.
                                 @endif
                             </div>
                         </div>
                         <!-- Description-Tab /- -->
-                        <!-- Specifications-Tab -->
-                        <div class="tab-pane fade" id="specification">
+                        <!-- Details-Tab -->
+                        <div class="tab-pane fade" id="detail">
                             <div class="specification-whole-container">
-                                <div class="spec-ul u-s-m-b-50">
-                                    <h4 class="spec-heading">Key Features</h4>
-                                    <ul>
-                                        <li>Heather Grey</li>
-                                        <li>Black</li>
-                                        <li>White</li>
-                                    </ul>
-                                </div>
-                                <div class="u-s-m-b-50">
-                                    <h4 class="spec-heading">What's in the Box?</h4>
-                                    <h3 class="spec-answer">1 x hoodie</h3>
-                                </div>
                                 <div class="spec-table u-s-m-b-50">
-                                    <h4 class="spec-heading">General Information</h4>
+                                    <h4 class="spec-heading">Product Detail</h4>
                                     <table>
-                                        <tr>
-                                            <td>Sku</td>
-                                            <td>AY536FA08JT86NAFAMZ</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="spec-table u-s-m-b-50">
-                                    <h4 class="spec-heading">Product Information</h4>
-                                    <table>
-                                        <tr>
-                                            <td>Main Material</td>
-                                            <td>Cotton</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Color</td>
-                                            <td>Heather Grey, Black, White</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sleeves</td>
-                                            <td>Long Sleeve</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Top Fit</td>
-                                            <td>Regular</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Print</td>
-                                            <td>Not Printed</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Neck</td>
-                                            <td>Round Neck</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pieces Count</td>
-                                            <td>1 piece</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Occasion</td>
-                                            <td>Casual</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping Weight (kg)</td>
-                                            <td>0.5</td>
-                                        </tr>
+                                        @foreach ($productFilters as $filter)
+                                            @if(isset($productDetails['category_id']))
+                                                <?php
+                                                $filterAvailable = ProductsFilter::filterAvailable($filter['id'], $productDetails['category_id']);
+                                                ?>
+                                                @if($filterAvailable=="Yes")
+                                                    <tr>
+                                                        <td>{{ $filter['filter_name'] }}</td>
+                                                        <td>
+                                                        @foreach ($filter['filter_values'] as $value)
+                                                            @if(!empty($productDetails[$filter['filter_column']]) && $value['filter_value']==$productDetails[$filter['filter_column']])
+                                                                {{ ucwords($value['filter_value']) }}
+                                                            @endif
+                                                        @endforeach
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endif
+                                        @endforeach
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <!-- Specifications-Tab /- -->
+                        <!-- Details-Tab /- -->
                         <!-- Reviews-Tab -->
                         <div class="tab-pane fade" id="review">
                             <div class="review-whole-container">
