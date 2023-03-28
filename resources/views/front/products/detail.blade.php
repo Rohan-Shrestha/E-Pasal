@@ -75,27 +75,31 @@ use App\Models\Product; ?>
                     </div>
                     <div class="section-3-price-original-discount u-s-p-y-14">
                         <?php $getDiscountPrice = Product::getDiscountPrice($productDetails['id']); ?>
-                        @if($getDiscountPrice>0)
-                        <div class="price">
-                            <h4>Rs. {{ $getDiscountPrice }}</h4>
-                        </div>
-                        <div class="original-price">
-                            <span>Original Price:</span>
-                            <span>Rs. {{ $productDetails['product_price'] }}</span>
-                        </div>
-                        @else
-                        <div class="price">
-                            <h4>Rs. {{ $productDetails['product_price'] }}</h4>
-                        </div>
-                        @endif
-                        <!-- <div class="discount-price">
+                        <span class="getAttributePrice">
+                            @if($getDiscountPrice>0)
+                                <div class="price">
+                                    <h4>Rs. {{ $getDiscountPrice }}</h4>
+                                </div>
+                                <div class="original-price">
+                                    <span>Original Price:</span>
+                                    <span>Rs. {{ $productDetails['product_price'] }}</span>
+                                </div>
+                            @else
+                                <div class="price">
+                                    <h4>Rs. {{ $productDetails['product_price'] }}</h4>
+                                </div>
+                            @endif
+                        </span>
+                        <?php /*
+                        <div class="discount-price">
                             <span>Discount:</span>
                             <span>15%</span>
                         </div>
                         <div class="total-save">
                             <span>Save:</span>
                             <span>$20</span>
-                        </div> -->
+                        </div>
+                        */ ?>
                     </div>
                     <div class="section-4-sku-information u-s-p-y-14">
                         <h6 class="information-heading u-s-m-b-8">Sku Information:</h6>
@@ -137,7 +141,7 @@ use App\Models\Product; ?>
                         <div class="sizes u-s-m-b-11">
                             <span>Available Size:</span>
                             <div class="size-variant select-box-wrapper">
-                                <select class="select-box product-size">
+                                <select name="size" id="getPrice" product-id="{{ $productDetails['id'] }}" class="select-box product-size">
                                     <option value="">
                                         Select Size
                                     </option>

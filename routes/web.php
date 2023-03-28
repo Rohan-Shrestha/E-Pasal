@@ -150,6 +150,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     // Product Detail Page
     Route::get('/product/{id}','ProductsController@detail');
 
+    // Get Product Attribute Price
+    Route::post('get-product-price', 'ProductsController@getProductPrice');
+
     // Vendor Login/Register Routes
     Route::get('vendor/login-register','VendorController@loginRegister');
 
