@@ -5,10 +5,10 @@ body {
 
 .main-panel .layoutScroll {
     height: 100vh;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .container-scroller div .sidebarScroll {
     height: 100vh;
-    overflow: scroll;
+    overflow: auto;
 }

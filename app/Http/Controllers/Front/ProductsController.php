@@ -136,7 +136,7 @@ class ProductsController extends Controller
     {
         $productDetails = Product::with(['section','category','brand','attributes'=>function($query){
             $query->where('stock','>',0)->where('status',1);
-        },'images'])->find($id)->toArray();
+        },'images','vendor'])->find($id)->toArray();
         // dd($productDetails);
         $categoryDetails = Category::categoryDetails($productDetails['category']['url']);
         // dd($categoryDetails);

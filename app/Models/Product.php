@@ -30,6 +30,10 @@ class Product extends Model
         return $this->hasMany('App\Models\ProductsImage');
     }
 
+    public function vendor(){
+        return $this->belongsTo('App\Models\Vendor','vendor_id')->with('vendorbusinessdetails');
+    }
+
     public static function getDiscountPrice($product_id)
     {
         # proDetails = product Details and catDetails = category details
