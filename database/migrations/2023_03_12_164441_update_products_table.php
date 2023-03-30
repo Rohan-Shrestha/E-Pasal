@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('products',function($table){
             $table->enum('is_bestseller',['No','Yes'])->after('is_featured');
+            $table->string('group_code')->after('product_video');
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('products',function($table){
             $table->dropColumn('is_bestseller');
+            $table->dropColumn('group_code');
         });
     }
 };
