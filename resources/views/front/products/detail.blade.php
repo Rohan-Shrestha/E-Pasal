@@ -135,48 +135,38 @@ $productFilters = ProductsFilter::productFilters();
                     @if(isset($productDetails['vendor']))
                     <div>Sold by <a href="/products/{{ $productDetails['vendor']['id'] }}">{{ $productDetails['vendor']['vendorbusinessdetails']['shop_name'] }}</a></div>
                     @endif
-                    <div class="section-5-product-variants u-s-p-y-14">
-                        <!-- <h6 class="information-heading u-s-m-b-8">Product Variants:</h6> -->
-                        <!-- <div class="color u-s-m-b-11">
-                            <span>Available Color:</span>
-                            <div class="color-variant select-box-wrapper">
-                                <select class="select-box product-color">
-                                    <option value="1">Heather Grey</option>
-                                    <option value="3">Black</option>
-                                    <option value="5">White</option>
-                                </select>
-                            </div>
-                        </div> -->
-                        @if(count($groupProducts)>0)
+                    
+                    <form action="{{ url('cart/add') }}" class="post-form" method="post">@csrf
+                        <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
+                        <div class="section-5-product-variants u-s-p-y-14">
+                            @if(count($groupProducts)>0)
                             <div>
                                 <div><strong>Product Colors</strong></div>
                                 <div style="margin-top: 10px;">
                                     @foreach ($groupProducts as $product)
-                                        <a href="{{ url('product/'.$product['id']) }}">
-                                            <img style="width: 80px;" src="{{ asset('front/images/product_images/small/'.$product['product_image']) }}" alt="">
-                                        </a>
+                                    <a href="{{ url('product/'.$product['id']) }}">
+                                        <img style="width: 80px;" src="{{ asset('front/images/product_images/small/'.$product['product_image']) }}" alt="">
+                                    </a>
                                     @endforeach
                                 </div>
                             </div>
-                        @endif
-
-                        <div class="sizes u-s-m-b-11" style="margin-top: 20px;">
-                            <span>Available Size:</span>
-                            <div class="size-variant select-box-wrapper">
-                                <select name="size" id="getPrice" product-id="{{ $productDetails['id'] }}" class="select-box product-size">
-                                    <option value="">
-                                        Select Size
-                                    </option>
-                                    @foreach($productDetails['attributes'] as $attribute)
-                                    <option value="{{ $attribute['size'] }}">{{ $attribute['size'] }}</option>
-                                    @endforeach
-                                </select>
+                            @endif
+                            <div class="sizes u-s-m-b-11" style="margin-top: 20px;">
+                                <span>Available Size:</span>
+                                <div class="size-variant select-box-wrapper">
+                                    <select name="size" id="getPrice" product-id="{{ $productDetails['id'] }}" class="select-box product-size" required="">
+                                        <option value="">
+                                            Select Size
+                                        </option>
+                                        @foreach($productDetails['attributes'] as $attribute)
+                                        <option value="{{ $attribute['size'] }}">{{ $attribute['size'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="section-6-social-media-quantity-actions u-s-p-y-14">
-                        <form action="#" class="post-form">
-                            <div class="quick-social-media-wrapper u-s-m-b-22">
+                        <div class="section-6-social-media-quantity-actions u-s-p-y-14">
+                            <?php /*<div class="quick-social-media-wrapper u-s-m-b-22">
                                 <span>Share:</span>
                                 <ul class="social-media-list">
                                     <li>
@@ -205,11 +195,11 @@ $productFilters = ProductsFilter::productFilters();
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */ ?>
                             <div class="quantity-wrapper u-s-m-b-22">
                                 <span>Quantity:</span>
                                 <div class="quantity">
-                                    <input type="text" class="quantity-text-field" value="1">
+                                    <input type="text" class="quantity-text-field" name="quantity" value="1">
                                     <a class="plus-a" data-max="1000">&#43;</a>
                                     <a class="minus-a" data-min="1">&#45;</a>
                                 </div>
@@ -219,8 +209,8 @@ $productFilters = ProductsFilter::productFilters();
                                 <button class="button button-outline-secondary far fa-heart u-s-m-l-6"></button>
                                 <button class="button button-outline-secondary far fa-envelope u-s-m-l-6"></button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- Product-details /- -->
             </div>
@@ -598,9 +588,9 @@ $productFilters = ProductsFilter::productFilters();
                                 </div>
                                 <?php $isProductNew = Product::isProductNew($product['id']); ?>
                                 @if($isProductNew=="Yes")
-                                    <div class="tag new">
-                                        <span>NEW</span>
-                                    </div>
+                                <div class="tag new">
+                                    <span>NEW</span>
+                                </div>
                                 @endif
                             </div>
                             @endforeach
@@ -617,7 +607,7 @@ $productFilters = ProductsFilter::productFilters();
                     </div>
                     <div class="slider-fouc">
                         <div class="products-slider owl-carousel" data-item="4">
-                        @foreach($recentlyViewedProducts as $product)
+                            @foreach($recentlyViewedProducts as $product)
                             <div class="item">
                                 <div class="image-container">
                                     <a class="item-img-wrapper-link" href="{{ url('product/'.$product['id']) }}">
@@ -678,9 +668,9 @@ $productFilters = ProductsFilter::productFilters();
                                 </div>
                                 <?php $isProductNew = Product::isProductNew($product['id']); ?>
                                 @if($isProductNew=="Yes")
-                                    <div class="tag new">
-                                        <span>NEW</span>
-                                    </div>
+                                <div class="tag new">
+                                    <span>NEW</span>
+                                </div>
                                 @endif
                             </div>
                             @endforeach
