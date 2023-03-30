@@ -39,12 +39,12 @@
                         <p>{{ $product['description'] }}
                         </p>
                     </div>
-                    {{-- <div class="item-stars">
-                                        <div class='star' title="4.5 out of 5 - based on 23 Reviews">
-                                            <span style='width:67px'></span>
-                                        </div>
-                                        <span>(23)</span>
-                                    </div> --}}
+                    <!-- <div class="item-stars">
+                            <div class='star' title="4.5 out of 5 - based on 23 Reviews">
+                                <span style='width:67px'></span>
+                            </div>
+                            <span>(23)</span>
+                        </div> -->
                 </div>
                 <?php $getDiscountPrice = Product::getDiscountPrice($product['id']); ?>
                 @if($getDiscountPrice>0)

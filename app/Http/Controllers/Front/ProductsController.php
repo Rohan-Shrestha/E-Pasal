@@ -153,8 +153,13 @@ class ProductsController extends Controller
         // dd($productDetails);
         $categoryDetails = Category::categoryDetails($productDetails['category']['url']);
         // dd($categoryDetails);
+
+        // Get Similar Products
+        $similarProducts = Product::with('brand')->where('category_id',$productDetails['category']['id'])->where('id','!=',$id)->limit(4)->inRandomOrder()->get()->toArray();
+        // dd($similarProducts);
+
         $totalStock = ProductsAttribute::where('product_id',$id)->sum('stock');
-        return view('front.products.detail')->with(compact('productDetails','categoryDetails','totalStock'));
+        return view('front.products.detail')->with(compact('productDetails','categoryDetails','totalStock','similarProducts'));
     }
 
     public function getProductPrice(Request $request)
