@@ -52,6 +52,23 @@ $productFilters = ProductsFilter::productFilters();
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <!-- Product-details -->
                 <div class="all-information-wrapper">
+                    @if(Session::has('error_message'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <li>{{ Session::get('error_message')}}</li>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+
+                    @if(Session::has('success_message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <li>{{ Session::get('success_message')}}</li>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
                     <div class="section-1-title-breadcrumb-rating">
                         <div class="product-title">
                             <h1>
