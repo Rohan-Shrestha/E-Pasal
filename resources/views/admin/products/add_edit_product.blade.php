@@ -1,13 +1,12 @@
 @extends('admin.layout.layout')
 @section('content')
-<!-- <div class="main-panel">
-    <div class="content-wrapper"> -->
+
 <div class="row">
     <div class="col-md-12 grid-margin">
         <div class="row">
             <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                 <h4 class="card-title">Products</h4>
-                <!-- <h6 class="font-weight-normal mb-0">Update Admin Password</h6> -->
+                <?php /* <h6 class="font-weight-normal mb-0">Update Admin Password</h6> */ ?>
             </div>
             <div class="col-12 col-xl-4">
                 <div class="justify-content-end d-flex">
@@ -76,16 +75,16 @@
                             @endforeach
                             @endforeach
                         </select>
-                        <!-- <input type="text" class="form-control" id="section_id" placeholder="Enter Product Name" name="section_id" 
+                        <?php /* <input type="text" class="form-control" id="section_id" placeholder="Enter Product Name" name="section_id" 
                                 @if(!empty($product['name'])) value="{{ $product['name'] }}" 
-                                @else value="{{ old('section_id') }}" @endif> -->
+                                @else value="{{ old('section_id') }}" @endif> */ ?>
                     </div>
                     <div class="loadFilters">
                         @include('admin.filters.category_filters')
                     </div>
                     <div class="form-group">
                         <label for="brand_id">Select Brand</label>
-                        <!-- <select name="brand_id" id="brand_id" class="form-control" style="color: #495057;"> -->
+                        <?php /* <select name="brand_id" id="brand_id" class="form-control" style="color: #495057;"> */ ?>
                         <select name="brand_id" id="brand_id" class="form-control text-dark">
                             <option value="">Select</option>
                             @foreach ($brands as $brand)
@@ -124,10 +123,11 @@
                         <a target="_blank" href="{{ url('front/images/product_images/large/'.$product['product_image']) }}">View Photo</a>&nbsp;|&nbsp;
                         <a href="javascript:void(0)" class="confirmDelete" module="product-image" module_id="{{ $product['id'] }}">Delete Photo</a>
                         @endif
-                        <!-- @if(!empty(Auth::guard('admin')->user()->image))
+                        <?php /* @if(!empty(Auth::guard('admin')->user()->image))
                                 <a target="_blank" href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}">View Photo</a>
                                 <input type="hidden" name="current_product_image" value="{{ Auth::guard('admin')->user()->image }}">
-                                @endif -->
+                                @endif
+                        */ ?>
                     </div>
                     <div class="form-group">
                         <label for="product_video">Product Video (Recommended Size: Less than 2 MB)</label>
@@ -169,10 +169,4 @@
         </div>
     </div>
 </div>
-<!-- </div> -->
-<!-- content-wrapper ends -->
-<!-- partial:partials/_footer.html -->
-<!-- @include('admin.layout.footer') -->
-<!-- partial -->
-<!-- </div> -->
 @endsection

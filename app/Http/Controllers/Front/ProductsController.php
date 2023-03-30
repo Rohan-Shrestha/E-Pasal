@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
 use App\Models\ProductsFilter;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
 class ProductsController extends Controller
@@ -131,6 +132,18 @@ class ProductsController extends Controller
         }
     }
 
+    public function vendorListing($vendorid)
+    {
+        // Get Vendor Shop Name
+        $getVendorShop = Vendor::getVendorShop($vendorid);
+
+        // Get Vendor Products
+        $vendorProducts = Product::with('brand')->where('vendor_id',$vendorid)->where('status',1);
+
+        $vendorProducts = $vendorProducts->paginate(30);
+        // dd($vendorProducts);
+        return view('front.products.vendor_listing')->with(compact('getVendorShop','vendorProducts'));
+    }
 
     public function detail($id)
     {

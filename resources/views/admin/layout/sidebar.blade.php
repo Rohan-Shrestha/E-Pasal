@@ -1,4 +1,4 @@
-<nav class="sidebar sidebar-offcanvas sidebarScroll" id="sidebar">
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
             <a @if (Session::get('page')=="dashboard") style="background:#4B49AC !important; color: #fff !important;"

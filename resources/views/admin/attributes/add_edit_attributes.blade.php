@@ -6,7 +6,6 @@
         <div class="row">
             <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                 <h4 class="card-title">Attributes</h4>
-                <!-- <h6 class="font-weight-normal mb-0">Update Admin Password</h6> -->
             </div>
             <div class="col-12 col-xl-4">
                 <div class="justify-content-end d-flex">
@@ -83,10 +82,6 @@
                         @else
                         <img style="width: 120px;" src="{{ url('front/images/product_images/no_image.png/') }}">
                         @endif
-                        <!-- @if(!empty(Auth::guard('admin')->user()->image))
-                                <a target="_blank" href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}">View Photo</a>
-                                <input type="hidden" name="current_product_image" value="{{ Auth::guard('admin')->user()->image }}">
-                                @endif -->
                     </div>
                     <div class="form-group">
                         <div class="field_wrapper">
@@ -172,10 +167,5 @@
         </div>
     </div>
 </div>
-
-<!-- content-wrapper ends -->
-<!-- partial:partials/_footer.html -->
-<!-- @include('admin.layout.footer') -->
-<!-- partial -->
 
 @endsection

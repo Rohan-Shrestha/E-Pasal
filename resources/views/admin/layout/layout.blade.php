@@ -27,8 +27,8 @@
   <link rel="stylesheet" href="{{ url('admin/css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url('admin/css/dataTables.bootstrap4.min.css') }}">
 
-  <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}">
-  <link rel="stylesheet" href="{{ url('admin/css/admin.css') }}">
+  <?php /* <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}"> */ ?>
+  <?php /* <link rel="stylesheet" href="{{ url('admin/css/admin.css') }}"> */ ?>
 </head>
 <body>
   <div class="container-scroller">
@@ -39,7 +39,7 @@
       <!-- partial:partials/_sidebar.html -->
       @include('admin.layout.sidebar')
       <div class="main-panel">
-        <div class="content-wrapper layoutScroll">
+        <div class="content-wrapper">
           @yield('content')
                 <!-- partial -->
         </div>

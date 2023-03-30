@@ -28433,7 +28433,7 @@ div.tagsinput span.tag a {
 
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
-  width: calc(100% - 245px);
+  width: calc(100% - 235px);
   min-height: calc(100vh - 60px);
   display: -webkit-flex;
   display: flex;
@@ -28469,7 +28469,7 @@ div.tagsinput span.tag a {
   font-family: "Nunito", sans-serif;
   font-weight: 500;
   padding: 0;
-  width: 245px;
+  width: 235px;
   z-index: 11;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
