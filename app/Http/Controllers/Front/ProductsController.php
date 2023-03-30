@@ -10,6 +10,8 @@ use App\Models\ProductsAttribute;
 use App\Models\ProductsFilter;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -158,8 +160,31 @@ class ProductsController extends Controller
         $similarProducts = Product::with('brand')->where('category_id',$productDetails['category']['id'])->where('id','!=',$id)->limit(4)->inRandomOrder()->get()->toArray();
         // dd($similarProducts);
 
+        // Set Session for Recently Viewed Products
+        if(empty(Session::get('session_id'))){
+            $session_id = md5(uniqid(rand(), true));
+        }else {
+            $session_id = Session::get('session_id');
+        }
+
+        Session::put('session_id',$session_id);
+
+        // Insert product in to recently_viewed_products table if it doesn't exist already
+        $countRecentlyViewedProducts = DB::table('recently_viewed_products')->where(['product_id'=>$id,'session_id'=>$session_id])->count();
+        if($countRecentlyViewedProducts==0){
+            DB::table('recently_viewed_products')->insert(['product_id'=>$id,'session_id'=>$session_id]);
+        }
+
+        // Get Recently Viewed Products IDs
+        $recentProductsIds = DB::table('recently_viewed_products')->select('product_id')->where('product_id','!=',$id)->where('session_id',$session_id)->inRandomOrder()->get()->take(4)->pluck('product_id');
+        // dd($recentProductsIds);
+
+        // Get Recently Viewed Products
+        $recentlyViewedProducts = Product::with('brand')->whereIn('id',$recentProductsIds)->get()->toArray();
+        // dd($recentlyViewedProducts);
+
         $totalStock = ProductsAttribute::where('product_id',$id)->sum('stock');
-        return view('front.products.detail')->with(compact('productDetails','categoryDetails','totalStock','similarProducts'));
+        return view('front.products.detail')->with(compact('productDetails','categoryDetails','totalStock','similarProducts','recentlyViewedProducts'));
     }
 
     public function getProductPrice(Request $request)
