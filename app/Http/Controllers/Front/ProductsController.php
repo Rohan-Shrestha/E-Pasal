@@ -13,6 +13,7 @@ use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -224,14 +225,31 @@ class ProductsController extends Controller
                 Session::put('session_id',$session_id);
             }
 
+            // Check product either if already exists in the User Cart
+            if(Auth::check()){
+                // User is logged in
+                $user_id = Auth::user()->id;
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'size'=>$data['size'], 'user_id'=>$user_id])->count();
+            }else {
+                // User is not logged in
+                $user_id = 0;
+                $countProducts = Cart::where(['product_id'=>$data['product_id'], 'size'=>$data['size'], 'session_id'=>$session_id])->count();
+            }
+
             // Save Product in "carts" table
             $item = new Cart;
             $item->session_id = $session_id;
+            $item->user_id = $user_id;
             $item->product_id = $data['product_id'];
             $item->size = $data['size'];
             $item->quantity = $data['quantity'];
             $item->save();
             return redirect()->back()->with('success_message','Product has been added to cart!');
         }
+    }
+
+    public function cart()
+    {
+        return view('front.products.cart');
     }
 }
