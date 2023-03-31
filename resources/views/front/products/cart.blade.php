@@ -1,3 +1,6 @@
+<?php
+use App\Models\Product;
+?>
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
@@ -33,129 +36,69 @@
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Subtotal</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('front/images/product/product@1x.jpg') }}" alt="Product">
-                                                <h6>Product Name</h6>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-price">
-                                            $100.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
+                                @foreach($getCartItems as $item)
+                                    <?php
+                                        $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
+                                        // echo "<pre>"; print_r($getDiscountAttributePrice); die;
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <div class="cart-anchor-image">
+                                                <a href="single-product.html">
+                                                    <img src="{{ asset('front/images/product_images/small/'.$item['product']['product_image']) }}" alt="Product">
+                                                    <h6>
+                                                        {{ $item['product']['product_name'] }} ({{ $item['product']['product_code'] }}) - {{ $item['size'] }}<br>
+                                                        Color: {{ $item['product']['product_color'] }}
+                                                    </h6>
+                                                </a>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-wrapper">
-                                            <button class="button button-outline-secondary fas fa-sync"></button>
-                                            <button class="button button-outline-secondary fas fa-trash"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('front/images/product/product@1x.jpg') }}" alt="Product">
-                                                <h6>Black Rock Dress with High Jewelery Necklace</h6>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-price">
-                                            $100.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
+                                        </td>
+                                        <td>
+                                            <div class="cart-price">
+                                                @if($getDiscountAttributePrice['discount']>0)
+                                                    <div class="price-template">
+                                                        <div class="item-new-price">
+                                                            Rs.{{ $getDiscountAttributePrice['final_price'] }}
+                                                        </div>
+                                                        <div class="item-old-price" style="margin-right: 20px; margin-left: -40px;">
+                                                            Rs.{{ $getDiscountAttributePrice['product_price'] }}
+                                                        </div>
+                                                    </div>
+                                                    @else
+                                                    <div class="price-template">
+                                                        <div class="item-new-price">
+                                                            Rs.{{ $getDiscountAttributePrice['final_price'] }}
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-wrapper">
-                                            <button class="button button-outline-secondary fas fa-sync"></button>
-                                            <button class="button button-outline-secondary fas fa-trash"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('front/images/product/product@1x.jpg') }}" alt="Product">
-                                                <h6>Xiaomi Note 2 Black Color</h6>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-price">
-                                            $100.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
+                                        </td>
+                                        <td>
+                                            <div class="cart-quantity">
+                                                <div class="quantity">
+                                                    <input type="text" class="quantity-text-field" value="{{ $item['quantity'] }}">
+                                                    <a class="plus-a" data-max="1000">&#43;</a>
+                                                    <a class="minus-a" data-min="1">&#45;</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-wrapper">
-                                            <button class="button button-outline-secondary fas fa-sync"></button>
-                                            <button class="button button-outline-secondary fas fa-trash"></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="cart-anchor-image">
-                                            <a href="single-product.html">
-                                                <img src="{{ asset('front/images/product/product@1x.jpg') }}" alt="Product">
-                                                <h6>Dell Inspiron 15</h6>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-price">
-                                            $100.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="cart-quantity">
-                                            <div class="quantity">
-                                                <input type="text" class="quantity-text-field" value="1">
-                                                <a class="plus-a" data-max="1000">&#43;</a>
-                                                <a class="minus-a" data-min="1">&#45;</a>
+                                        </td>
+                                        <td>
+                                            <div class="cart-price">
+                                                Rs.{{ $getDiscountAttributePrice['final_price'] * $item['quantity'] }}
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-wrapper">
-                                            <button class="button button-outline-secondary fas fa-sync"></button>
-                                            <button class="button button-outline-secondary fas fa-trash"></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <div class="action-wrapper">
+                                                <button class="button button-outline-secondary fas fa-sync"></button>
+                                                <button class="button button-outline-secondary fas fa-trash"></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

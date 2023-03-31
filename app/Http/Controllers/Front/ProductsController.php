@@ -244,12 +244,14 @@ class ProductsController extends Controller
             $item->size = $data['size'];
             $item->quantity = $data['quantity'];
             $item->save();
-            return redirect()->back()->with('success_message','Product has been added to cart!');
+            return redirect()->back()->with('success_message','Product has been added to cart! <a style="text-decoration: underline !important;" href="/cart">View Cart</a>');
         }
     }
 
     public function cart()
     {
-        return view('front.products.cart');
+        $getCartItems = Cart::getCartItems();
+        // dd($getCartItems);
+        return view('front.products.cart')->with(compact('getCartItems'));
     }
 }

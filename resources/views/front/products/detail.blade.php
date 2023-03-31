@@ -2,6 +2,7 @@
 
 use App\Models\Product;
 use App\Models\ProductsFilter;
+use Illuminate\Support\Facades\Session;
 
 $productFilters = ProductsFilter::productFilters();
 // dd($productFilters);
@@ -54,7 +55,7 @@ $productFilters = ProductsFilter::productFilters();
                 <div class="all-information-wrapper">
                     @if(Session::has('error_message'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <li>{{ Session::get('error_message')}}</li>
+                        <li><?php echo Session::get('error_message'); ?></li>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -63,7 +64,7 @@ $productFilters = ProductsFilter::productFilters();
 
                     @if(Session::has('success_message'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <li>{{ Session::get('success_message')}}</li>
+                        <li><?php echo Session::get('success_message'); ?></li>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
