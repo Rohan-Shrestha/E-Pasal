@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row"> -->
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -130,7 +130,7 @@
                         </thead>
                         <tbody>
                             @foreach ($product['attributes'] as $attribute)
-                            <input type="text" class="attributeId" name="attributeId[]" value="{{ $attribute['id'] }}">
+                            <input style="display: none;" type="text" class="attributeId" name="attributeId[]" value="{{ $attribute['id'] }}">
                             <tr>
                                 <td>
                                     {{ $attribute['id'] }}
@@ -166,6 +166,6 @@
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
 @endsection
