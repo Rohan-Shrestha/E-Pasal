@@ -57,8 +57,8 @@ use App\Models\Product;
                     <div class="cart-quantity">
                         <div class="quantity">
                             <input type="text" class="quantity-text-field" value="{{ $item['quantity'] }}">
-                            <a class="plus-a updateCartItem" data-cardid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}" data-max="1000">&#43;</a>
-                            <a class="minus-a updateCartItem" data-cardid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}" data-min="1">&#45;</a>
+                            <a class="plus-a updateCartItem" data-cartid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}" data-max="1000">&#43;</a>
+                            <a class="minus-a updateCartItem" data-cartid="{{ $item['id'] }}" data-qty="{{ $item['quantity'] }}" data-min="1">&#45;</a>
                         </div>
                     </div>
                 </td>
@@ -70,7 +70,7 @@ use App\Models\Product;
                 <td>
                     <div class="action-wrapper">
                         <!-- <button class="button button-outline-secondary fas fa-sync"></button> -->
-                        <button class="button button-outline-secondary fas fa-trash deleteCartItem" data-cardid="{{ $item['id'] }}"></button>
+                        <button class="button button-outline-secondary fas fa-trash deleteCartItem" data-cartid="{{ $item['id'] }}"></button>
                     </div>
                 </td>
             </tr>
