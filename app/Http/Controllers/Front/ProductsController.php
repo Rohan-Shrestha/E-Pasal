@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use PhpParser\Node\Expr\Cast\String_;
 
 class ProductsController extends Controller
 {
@@ -253,5 +255,19 @@ class ProductsController extends Controller
         $getCartItems = Cart::getCartItems();
         // dd($getCartItems);
         return view('front.products.cart')->with(compact('getCartItems'));
+    }
+
+    public function cartUpdate(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            Cart::where('id',$data['cartid'])->update(['quantity'=>$data['qty']]);
+            $getCartItems = Cart::getCartItems();
+            return response()->json([
+                'status'=>true,
+                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems'))
+            ]);
+        }
     }
 }

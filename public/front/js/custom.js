@@ -40,8 +40,22 @@ $(document).ready(function () {
             }
             // increase the quantity by 1 if user clicks plus button in quantity column
             new_qty = parseInt(quantity) - 1;
-            alert(new_qty);
+            // alert(new_qty);
         }
+        var cartid = $(this).data('cardid');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{cartid:cartid,qty:new_qty},
+            url:'/cart/update',
+            type:'post',
+            success:function(resp){
+                $('#appendCartItems').html(resp.view);
+            },error:function(){
+                alert('Error');
+            }
+        })
     });
 });
 
