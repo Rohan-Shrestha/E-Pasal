@@ -81,6 +81,24 @@ $(document).ready(function () {
             });
         }
     });
+
+    // User Registration Form Validation
+    $("#registerForm").submit(function(){
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'/user/register',
+            type:"POST",
+            data:formdata,
+            success:function(resp){
+                window.location.href = data.resp;
+            },error:function(){
+                alert('Error');
+            }
+        });
+    });
 });
 
 function get_filter(class_name) {

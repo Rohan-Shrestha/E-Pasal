@@ -179,4 +179,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
     // User Login Register
     Route::get('user/login-register','UserController@loginRegister');
+
+    // Register Users
+    Route::post('user/register','UserController@userRegister');
 });
