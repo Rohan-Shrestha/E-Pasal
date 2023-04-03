@@ -93,7 +93,8 @@ $(document).ready(function () {
             type:"POST",
             data:formdata,
             success:function(resp){
-                window.location.href = data.resp;
+                alert(resp.url);
+                window.location.href = resp.url;
             },error:function(){
                 alert('Error');
             }
