@@ -93,8 +93,18 @@ $(document).ready(function () {
             type:"POST",
             data:formdata,
             success:function(resp){
-                alert(resp.url);
-                window.location.href = resp.url;
+                // alert(resp.type);
+                if(resp.type=="error"){
+                    $.each(resp.errors,function(i,error){
+                        $("#register-"+i).attr('style','color:red');
+                        $("#register-"+i).html(error);
+                        setTimeout(function(){
+                            $("#register-"+i).css({'display':'none'});
+                        }, 5000);
+                    });
+                }else if(resp.type=="success"){
+                    window.location.href = resp.url;
+                }
             },error:function(){
                 alert('Error');
             }

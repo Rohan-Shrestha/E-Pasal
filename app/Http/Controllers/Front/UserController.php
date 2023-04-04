@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -20,19 +21,42 @@ class UserController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            // Register the user
-            $user = new User;
-            $user->name = $data['name'];
-            $user->mobile = $data['mobile'];
-            $user->email = $data['email'];
-            $user->password = bcrypt($data['password']);
-            $user->status = 1;
-            $user->save();
+            $validator = Validator::make($request->all(),
+                [
+                    "name" => "required|string|max:100",
+                    "mobile" => "required|numeric|digits:10",
+                    "email" => "required|email|max:150|unique:users",
+                    "password" => "required|min:6",
+                    "accept" => "required",
+                ],
+                [
+                    "accept.required" => "Please accept our Terms and Conditions"
+                ]
+            );
 
-            if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
-                $redirectTo = url('cart');
-                return response()->json(['url'=>$redirectTo]);
-            }
+            if($validator->passes()){
+                // Register the user
+                $user = new User;
+                $user->name = $data['name'];
+                $user->mobile = $data['mobile'];
+                $user->email = $data['email'];
+                $user->password = bcrypt($data['password']);
+                $user->status = 1;
+                $user->save();
+
+                if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
+                    $redirectTo = url('cart');
+                    return response()->json(['type'=>'success','url'=>$redirectTo]);
+                }
+            }else{
+                return response()->json(['type'=>'error','errors'=>$validator->messages()]);
+            }            
         }
+    }
+
+    public function userLogout()
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }
