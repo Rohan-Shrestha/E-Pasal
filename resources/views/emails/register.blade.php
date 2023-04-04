@@ -8,7 +8,7 @@
 </head>
 <body>
     <table>
-        <tr><td>Dear {{ $name }}<br></td></tr>
+        <tr><td>Dear {{ $name }},<br></td></tr>
         <tr><td>&nbsp;</td></tr>
         <tr><td>Welcome to E-Pasal. Your account has been successfully created with the information below:<br></td></tr>
         <tr><td>&nbsp;</td></tr>
