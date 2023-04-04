@@ -27,7 +27,7 @@ class UserController extends Controller
             $validator = Validator::make($request->all(),
                 [
                     "name" => "required|string|max:100",
-                    "mobile" => "required|numeric|digits:10",
+                    "mobile" => "required|numeric|digits:10|unique:users",
                     "email" => "required|email|max:150|unique:users",
                     "password" => "required|min:6",
                     "accept" => "required",
@@ -44,29 +44,44 @@ class UserController extends Controller
                 $user->mobile = $data['mobile'];
                 $user->email = $data['email'];
                 $user->password = bcrypt($data['password']);
-                $user->status = 1;
+                $user->status = 0;
                 $user->save();
 
-                // Send Registration Email
+                /* Activate the user account only when the user confirms his/her email account */
                 $email = $data['email'];
-                $messageData = ['name'=>$data['name'], 'mobile'=>$data['mobile'], 'email'=>$data['email']];
-                Mail::send('emails.register',$messageData,function($message)use($email){
-                    $message->to($email)->subject('Welcome to E-Pasal');
+                $messageData = ['name'=>$data['name'], 'email'=>$data['email'], 'code'=>base64_encode($data['email'])];
+                Mail::send('emails.confirmation',$messageData,function($message)use($email){
+                    $message->to($email)->subject('Confirm your E-Pasal Account.');
                 });
 
-                if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']]))
-                {
-                    $redirectTo = url('cart');
+                // Redirect the user back with success message
+                $redirectTo = url('user/login-register');
+                return response()->json(['type'=>'success', 'url'=>$redirectTo, 'message'=>'Please confirm your email to activate your account!']);
 
-                    // Update User Cart with user id
-                    if(!empty(Session::get('session_id'))){
-                        $user_id = Auth::user()->id;
-                        $session_id = Session::get('session_id');
-                        Cart::where('session_id',$session_id)->update(['user_id'=>$user_id]);
-                    }
+                /* Directly Activate the user without confirming his/her email account */
 
-                    return response()->json(['type'=>'success','url'=>$redirectTo]);
-                }
+                // // Send Registration Email
+                // $email = $data['email'];
+                // $messageData = ['name'=>$data['name'], 'mobile'=>$data['mobile'], 'email'=>$data['email']];
+                // Mail::send('emails.register',$messageData,function($message)use($email){
+                //     $message->to($email)->subject('Welcome to E-Pasal');
+                // });
+
+                // if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']]))
+                // {
+                //     $redirectTo = url('cart');
+
+                //     // Update User Cart with user id
+                //     if(!empty(Session::get('session_id'))){
+                //         $user_id = Auth::user()->id;
+                //         $session_id = Session::get('session_id');
+                //         Cart::where('session_id',$session_id)->update(['user_id'=>$user_id]);
+                //     }
+
+                //     return response()->json(['type'=>'success','url'=>$redirectTo]);
+                // }
+
+
             }else{
                 return response()->json(['type'=>'error','errors'=>$validator->messages()]);
             }
@@ -89,7 +104,7 @@ class UserController extends Controller
                 {
                     if(Auth::user()->status==0){
                         Auth::logout();
-                        return response()->json(['type'=>'inactive', 'message'=>'Your account is inactive. Please contact us through email.']);
+                        return response()->json(['type'=>'inactive', 'message'=>'Account not active! Please confirm your email to activate your account.']);
                     }
 
                     // Update User Cart with user id
