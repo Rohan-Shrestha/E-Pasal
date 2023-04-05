@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -86,6 +87,50 @@ class UserController extends Controller
             } else {
                 return response()->json(['type' => 'error', 'errors' => $validator->messages()]);
             }
+        }
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    "email" => "required|email|max:150|exists:users",
+                ],
+                [
+                    "email.exists" => "Email doesn't exist! Please provide your registered email."
+                ]
+            );
+
+            if($validator->passes()){
+                // $userDetails = User::where('email', $data['email'])->first();
+                // Generate New Password
+                $new_password = Str::random(16);
+
+                // Update New Password
+                User::where('email', $data['email'])->update(['password'=>bcrypt($new_password)]);
+
+                // Get User Details
+                $userDetails = User::where('email', $data['email'])->first()->toArray();
+
+                // Send Email to User about Password Changed
+                $email = $data['email'];
+                $messageData = ['name' => $userDetails['name'], 'email' => $email, 'password' => $new_password];
+                Mail::send('emails.user_forgot_password', $messageData, function($message)use($email){
+                    $message->to($email)->subject('New Password. E-Pasal');
+                });
+
+                // Show success message
+                return response()->json(['type'=>'success', 'message'=>'New Password sent to your registered email.']);
+            } else {
+                return response()->json(['type' => 'error', 'errors' => $validator->messages()]);
+            }
+        } else {
+            return view('front.users.forgot_password');
         }
     }
 
