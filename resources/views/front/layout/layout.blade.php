@@ -31,9 +31,15 @@
     <link rel="stylesheet" href="{{ url('front/css/utility.css') }}">
     <!-- Main -->
     <link rel="stylesheet" href="{{ url('front/css/bundle.css') }}">
+    <!-- Custom -->
+    <link rel="stylesheet" href="{{ url('front/css/custom.css') }}">
 </head>
 
 <body>
+    <div class="loader">
+        <img src="{{ asset('front/images/loaders/loader.gif') }}" alt="loading..." />
+    </div>
+
     <div id="app">
         @include('front.layout.header')
         @yield('content')

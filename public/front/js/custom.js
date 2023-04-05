@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // $(".loader").show();
     $("#getPrice").change(function () {
         var size = $(this).val();
         var product_id = $(this).attr("product-id");
@@ -84,6 +85,7 @@ $(document).ready(function () {
 
     // User Registration Form Validation
     $("#registerForm").submit(function(){
+        $(".loader").show();
         var formdata = $(this).serialize();
         $.ajax({
             headers: {
@@ -95,6 +97,7 @@ $(document).ready(function () {
             success:function(resp){
                 // alert(resp.type);
                 if(resp.type=="error"){
+                    $(".loader").hide();
                     $.each(resp.errors,function(i,error){
                         $("#register-"+i).attr('style','color:red');
                         $("#register-"+i).html(error);
@@ -103,8 +106,11 @@ $(document).ready(function () {
                         }, 7000);
                     });
                 }else if(resp.type=="success"){
-                    alert(resp.message);
-                    window.location.href = resp.url;
+                    // alert(resp.message);
+                    $(".loader").hide();
+                    $("#register-success").attr('style','color:green');
+                    $("#register-success").html(resp.message);
+                    // window.location.href = resp.url;
                 }
             },error:function(){
                 alert('Error');
