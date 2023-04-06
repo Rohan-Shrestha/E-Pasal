@@ -178,20 +178,26 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::post('cart/delete','ProductsController@cartDelete');
 
     // User Login Register
-    Route::get('user/login-register','UserController@loginRegister');
+    Route::get('user/login-register',['as'=>'login', 'uses'=>'UserController@loginRegister']);
 
     // Register Users
     Route::post('user/register','UserController@userRegister');
+
+    // Protecting the account routes with middleware
+    Route::group(['middleware'=>['auth']],function(){
+        // User Account
+        Route::match(['GET','POST'], 'user/account','UserController@userAccount');
+
+        // Update User Password
+        Route::post('user/update-password', 'UserController@userUpdatePassword');
+    });
     
-    // User Account
-    Route::match(['GET','POST'], 'user/account','UserController@userAccount');
+    // User Forgot Password (update password)
+    Route::match(['get','post'], 'user/forgot-password', 'UserController@forgotPassword');
     
     // Login Users
     Route::post('user/login','UserController@userLogin');
-
-    // User Forgot Password
-    Route::match(['get','post'], 'user/forgot-password', 'UserController@forgotPassword');
-
+    
     // User Logout
     Route::get('user/logout', 'UserController@userLogout');
 
