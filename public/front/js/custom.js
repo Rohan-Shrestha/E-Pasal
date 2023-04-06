@@ -117,6 +117,44 @@ $(document).ready(function () {
             }
         });
     });
+    
+    // Customer Account Form Validation
+    $("#accountForm").submit(function(){
+        $(".loader").show();
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'/user/account',
+            type:"POST",
+            data:formdata,
+            success:function(resp){
+                // alert(resp.type);
+                if(resp.type=="error"){
+                    $(".loader").hide();
+                    $.each(resp.errors,function(i,error){
+                        $("#account-"+i).attr('style','color:red');
+                        $("#account-"+i).html(error);
+                        setTimeout(function(){
+                            $("#account-"+i).css({'display':'none'});
+                        }, 7000);
+                    });
+                }else if(resp.type=="success"){
+                    // alert(resp.message);
+                    $(".loader").hide();
+                    $("#account-success").attr('style','color:green');
+                    $("#account-success").html(resp.message);
+                    setTimeout(function(){
+                        $("#account-success").css({'display':'none'});
+                    }, 7000);
+                    // window.location.href = resp.url;
+                }
+            },error:function(){
+                alert('Error');
+            }
+        });
+    });
 
     // User Login Form Validation
     $("#loginForm").submit(function(){

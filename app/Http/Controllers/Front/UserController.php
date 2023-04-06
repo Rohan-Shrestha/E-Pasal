@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,6 +88,40 @@ class UserController extends Controller
             } else {
                 return response()->json(['type' => 'error', 'errors' => $validator->messages()]);
             }
+        }
+    }
+
+    public function userAccount(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    "name" => "required|string|max:100",
+                    "address" => "required|string|max:100",
+                    "city" => "required|string|max:100",
+                    "province" => "required|string|max:100",
+                    "country" => "required|string|max:100",
+                    "pincode" => "required|digits:5",
+                    "mobile" => "required|numeric|digits:10",
+                ]
+            );
+
+            if($validator->passes()){
+                // Update User Details
+                User::where('id', Auth::user()->id)->update(['name'=>$data['name'], 'address'=>$data['address'], 'city'=>$data['city'], 'province'=>$data['province'], 'country'=>$data['country'], 'pincode'=>$data['pincode'], 'mobile'=>$data['mobile']]);
+
+                // Redirect user back with success message
+                $redirectTo = url('user/account');
+                return response()->json(['type'=>'success', 'message'=>'Your account details has been updated successfully!']);
+            } else {
+                return response()->json(['type'=>'error', 'errors'=>$validator->messages()]);
+            }
+        } else {
+            $countries = Country::where('status', 1)->get()->toArray();
+            return view('front.users.user_account')->with(compact('countries'));
         }
     }
 

@@ -86,7 +86,7 @@
           </div>
           <div class="form-group">
             <label for="vendor_country">Country</label>
-            <!-- <input type="text" class="form-control" id="vendor_country" placeholder="Enter Country" name="vendor_country" value="{{ $vendorDetails['country'] }}" required=""> -->
+            <?php /* <input type="text" class="form-control" id="vendor_country" placeholder="Enter Country" name="vendor_country" value="{{ $vendorDetails['country'] }}" required=""> */ ?>
             <select class="form-control" id="vendor_country" name="vendor_country" style="color: #495057">
               <option value="">Select Country</option>
               @foreach($countries as $country)

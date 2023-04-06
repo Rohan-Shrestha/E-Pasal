@@ -183,6 +183,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     // Register Users
     Route::post('user/register','UserController@userRegister');
     
+    // User Account
+    Route::match(['GET','POST'], 'user/account','UserController@userAccount');
+    
     // Login Users
     Route::post('user/login','UserController@userLogin');
 
