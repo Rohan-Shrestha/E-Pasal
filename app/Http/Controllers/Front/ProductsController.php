@@ -316,6 +316,7 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             Cart::where('id',$data['cartid'])->delete();
             $getCartItems = Cart::getCartItems();
+            // getting the total no. of items in cart
             $totalCartItems = totalCartItems();
             return response()->json([
                 'totalCartItems'=>$totalCartItems,
