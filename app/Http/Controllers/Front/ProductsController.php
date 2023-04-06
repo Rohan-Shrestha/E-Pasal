@@ -300,8 +300,10 @@ class ProductsController extends Controller
             // Update the quantity
             Cart::where('id',$data['cartid'])->update(['quantity'=>$data['qty']]);
             $getCartItems = Cart::getCartItems();
+            $totalCartItems = totalCartItems();
             return response()->json([
                 'status'=>true,
+                'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems'))
             ]);
         }
@@ -314,7 +316,9 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             Cart::where('id',$data['cartid'])->delete();
             $getCartItems = Cart::getCartItems();
+            $totalCartItems = totalCartItems();
             return response()->json([
+                'totalCartItems'=>$totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems'))
             ]);
         }
