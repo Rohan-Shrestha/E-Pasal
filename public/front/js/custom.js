@@ -156,6 +156,53 @@ $(document).ready(function () {
         });
     });
 
+    // Update Password Form Validation
+    $("#passwordForm").submit(function(){
+        $(".loader").show();
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'/user/update-password',
+            type:"POST",
+            data:formdata,
+            success:function(resp){
+                // alert(resp.type);
+                if(resp.type=="error"){
+                    $(".loader").hide();
+                    $.each(resp.errors,function(i,error){
+                        $("#password-"+i).attr('style','color:red');
+                        $("#password-"+i).html(error);
+                        setTimeout(function(){
+                            $("#password-"+i).css({'display':'none'});
+                        }, 7000);
+                    });
+                } else if(resp.type=="incorrect")
+                {
+                    $(".loader").hide();
+                    $("#password-error").attr('style','color:red');
+                    $("#password-error").html(resp.message);
+                    setTimeout(function(){
+                        $("#password-error").css({'display':'none'});
+                    }, 7000);
+                }else if(resp.type=="success")
+                {
+                    // alert(resp.message);
+                    $(".loader").hide();
+                    $("#password-success").attr('style','color:green');
+                    $("#password-success").html(resp.message);
+                    setTimeout(function(){
+                        $("#password-success").css({'display':'none'});
+                    }, 7000);
+                    // window.location.href = resp.url;
+                }
+            },error:function(){
+                alert('Error');
+            }
+        });
+    });
+
     // User Login Form Validation
     $("#loginForm").submit(function(){
         var formdata = $(this).serialize();

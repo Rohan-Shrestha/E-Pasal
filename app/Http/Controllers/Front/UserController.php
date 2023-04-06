@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -115,6 +116,48 @@ class UserController extends Controller
 
                 // Redirect user back with success message
                 $redirectTo = url('user/account');
+                return response()->json(['type'=>'success', 'message'=>'Your account details has been updated successfully!']);
+            } else {
+                return response()->json(['type'=>'error', 'errors'=>$validator->messages()]);
+            }
+        } else {
+            $countries = Country::where('status', 1)->get()->toArray();
+            return view('front.users.user_account')->with(compact('countries'));
+        }
+    }
+
+    public function userUpdatePassword(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    "current_password" => "required",
+                    "new_password" => "required|min:6",
+                    "confirm_password" => "required|min:6|same:new_password"
+                ]
+            );
+
+            if($validator->passes()){
+
+                $current_password = $data['current_password'];
+                $checkPassword = User::where('id', Auth::user()->id)->first();
+                if(Hash::check($current_password, $checkPassword->password)){
+                    // Update Current Password of the customer/user
+                    $user = User::find(Auth::user()->id);
+                    $user->password = bcrypt($data['new_password']);
+                    $user->save();
+
+                    // Redirect user back with success message
+                    return response()->json(['type'=>'success', 'message'=>'Your Account Password has been updated successfully!']);
+                } else {
+                    // Redirect user back with error message
+                    return response()->json(['type'=>'incorrect', 'message'=>'Your current password is incorrect!']);
+                }
+
+                // Redirect user back with success message
                 return response()->json(['type'=>'success', 'message'=>'Your account details has been updated successfully!']);
             } else {
                 return response()->json(['type'=>'error', 'errors'=>$validator->messages()]);
