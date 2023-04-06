@@ -281,7 +281,8 @@ class ProductsController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Required Product Stock is not available',
-                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                    'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
                 ]);
             }
 
@@ -293,7 +294,8 @@ class ProductsController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Required Product Size is not available. Please choose another size.',
-                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                    'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
                 ]);
             }
 
@@ -304,7 +306,8 @@ class ProductsController extends Controller
             return response()->json([
                 'status'=>true,
                 'totalCartItems'=>$totalCartItems,
-                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
             ]);
         }
     }
@@ -320,7 +323,8 @@ class ProductsController extends Controller
             $totalCartItems = totalCartItems();
             return response()->json([
                 'totalCartItems'=>$totalCartItems,
-                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
             ]);
         }
     }

@@ -14,4 +14,20 @@ function totalCartItems(){
     }
     return $totalCartItems;
 }
+
+function getCartItems()
+{
+    if(Auth::check()){
+        // if user is logged in / pick auth id of the user
+        $getCartItems = Cart::with(['product'=>function($query){
+            $query->select('id','category_id','product_name','product_code','product_color','product_image');
+        }])->orderby('id','Desc')->where('user_id', Auth::user()->id)->get()->toArray();
+    }else {
+        // if user is not logged in / pick session id of the user
+        $getCartItems = Cart::with(['product'=>function($query){
+            $query->select('id','category_id','product_name','product_code','product_color','product_image');
+        }])->orderby('id','Desc')->where('session_id', Session::get('session_id'))->get()->toArray();
+    }
+    return $getCartItems;
+}
 ?>
