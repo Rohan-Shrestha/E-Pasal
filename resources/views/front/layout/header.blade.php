@@ -112,7 +112,7 @@ $totalCartItems = totalCartItems();
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
                         <a href="index.html">
-                            <h4><strong>e-pasal</strong></h4>
+                            <h4 style="color: #D90429"><strong>e-pasal</strong></h4>
                             <!-- <img src="{{ asset('front/images/main-logo/epasal-logo.png') }}" alt="E-Pasal" class="app-brand-logo"> -->
                         </a>
                     </div>
@@ -154,7 +154,7 @@ $totalCartItems = totalCartItems();
                                 <a id="mini-cart-trigger">
                                     <i class="ion ion-md-basket"></i>
                                     <span class="item-counter totalCartItems">{{ $totalCartItems }}</span>
-                                    <span class="item-price">$220.00</span>
+                                    <span class="item-price">Rs.1200.00</span>
                                 </a>
                             </li>
                         </ul>

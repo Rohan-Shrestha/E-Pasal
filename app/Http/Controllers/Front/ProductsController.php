@@ -76,9 +76,9 @@ class ProductsController extends Controller
                     // echo "<pre>"; print_r($data['price']); die;
                     foreach ($data['price'] as $key => $price) {
                         $priceArr = explode("-",$price);
-                        $productIds[] = Product::select('id')->whereBetween('product_price',[$priceArr[0],$priceArr[1]])->pluck('id')->toArray();
+                        $productIds = Product::select('id')->whereBetween('product_price',[$priceArr[0],$priceArr[1]])->pluck('id')->toArray();
                     }
-                    $productIds = call_user_func_array('array_merge', $productIds);
+                    // $productIds = call_user_func_array('array_merge', $productIds);
                     $categoryProducts->whereIn('products.id',$productIds);
                     // echo "<pre>"; print_r($productIds); die;
                     // $implodePrices = implode('-',$data['price']);
