@@ -50,11 +50,22 @@ class CouponsController extends Controller
             // Add Coupon
             $title = "Add Coupon";
             $coupon = new Coupon;
+            // select Categories
+            $selCats = array();
+            // select Brands
+            $selBrands = array();
+            // select Users
+            $selUsers = array();
             $message = "Coupon added successfully!";
         } else {
             // Update Coupon
             $title = "Edit Coupon";
             $coupon = Coupon::find($id);
+
+            $selCats = explode(",",$coupon['categories']);  // select Categories
+            $selBrands = explode(",",$coupon['brands']);  // select Brands
+            $selUsers = explode(",",$coupon['users']);  // select Users
+
             $message = "Coupon updated successfully!";
         }
 
@@ -146,6 +157,6 @@ class CouponsController extends Controller
 
         $users = User::select('email')->where('status', 1)->get();
 
-        return view('admin.coupons.add_edit_coupon')->with(compact('title', 'coupon', 'categories', 'brands', 'users'));
+        return view('admin.coupons.add_edit_coupon')->with(compact('title', 'coupon', 'categories', 'brands', 'users', 'selCats', 'selBrands', 'selUsers'));
     }
 }
