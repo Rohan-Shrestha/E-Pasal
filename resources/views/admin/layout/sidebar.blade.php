@@ -111,7 +111,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a @if (Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="brands" || Session::get('page')=="products")
+            <a @if (Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="brands" || Session::get('page')=="products" || Session::get('page')=="coupons" || Session::get('page')=="filters")
                 style="background:#4B49AC !important; color: #fff !important;"
                 @endif class="nav-link" data-toggle="collapse" href="#ui-catalogue" aria-expanded="false" aria-controls="ui-catalogue">
 
@@ -142,6 +142,11 @@
                     style="background:#4B49AC !important; color: #fff !important;"
                     @else style="background:#fff !important; color: #4B49AC !important;"
                     @endif class="nav-link" href="{{ url('admin/products') }}">Products</a></li>
+
+                    <li class="nav-item"> <a @if (Session::get('page')=="coupons")
+                    style="background:#4B49AC !important; color: #fff !important;"
+                    @else style="background:#fff !important; color: #4B49AC !important;"
+                    @endif class="nav-link" href="{{ url('admin/coupons') }}">Coupons</a></li>
                     
                     <li class="nav-item"> <a @if (Session::get('page')=="filters")
                     style="background:#4B49AC !important; color: #fff !important;"
