@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Category;
@@ -196,6 +197,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
         // Update User Password
         Route::post('user/update-password', 'UserController@userUpdatePassword');
+
+        // Apply Coupon
+        Route::post('/apply-coupon', 'ProductsController@applyCoupon');
     });
     
     // User Forgot Password (update password)

@@ -281,7 +281,33 @@ $(document).ready(function () {
     // Apply Coupon
     $("#ApplyCoupon").submit(function(){
         var user = $(this).attr("user");
-        alert(user);
+        // alert(user);
+        if(user==1){
+            // do nothing
+        } else {
+            alert("Please log in to apply coupon code");
+            return false;
+        }
+
+        var code = $('#code').val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'post',
+            data: {code:code},
+            url: '/apply-coupon',
+            success:function(resp){
+                if(resp.message!=""){
+                    alert(resp.message);
+                }
+                $(".totalCartItems").html(resp.totalCartItems);
+                $('#appendCartItems').html(resp.view);
+                $('#appendHeaderCartItems').html(resp.headerview);
+            },error:function(){
+                alert("Error");
+            }
+        })
     });
 });
 
