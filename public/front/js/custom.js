@@ -277,6 +277,12 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Apply Coupon
+    $("#ApplyCoupon").submit(function(){
+        var user = $(this).attr("user");
+        alert(user);
+    });
 });
 
 function get_filter(class_name) {

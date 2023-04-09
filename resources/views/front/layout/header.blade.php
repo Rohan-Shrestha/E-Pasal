@@ -111,7 +111,7 @@ $totalCartItems = totalCartItems();
             <div class="row clearfix align-items-center">
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
-                        <a href="index.html">
+                        <a href="javascript:void(0);">
                             <h4 style="color: #D90429"><strong>e-pasal</strong></h4>
                             <!-- <img src="{{ asset('front/images/main-logo/epasal-logo.png') }}" alt="E-Pasal" class="app-brand-logo"> -->
                         </a>
