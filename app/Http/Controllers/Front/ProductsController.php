@@ -355,7 +355,15 @@ class ProductsController extends Controller
 
                 // Checking if coupon is Active
                 if($couponDetails->status==0){
-                    $message = "The coupon is not active";
+                    $message = "The coupon is not active!";
+                }
+
+                // Checking for expired coupon
+                $expiry_date = $couponDetails->expiry_date;
+                $current_date = date('Y-m-d');
+
+                if($expiry_date < $current_date){
+                    $message = "The coupon is expired!";
                 }
 
                 // If any error message is present
