@@ -340,15 +340,34 @@ class ProductsController extends Controller
             $totalCartItems = totalCartItems();
             $couponCount = Coupon::where('coupon_code', $data['code'])->count();
             if($couponCount==0){
-            return response()->json([
-                'status'=>'false',
-                'totalCartItems'=>$totalCartItems,
-                'message'=>'Please enter a valid Coupon',
-                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
-                'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
-            ]);
+                return response()->json([
+                    'status'=>'false',
+                    'totalCartItems'=>$totalCartItems,
+                    'message'=>'Please enter a valid Coupon',
+                    'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                    'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
+                ]);
             } else {
-                echo "Check for other coupon conditions"; die;
+                // Check for other coupon conditions
+
+                // Get Coupon Details
+                $couponDetails = Coupon::where('coupon_code', $data['code'])->first();
+
+                // Checking if coupon is Active
+                if($couponDetails->status==0){
+                    $message = "The coupon is not active";
+                }
+
+                // If any error message is present
+                if(isset($message)){
+                    return response()->json([
+                        'status'=>'false',
+                        'totalCartItems'=>$totalCartItems,
+                        'message'=>$message,
+                        'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                        'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
+                    ]);
+                }
             }
         }
     }
