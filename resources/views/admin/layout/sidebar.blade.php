@@ -51,6 +51,11 @@
                     style="background:#4B49AC !important; color: #fff !important;"
                     @else style="background:#fff !important; color: #4B49AC !important;"
                     @endif class="nav-link" href="{{ url('admin/products') }}">Products</a></li>
+
+                    <li class="nav-item"> <a @if (Session::get('page')=="coupons")
+                    style="background:#4B49AC !important; color: #fff !important;"
+                    @else style="background:#fff !important; color: #4B49AC !important;"
+                    @endif class="nav-link" href="{{ url('admin/coupons') }}">Coupons</a></li>
                 </ul>
             </div>
         </li>

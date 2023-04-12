@@ -10,6 +10,7 @@ use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
 use App\Models\ProductsFilter;
+use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -367,12 +368,31 @@ class ProductsController extends Controller
                 }
 
                 // Checking if coupon is for selected categories only
-
-                // Get all selected categories from "coupons" table
+                // Get all selected categories from "coupons" table and convert to array
                 $catArr = explode(",", $couponDetails->categories);
+                // Checking if any cart item doesn't belong to the coupon category set by admin
                 foreach ($getCartItems as $key => $item) {
                     if(!in_array($item['product']['category_id'], $catArr)){
                         $message = "This coupon code is not for one of the selected products.";
+                    }
+                }
+
+                // Checking if coupon code is for selected users only
+                // Get all selected users from "coupons" table and convert to array
+                $usersArr = explode(",", $couponDetails->users);
+
+                // Getting user id's of al selected users
+                foreach ($usersArr as $key => $user) {
+                    $getUserId = User::select('id')->where('email', $user)->first()->toArray();
+                    $usersId[] = $getUserId['id'];
+                }
+                
+                // Checking if any cart item doesn't belong to the coupon users set by admin
+                foreach ($getCartItems as $key => $item) {
+                    if(count($usersArr) > 0){
+                        if(!in_array($item['user_id'], $usersId)){
+                            $message = "This coupon code is not applicable to your account. Try with valid coupon code!";
+                        }
                     }
                 }
 
