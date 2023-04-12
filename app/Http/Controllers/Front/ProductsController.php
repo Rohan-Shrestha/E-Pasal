@@ -379,19 +379,35 @@ class ProductsController extends Controller
 
                 // Checking if coupon code is for selected users only
                 // Get all selected users from "coupons" table and convert to array
-                $usersArr = explode(",", $couponDetails->users);
+                if (isset($couponDetails->users) && !empty($couponDetails->users)) {
+                    $usersArr = explode(",", $couponDetails->users);
 
-                // Getting user id's of al selected users
-                foreach ($usersArr as $key => $user) {
-                    $getUserId = User::select('id')->where('email', $user)->first()->toArray();
-                    $usersId[] = $getUserId['id'];
+                    if (count($usersArr) > 0) {
+                        // echo "<pre>"; print_r($usersArr); die;
+
+                        // Getting user id's of al selected users
+                        foreach ($usersArr as $key => $user) {
+                            $getUserId = User::select('id')->where('email', $user)->first()->toArray();
+                            $usersId[] = $getUserId['id'];
+                        }
+
+                        // Checking if any cart item doesn't belong to the coupon users set by admin
+                        foreach ($getCartItems as $item) {
+                            if (!in_array($item['user_id'], $usersId)) {
+                                $message = "This coupon code is not applicable to your account. Try with valid coupon code!";
+                            }
+                        }
+                    }
                 }
-                
-                // Checking if any cart item doesn't belong to the coupon users set by admin
-                foreach ($getCartItems as $key => $item) {
-                    if(count($usersArr) > 0){
-                        if(!in_array($item['user_id'], $usersId)){
-                            $message = "This coupon code is not applicable to your account. Try with valid coupon code!";
+
+                if ($couponDetails->vendor_id > 0) {
+                    // echo $couponDetails->vendor_id; die;
+                    $productIds = Product::select('id')->where('vendor_id', $couponDetails->vendor_id)->pluck('id')->toArray();
+                    // echo "<pre>"; print_r($productIds); die;
+                    // Checking if coupon belongs to vendor products
+                    foreach ($getCartItems as $item) {
+                        if (!in_array($item['product']['id'], $productIds)) {
+                            $message = "This coupon code is not for you. Try with valid coupon code!";
                         }
                     }
                 }
