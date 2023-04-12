@@ -366,6 +366,16 @@ class ProductsController extends Controller
                     $message = "The coupon is expired!";
                 }
 
+                // Checking if coupon is for selected categories only
+
+                // Get all selected categories from "coupons" table
+                $catArr = explode(",", $couponDetails->categories);
+                foreach ($getCartItems as $key => $item) {
+                    if(!in_array($item['product']['category_id'], $catArr)){
+                        $message = "This coupon code is not for one of the selected products.";
+                    }
+                }
+
                 // If any error message is present
                 if(isset($message)){
                     return response()->json([
