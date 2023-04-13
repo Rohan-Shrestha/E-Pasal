@@ -73,7 +73,7 @@ class ProductsController extends Controller
                     $categoryProducts->whereIn('products.id',$productIds);
                 }
 
-                // Checking for Price
+                // Checking for Price (Old Version)
                 // if (isset($data['price']) && !empty($data['price'])) {
                 //     // echo "<pre>"; print_r($data['price']); die;
                 //     foreach ($data['price'] as $key => $price) {
@@ -93,8 +93,6 @@ class ProductsController extends Controller
                 // }
 
 
-
-
                 // Checking for Price
                 $productIds = array();
                 if (isset($data['price']) && !empty($data['price'])) {
@@ -108,9 +106,6 @@ class ProductsController extends Controller
                     $productIds = array_unique(array_flatten($productIds));
                     $categoryProducts->whereIn('products.id',$productIds);
                 }
-
-
-
 
                 // Checking for Brand
                 if (isset($data['brand']) && !empty($data['brand'])) {
