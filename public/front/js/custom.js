@@ -304,6 +304,16 @@ $(document).ready(function () {
                 $(".totalCartItems").html(resp.totalCartItems);
                 $('#appendCartItems').html(resp.view);
                 $('#appendHeaderCartItems').html(resp.headerview);
+                if(resp.couponAmount > 0){
+                    $(".couponAmount").text("Rs."+resp.couponAmount);
+                } else {
+                    $(".couponAmount").text("Rs.0");
+                }
+
+                if(resp.grand_total > 0){
+                    $(".grand_total").text("Rs."+resp.grand_total);
+                }
+                
             },error:function(){
                 alert("Error");
             }

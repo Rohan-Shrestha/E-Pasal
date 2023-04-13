@@ -16,3 +16,13 @@
   position: absolute;
   top: 50%;
 }
+
+.discountForm {
+  position: relative;
+  top: -250px;
+}
+
+.billingForm {
+  position: relative;
+  bottom: -140px;
+}

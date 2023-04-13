@@ -51,31 +51,31 @@ $totalCartItems = totalCartItems();
                                     Checkout</a>
                             </li> -->
                             @if(Auth::check())
-                                <li>
-                                    <a href="{{ url('user/account') }}">
-                                        <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        My Account</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('user/logout') }}">
-                                        <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        Logout</a>
-                                </li>
+                            <li>
+                                <a href="{{ url('user/account') }}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    My Account</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('user/logout') }}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    Logout</a>
+                            </li>
                             @else
-                                <li>
-                                    <a href="{{ url('user/login-register') }}">
-                                        <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        Customer Login</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('vendor/login-register') }}">
-                                        <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
-                                        Vendor Login</a>
-                                </li>
+                            <li>
+                                <a href="{{ url('user/login-register') }}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    Customer Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('vendor/login-register') }}">
+                                    <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
+                                    Vendor Login</a>
+                            </li>
                             @endif
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a>USD
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
@@ -100,6 +100,7 @@ $totalCartItems = totalCartItems();
                                 <a href="#">NEP</a>
                             </li>
                         </ul>
+                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -222,7 +223,7 @@ $totalCartItems = totalCartItems();
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                @endforeach                                                
+                                                @endforeach
                                             </div>
                                         </div>
                                     </li>
