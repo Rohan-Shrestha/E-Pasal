@@ -7,6 +7,7 @@ use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\DeliveryAddress;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
 use App\Models\ProductsFilter;
@@ -479,5 +480,12 @@ class ProductsController extends Controller
                 }
             }
         }
+    }
+
+    public function checkout()
+    {
+        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+        // dd($deliveryAddresses);
+        return view('front.products.checkout')->with(compact('deliveryAddresses'));
     }
 }
