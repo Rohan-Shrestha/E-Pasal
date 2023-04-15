@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 class DeliveryAddress extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'user_id', 'name', 'address', 'city', 'province', 'country', 'pincode', 'mobile', 'status'
+    ];
 
     public static function deliveryAddresses()
     {
