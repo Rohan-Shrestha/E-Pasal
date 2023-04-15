@@ -349,6 +349,25 @@ $(document).ready(function () {
         })
     });
 
+    // Save the Delivery Address
+    $(document).on('submit', "#addressAddEditForm", function(){
+        var formdata = $("#addressAddEditForm").serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/save-delivery-address',
+            type: 'post',
+            data: formdata,
+            success:function(data){
+                // alert(data);
+                $("#deliveryAddresses").html(data.view);
+            },error:function(){
+                alert('Error');
+            }
+        });
+    });
+
 });
 
 function get_filter(class_name) {

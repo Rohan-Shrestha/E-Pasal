@@ -210,6 +210,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
         // Get Delivery Address
         Route::post('get-delivery-address', 'AddressController@getDeliveryAddress');
+
+        // Save Delivery Address
+        Route::post('save-delivery-address', 'AddressController@saveDeliveryAddress');
     });
     
     // User Forgot Password (update password)
