@@ -28,12 +28,14 @@
                     <span class="astk">*</span>
                 </label>
                 <input type="text" name="delivery_name" id="delivery_name" class="text-field">
+                <p id="delivery-delivery_name"></p>
             </div>
             <div class="group-2">
                 <label for="last-name-extra">Address
                     <span class="astk">*</span>
                 </label>
                 <input type="text" name="delivery_address" id="delivery_address" class="text-field">
+                <p id="delivery-delivery_address"></p>
             </div>
         </div>
         <div class="group-inline u-s-m-b-13">
@@ -42,12 +44,14 @@
                     <span class="astk">*</span>
                 </label>
                 <input type="text" name="delivery_city" id="delivery_city" class="text-field">
+                <p id="delivery-delivery_city"></p>
             </div>
             <div class="group-2">
                 <label for="last-name-extra">Province
                     <span class="astk">*</span>
                 </label>
                 <input type="text" name="delivery_province" id="delivery_province" class="text-field">
+                <p id="delivery-delivery_province"></p>
             </div>
         </div>
         <div class="u-s-m-b-13">
@@ -61,6 +65,7 @@
                         <option value="{{ $country['country_name'] }}" @if ($country['country_name']==Auth::user()->country) selected @endif>{{ $country['country_name'] }}</option>
                     @endforeach
                 </select>
+                <p id="delivery-delivery_country"></p>
             </div>
         </div>
         <div class="u-s-m-b-13">
@@ -68,12 +73,14 @@
                 <span class="astk">*</span>
             </label>
             <input type="text" id="delivery_pincode" name="delivery_pincode" class="text-field">
+            <p id="delivery-delivery_pincode"></p>
         </div>
         <div class="u-s-m-b-13">
             <label for="delivery_mobile">Phone
                 <span class="astk">*</span>
             </label>
             <input type="text" id="delivery_mobile" name="delivery_mobile" class="text-field">
+            <p id="delivery-delivery_mobile"></p>
         </div>
         <div class="u-s-m-b-13">
             <button style="width: 100%;" type="submit" id="btnShipping" class="button button-outline-secondary">Save</button>

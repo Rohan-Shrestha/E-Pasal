@@ -361,7 +361,19 @@ $(document).ready(function () {
             data: formdata,
             success:function(resp){
                 // alert(resp);
-                $("#deliveryAddresses").html(resp.view);
+                // alert(resp.type);
+                if(resp.type=="error"){
+                    $(".loader").hide();
+                    $.each(resp.errors,function(i,error){
+                        $("#delivery-"+i).attr('style','color:red');
+                        $("#delivery-"+i).html(error);
+                        setTimeout(function(){
+                            $("#delivery-"+i).css({'display':'none'});
+                        }, 7000);
+                    });
+                } else {
+                    $("#deliveryAddresses").html(resp.view);
+                }
             },error:function(){
                 alert('Error');
             }
