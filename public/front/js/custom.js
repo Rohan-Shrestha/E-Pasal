@@ -319,6 +319,36 @@ $(document).ready(function () {
             }
         })
     });
+
+    // Edit Delivery Address
+    $(document).on('click', '.editAddress', function(){
+        var addressid = $(this).data("addressid");
+        // alert(addressid);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{addressid:addressid},
+            url:'/get-delivery-address',
+            type:'post',
+            success:function(resp){
+                $('#showdifferent').removeClass("collapse");
+                $('.newAddress').hide();
+                $('.deliveryText').text("Edit Delivery Address");
+                $('[name=delivery_id]').val(resp.address['id']);
+                $('[name=delivery_name]').val(resp.address['name']);
+                $('[name=delivery_address]').val(resp.address['address']);
+                $('[name=delivery_city]').val(resp.address['city']);
+                $('[name=delivery_province]').val(resp.address['id']);
+                $('[name=delivery_country]').val(resp.address['country']);
+                $('[name=delivery_pincode]').val(resp.address['pincode']);
+                $('[name=delivery_mobile]').val(resp.address['mobile']);
+            },error:function(){
+                alert("Error");
+            }
+        })
+    });
+
 });
 
 function get_filter(class_name) {
