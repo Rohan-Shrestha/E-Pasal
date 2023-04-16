@@ -22,7 +22,7 @@
         <!-- Mid-Footer -->
         <div class="mid-footer-wrapper u-s-p-b-80">
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <!-- <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="footer-list">
                         <h6>COMPANY</h6>
                         <ul>
@@ -69,7 +69,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="footer-list">
                         <h6>Contact</h6>
@@ -88,7 +88,7 @@
                                 <a href="mailto:rohanstha232@gmail.com">
                                     <i class="fas fa-envelope u-s-m-r-9"></i>
                                     <span>
-                                        rohanstha23@gmail.com</span>
+                                        rohanstha232@gmail.com</span>
                                 </a>
                             </li>
                         </ul>
@@ -99,7 +99,7 @@
         <!-- Mid-Footer /- -->
         <!-- Bottom Footer -->
         <div class="bottom-footer-wrapper">
-            <div class="social-media-wrapper">
+            <!-- <div class="social-media-wrapper">
                 <ul class="social-media-list">
                     <li>
                         <a href="#">
@@ -137,9 +137,10 @@
                         </a>
                     </li>
                 </ul>
-            </div>
-            <p class="copyright-text">Copyright &copy; 2022
-                <a target="_blank" rel="nofollow" href="https://youtube.com">Rohan Shrestha</a> | All Right Reserved
+            </div> -->
+            <p class="copyright-text">Copyright &copy; 2023
+                <!-- <a target="_blank" rel="nofollow" href="https://youtube.com">Rohan Shrestha</a> | All Right Reserved -->
+                <a href="javascript:;">E-Pasal</a> | All Right Reserved
             </p>
         </div>
         <!-- Bottom Footer /- -->

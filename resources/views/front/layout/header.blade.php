@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\Section;
+use App\Models\Product;
 
 $sections = Section::sections();
 // echo "<pre>"; print_r($sections); die;
 
 $totalCartItems = totalCartItems();
+$getCartItems = getCartItems();
 ?>
 
 <!-- Header -->
@@ -31,7 +33,7 @@ $totalCartItems = totalCartItems();
             <nav>
                 <ul class="secondary-nav g-nav">
                     <li>
-                        <a>@if(Auth::check()) My Account @else Login/Register @endif
+                        <a>@if(Auth::check()) {{ Auth::user()->name }} @else Login/Register @endif
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
                         <ul class="g-dropdown" style="width:200px">
@@ -40,11 +42,11 @@ $totalCartItems = totalCartItems();
                                     <i class="fas fa-cog u-s-m-r-9"></i>
                                     My Cart</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="wishlist.html">
                                     <i class="far fa-heart u-s-m-r-9"></i>
                                     My Wishlist</a>
-                            </li>
+                            </li> -->
                             <!-- <li>
                                 <a href="checkout.html">
                                     <i class="far fa-check-circle u-s-m-r-9"></i>
@@ -113,7 +115,7 @@ $totalCartItems = totalCartItems();
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
                         <a href="javascript:void(0);">
-                            <h4 style="color: #D90429"><strong>e-pasal</strong></h4>
+                            <h4 style="color: #1E3A8A"><strong>e-pasal</strong></h4>
                             <!-- <img src="{{ asset('front/images/main-logo/epasal-logo.png') }}" alt="E-Pasal" class="app-brand-logo"> -->
                         </a>
                     </div>
@@ -122,7 +124,7 @@ $totalCartItems = totalCartItems();
                     <form class="form-searchbox">
                         <label class="sr-only" for="search-landscape">Search</label>
                         <input id="search-landscape" type="text" class="text-field" placeholder="Search everything">
-                        <div class="select-box-position">
+                        <!-- <div class="select-box-position">
                             <div class="select-box-wrapper select-hide">
                                 <label class="sr-only" for="select-category">Choose category for search</label>
                                 <select class="select-box" id="select-category">
@@ -134,7 +136,7 @@ $totalCartItems = totalCartItems();
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <button id="btn-search" type="submit" class="button button-primary fas fa-search"></button>
                     </form>
                 </div>
@@ -142,20 +144,30 @@ $totalCartItems = totalCartItems();
                     <nav>
                         <ul class="mid-nav g-nav">
                             <li class="u-d-none-lg">
-                                <a href="index.html">
+                                <a href="{{ url('/') }}">
                                     <i class="ion ion-md-home u-c-brand"></i>
                                 </a>
                             </li>
-                            <li class="u-d-none-lg">
+                            <!-- <li class="u-d-none-lg">
                                 <a href="wishlist.html">
                                     <i class="far fa-heart"></i>
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
+                                @php $total_price = 0; @endphp
+                                @foreach($getCartItems as $item)
+                                <?php
+                                $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
+                                // echo "<pre>"; print_r($getDiscountAttributePrice); die;
+                                ?>
+                                @php
+                                    $total_price = $total_price + ($getDiscountAttributePrice['final_price'] * $item['quantity'])
+                                @endphp
+                                @endforeach
                                 <a id="mini-cart-trigger">
                                     <i class="ion ion-md-basket"></i>
                                     <span class="item-counter totalCartItems">{{ $totalCartItems }}</span>
-                                    <span class="item-price">Rs.1200.00</span>
+                                    <span class="item-price grand_total">Rs.{{ $total_price - Session::get('couponAmount') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -242,7 +254,7 @@ $totalCartItems = totalCartItems();
                 </div>
                 <div class="col-lg-9">
                     <ul class="bottom-nav g-nav u-d-none-lg">
-                        <li>
+                        <!-- <li>
                             <a href="listing-without-filters.html">New Arrivals
                                 <span class="superscript-label-new">NEW</span>
                             </a>
@@ -303,7 +315,7 @@ $totalCartItems = totalCartItems();
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

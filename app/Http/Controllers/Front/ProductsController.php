@@ -488,6 +488,8 @@ class ProductsController extends Controller
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();
         // dd($deliveryAddresses);
         $countries = Country::where('status', 1)->get()->toArray();
-        return view('front.products.checkout')->with(compact('deliveryAddresses', 'countries'));
+        $getCartItems = Cart::getCartItems();
+        // dd($getCartItems);
+        return view('front.products.checkout')->with(compact('deliveryAddresses', 'countries', 'getCartItems'));
     }
 }

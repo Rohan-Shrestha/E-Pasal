@@ -22,7 +22,7 @@
             </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i class="icon-bell mx-0"></i>
                 <span class="count"></span>
@@ -69,7 +69,7 @@
                         </div>
                     </a>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="{{ url('admin/update-admin-details') }}" data-toggle="dropdown" id="profileDropdown">
                 @if(!empty(Auth::guard('admin')->user()->image))
@@ -89,11 +89,11 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item nav-settings d-none d-lg-flex">
+            <!-- <li class="nav-item nav-settings d-none d-lg-flex">
                 <a class="nav-link" href="#">
                 <i class="icon-ellipsis"></i>
                 </a>
-            </li>
+            </li> -->
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
         <span class="icon-menu"></span>

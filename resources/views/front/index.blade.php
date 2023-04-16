@@ -72,11 +72,11 @@ use App\Models\Product; ?>
                                             @endif
                                         </a>
                                         <div class="item-action-behaviors">
-                                            <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
+                                            <!-- <a class="item-quick-look" data-toggle="modal" href="#quick-view">Quick Look
                                             </a>
-                                            <a class="item-mail" href="javascript:void(0)">Mail</a>
-                                            <a class="item-addwishlist" href="javascript:void(0)">Add to Wishlist</a>
-                                            <a class="item-addCart" href="javascript:void(0)">Add to Cart</a>
+                                            <a class="item-mail" href="javascript:void(0);">Mail</a>
+                                            <a class="item-addwishlist" href="javascript:void(0);">Add to Wishlist</a>
+                                            <a class="item-addCart" href="javascript:void(0);">Add to Cart</a> -->
                                         </div>
                                     </div>
                                     <div class="item-content">
@@ -114,9 +114,12 @@ use App\Models\Product; ?>
                                         </div>
                                         @endif
                                     </div>
-                                    <div class="tag new">
-                                        <span>NEW</span>
-                                    </div>
+                                    <?php $isProductNew = Product::isProductNew($product['id']); ?>
+                                    @if($isProductNew=="Yes")
+                                        <div class="tag new">
+                                            <span>NEW</span>
+                                        </div>
+                                    @endif
                                 </div>
                                 @endforeach
                             </div>
@@ -347,7 +350,7 @@ use App\Models\Product; ?>
     <div class="container">
         <div class="priority-wrapper u-s-p-b-80">
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="single-item-wrapper">
                         <div class="single-item-icon">
                             <i class="ion ion-md-star"></i>
@@ -358,7 +361,7 @@ use App\Models\Product; ?>
                         <p>We offer competitive prices on our 100 million plus product range</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="single-item-wrapper">
                         <div class="single-item-icon">
                             <i class="ion ion-md-cash"></i>
@@ -369,7 +372,7 @@ use App\Models\Product; ?>
                         <p>Our Protection covers your purchase from click to delivery</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="single-item-wrapper">
                         <div class="single-item-icon">
                             <i class="ion ion-ios-card"></i>
@@ -380,7 +383,7 @@ use App\Models\Product; ?>
                         <p>Pay with the world’s most popular and secure payment methods</p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3">
+                <!-- <div class="col-lg-3 col-md-3 col-sm-3">
                     <div class="single-item-wrapper">
                         <div class="single-item-icon">
                             <i class="ion ion-md-contacts"></i>
@@ -390,7 +393,7 @@ use App\Models\Product; ?>
                         </h2>
                         <p>Round-the-clock assistance for a smooth shopping experience</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

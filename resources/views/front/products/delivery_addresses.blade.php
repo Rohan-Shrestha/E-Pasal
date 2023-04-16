@@ -16,7 +16,11 @@
 <h4 class="section-h4 deliveryText">Add New Delivery Address</h4>
 <div class="u-s-m-b-24">
     <input type="checkbox" class="check-box" id="ship-to-different-address" data-toggle="collapse" data-target="#showdifferent">
-    <label class="label-text newAddress" for="ship-to-different-address">Ship to a different address?</label>
+    @if(count($deliveryAddresses)>0)
+        <label class="label-text newAddress" for="ship-to-different-address">Ship to a different address?</label>
+    @else
+        <label class="label-text newAddress" for="ship-to-different-address">Check to add Delivery address?</label>
+    @endif
 </div>
 <div class="collapse" id="showdifferent">
     <!-- Form-Fields -->

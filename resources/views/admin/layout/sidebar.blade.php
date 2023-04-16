@@ -98,10 +98,10 @@
                     @else style="background:#fff !important; color: #4B49AC !important;"
                     @endif class="nav-link" href="{{ url('admin/admins/admin') }}">Admins</a></li>
 
-                    <li class="nav-item"> <a @if (Session::get('page')=="view_subadmins")
+                    <!-- <li class="nav-item"> <a @if (Session::get('page')=="view_subadmins")
                     style="background:#4B49AC !important; color: #fff !important;"
                     @else style="background:#fff !important; color: #4B49AC !important;"
-                    @endif class="nav-link" href="{{ url('admin/admins/subadmin') }}">Subadmins</a></li>
+                    @endif class="nav-link" href="{{ url('admin/admins/subadmin') }}">Subadmins</a></li> -->
 
                     <li class="nav-item"> <a @if (Session::get('page')=="view_vendors")
                     style="background:#4B49AC !important; color: #fff !important;"
@@ -200,7 +200,7 @@
             </div>
         </li>
         @endif
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
             <i class="icon-columns menu-icon"></i>
             <span class="menu-title">Form elements</span>
@@ -211,8 +211,8 @@
                     <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
                 </ul>
             </div>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
             <i class="icon-bar-graph menu-icon"></i>
             <span class="menu-title">Charts</span>
@@ -235,8 +235,8 @@
                     <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
                 </ul>
             </div>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
             <i class="icon-contract menu-icon"></i>
             <span class="menu-title">Icons</span>
@@ -260,8 +260,8 @@
                     <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
                 </ul>
             </div>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
             <i class="icon-ban menu-icon"></i>
             <span class="menu-title">Error pages</span>
@@ -279,6 +279,6 @@
             <i class="icon-paper menu-icon"></i>
             <span class="menu-title">Documentation</span>
             </a>
-        </li>
+        </li> -->
     </ul>
 </nav>
