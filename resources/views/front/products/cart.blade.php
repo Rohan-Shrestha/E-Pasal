@@ -12,10 +12,10 @@ use App\Models\Product;
             <ul class="bread-crumb">
                 <li class="has-separator">
                     <i class="ion ion-md-home"></i>
-                    <a href="index.html">Home</a>
+                    <a href="javascript:;+">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="cart.html">Cart</a>
+                    <a href="{{ url('cart') }}">Cart</a>
                 </li>
             </ul>
         </div>

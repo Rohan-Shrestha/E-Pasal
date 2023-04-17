@@ -8,10 +8,10 @@
             <ul class="bread-crumb">
                 <li class="has-separator">
                     <i class="ion ion-md-home"></i>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="account.html">Account</a>
+                    <a href="{{ url('user/login-register') }}">Account</a>
                 </li>
             </ul>
         </div>
@@ -50,7 +50,7 @@
             <div class="col-lg-6">
                 <div class="login-wrapper">
                     <h2 class="account-h2 u-s-m-b-20">Forgot Password?</h2>
-                    <h6 class="account-h6 u-s-m-b-30">Welcome back! Sign in to your account.</h6>
+                    <h6 class="account-h6 u-s-m-b-30">Please provide your registered email below</h6>
                     <p id="forgot-error"></p>
                     <p id="forgot-success"></p>
                     <form id="forgotForm" action="javascript:;" method="post">@csrf

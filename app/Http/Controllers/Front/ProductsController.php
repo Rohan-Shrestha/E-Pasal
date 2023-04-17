@@ -483,8 +483,32 @@ class ProductsController extends Controller
         }
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            // Validation for not selecting a delivery address
+            if(empty($data['address_id'])){
+                $message = "Please add or select a Delivery Address!";
+                return redirect()->back()->with('error_message', $message);
+            }
+
+            // Validation for not selecting a payment method
+            if(empty($data['payment_gateway'])){
+                $message = "Please select a Payment Method!";
+                return redirect()->back()->with('error_message', $message);
+            }
+            
+            // Validation for not accepting the terms and conditions
+            if(empty($data['accept'])){
+                $message = "Please accept the Terms & Conditions";
+                return redirect()->back()->with('error_message', $message);
+            }
+            
+            echo "Ready To Place Order"; die;
+        }
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();
         // dd($deliveryAddresses);
         $countries = Country::where('status', 1)->get()->toArray();
