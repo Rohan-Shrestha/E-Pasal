@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Coupon;
 use App\Models\DeliveryAddress;
+use App\Models\Order;
+use App\Models\OrdersProduct;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
 use App\Models\ProductsFilter;
@@ -463,7 +465,7 @@ class ProductsController extends Controller
 
                     $grand_total = $totalAmount - $couponAmount;
 
-                    // Add coupon code and amount in session variable
+                    // Adding coupon code and amount in session variable
                     Session::put('couponAmount', $couponAmount);
                     Session::put('couponCode', $data['code']);
 
@@ -485,6 +487,17 @@ class ProductsController extends Controller
 
     public function checkout(Request $request)
     {
+        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+        // dd($deliveryAddresses);
+        $countries = Country::where('status', 1)->get()->toArray();
+        $getCartItems = Cart::getCartItems();
+        // dd($getCartItems);
+
+        if(count($getCartItems) == 0){
+            $message = "Shopping Cart is empty! Please add products to proceed to checkout.";
+            return redirect('cart')->with('error_message', $message);
+        }
+
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -506,14 +519,87 @@ class ProductsController extends Controller
                 $message = "Please accept the Terms & Conditions";
                 return redirect()->back()->with('error_message', $message);
             }
+
+            // echo "<pre>"; print_r($data); die;
+            // echo "Ready To Place Order"; die;
+
+            // Getting the Delivery Address from 'address_id'
+            $deliveryAddresses = DeliveryAddress::where('id', $data['address_id'])->first()->toArray();
+            // dd($deliveryAddresses);
+
+            // Selecting payment_method as Cash On Delivery(COD) if COD is selected by user else payment_method will be set as prepaid.
+            if($data['payment_gateway']=="COD"){
+                $payment_method = "COD";
+                $order_status = "New";
+            } else {
+                $payment_method = "Prepaid";
+                $order_status = "Pending";
+            }
+
+            DB::beginTransaction();
+
+            // Fetching GrandTotal Price of the Order made by the customer
+            $total_price = 0;
+            // $getCartItems = getCartItems();
+            foreach ($getCartItems as $key => $item) {
+                $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
+                $total_price = $total_price + ($getDiscountAttributePrice['final_price'] * $item['quantity']);
+            }
             
-            echo "Ready To Place Order"; die;
+            // Calculate Shipping Charges
+            $shipping_charges = 0;
+            
+            // Calculating Grand Total
+            $grand_total = $total_price + $shipping_charges - Session::get('couponAmount');
+            
+            // Inserting GrantTotal in Session Variable to use it in Thank You page
+            Session::put('grand_total', $grand_total);
+
+            // Inserting Order Details in 'Orders' table
+            $order = new Order;
+            $order->user_id = Auth::user()->id;
+            $order->name = $deliveryAddresses['name'];
+            $order->address = $deliveryAddresses['address'];
+            $order->city = $deliveryAddresses['city'];
+            $order->province = $deliveryAddresses['province'];
+            $order->country = $deliveryAddresses['country'];
+            $order->pincode = $deliveryAddresses['pincode'];
+            $order->mobile = $deliveryAddresses['mobile'];
+            $order->email = Auth::user()->email;
+            $order->shipping_charges = $shipping_charges;
+            $order->coupon_code = Session::get('couponCode');
+            $order->coupon_amount = Session::get('couponAmount');
+            $order->order_status = $order_status;
+            $order->payment_method = $payment_method;
+            $order->payment_gateway = $data['payment_gateway'];
+            $order->grand_total = $grand_total;
+            $order->save();
+            $order_id = DB::getPdo()->lastInsertId();
+
+            foreach ($getCartItems as $key => $item) {
+                $cartItem = new OrdersProduct;
+                $cartItem->order_id = $order_id;
+                $cartItem->user_id = Auth::user()->id;
+                $getProductDetails = Product::select('product_code', 'product_name', 'product_color', 'admin_id', 'vendor_id')->where('id', $item['product_id'])->first()->toArray();
+                // dd($getProductDetails);
+                $cartItem->admin_id = $getProductDetails['admin_id'];
+                $cartItem->vendor_id = $getProductDetails['vendor_id'];
+                $cartItem->product_id = $item['product_id'];
+                $cartItem->product_code = $getProductDetails['product_code'];
+                $cartItem->product_name = $getProductDetails['product_name'];
+                $cartItem->product_color = $getProductDetails['product_color'];
+                $cartItem->product_size = $item['size'];
+                $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
+                $cartItem->product_price = $getDiscountAttributePrice['final_price'];
+                $cartItem->product_qty = $item['quantity'];
+                $cartItem->save();
+            }
+
+            DB::commit();
+            // echo $total_price; die;
+            echo "Order has been placed successfully."; die;
         }
-        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
-        // dd($deliveryAddresses);
-        $countries = Country::where('status', 1)->get()->toArray();
-        $getCartItems = Cart::getCartItems();
-        // dd($getCartItems);
+        
         return view('front.products.checkout')->with(compact('deliveryAddresses', 'countries', 'getCartItems'));
     }
 }
