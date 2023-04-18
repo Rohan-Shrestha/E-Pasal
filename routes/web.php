@@ -219,6 +219,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
         // Thanks Page after customer places an order
         Route::get('thanks', 'ProductsController@thanks');
+
+        // Orders of Customers
+        Route::get('user/orders', 'OrderController@orders');
     });
     
     // User Forgot Password (update password)

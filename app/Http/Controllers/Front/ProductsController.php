@@ -541,7 +541,7 @@ class ProductsController extends Controller
             // Fetching GrandTotal Price of the Order made by the customer
             $total_price = 0;
             // $getCartItems = getCartItems();
-            foreach ($getCartItems as $key => $item) {
+            foreach ($getCartItems as $item) {
                 $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
                 $total_price = $total_price + ($getDiscountAttributePrice['final_price'] * $item['quantity']);
             }
@@ -583,7 +583,7 @@ class ProductsController extends Controller
             $order->save();
             $order_id = DB::getPdo()->lastInsertId();
 
-            foreach ($getCartItems as $key => $item) {
+            foreach ($getCartItems as $item) {
                 $cartItem = new OrdersProduct;
                 $cartItem->order_id = $order_id;
                 $cartItem->user_id = Auth::user()->id;
