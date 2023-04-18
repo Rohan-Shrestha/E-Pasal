@@ -216,6 +216,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         
         // Remove Delivery Address
         Route::post('remove-delivery-address', 'AddressController@removeDeliveryAddress');
+
+        // Thanks Page after customer places an order
+        Route::get('thanks', 'ProductsController@thanks');
     });
     
     // User Forgot Password (update password)

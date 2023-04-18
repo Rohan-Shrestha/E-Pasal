@@ -567,8 +567,15 @@ class ProductsController extends Controller
             $order->mobile = $deliveryAddresses['mobile'];
             $order->email = Auth::user()->email;
             $order->shipping_charges = $shipping_charges;
-            $order->coupon_code = Session::get('couponCode');
-            $order->coupon_amount = Session::get('couponAmount');
+
+            if(empty(Session::get('couponCode')) && empty(Session::get('couponAmount'))){
+                $order->coupon_code = 0;
+                $order->coupon_amount = 0;
+            } else {
+                $order->coupon_code = Session::get('couponCode');
+                $order->coupon_amount = Session::get('couponAmount');
+            }
+            
             $order->order_status = $order_status;
             $order->payment_method = $payment_method;
             $order->payment_gateway = $data['payment_gateway'];
@@ -595,11 +602,32 @@ class ProductsController extends Controller
                 $cartItem->save();
             }
 
+            // Insert Order ID in session variable
+            Session::put('order_id', $order_id);
+
             DB::commit();
             // echo $total_price; die;
-            echo "Order has been placed successfully."; die;
+
+            // forgetting the session after the customer places the order
+            Session::forget('couponAmount');
+            Session::forget('couponCode');
+
+            // echo "Order has been placed successfully."; die;
+            return redirect('thanks');
         }
         
         return view('front.products.checkout')->with(compact('deliveryAddresses', 'countries', 'getCartItems'));
+    }
+
+    public function thanks()
+    {
+        if(Session::has('order_id'))
+        {
+            // Empty the cart
+            Cart::where('user_id', Auth::user()->id)->delete();
+            return view('front.products.thanks');
+        } else {
+            return redirect('cart');
+        }
     }
 }
