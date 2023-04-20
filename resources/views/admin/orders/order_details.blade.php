@@ -4,6 +4,14 @@ use App\Models\Product;
 @extends('admin.layout.layout')
 @section('content')
 
+@if(Session::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <li>{{ Session::get('success_message')}}</li>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
 <div class="row">
   <div class="col-md-12 grid-margin">
     <div class="row">
@@ -34,6 +42,7 @@ use App\Models\Product;
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Order Details</h4>
+        
         <div class="form-group" style="height: 15px;">
           <label><strong>Order ID:</strong> </label>
           <label>#{{ $orderDetails['id'] }}</label>
@@ -72,7 +81,6 @@ use App\Models\Product;
           <label><strong>Payment Gateway:</strong> </label>
           <label>{{ $orderDetails['payment_gateway'] }}</label>
         </div>
-
 
       </div>
     </div>
@@ -183,7 +191,16 @@ use App\Models\Product;
       <div class="card-body">
         <h4 class="card-title">Update Order Status</h4>
 
-            
+            <form action="{{ url('admin/update-order-status') }}" method="post">@csrf
+                <input type="hidden" name="order_id" value="{{ $orderDetails['id'] }}">
+                <select name="order_status" required="">
+                    <option value="">Select</option>
+                    @foreach ($orderStatuses as $status)
+                        <option value="{{ $status['name'] }}" @if(!empty($orderDetails['order_status']) && $orderDetails['order_status'] == $status['name']) selected="" @endif>{{ $status['name'] }}</option>
+                    @endforeach
+                </select>
+                <button type="submit">Update</button>
+            </form>
 
       </div>
     </div>
