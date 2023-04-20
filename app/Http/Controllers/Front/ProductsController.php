@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use PhpParser\Node\Expr\Cast\String_;
 
@@ -608,9 +609,28 @@ class ProductsController extends Controller
             DB::commit();
             // echo $total_price; die;
 
+            $orderDetails = Order::with('orders_products')->where('id', $order_id)->first()->toArray();
+
             // forgetting the session after the customer places the order
             Session::forget('couponAmount');
             Session::forget('couponCode');
+
+            if($data['payment_gateway']=="COD"){
+                // Send Order Email
+                $email = Auth::user()->email;
+                $messageData = [
+                    'email' => $email,
+                    'name' => Auth::user()->name,
+                    'order_id' => $order_id,
+                    'orderDetails' => $orderDetails
+                ];
+                Mail::send('emails.order', $messageData, function($message)use($email){
+                    $message->to($email)->subject("Order Placed - E-Pasal");
+                });
+
+            } else {
+                echo "Online Payment Methods remaining !!";
+            }
 
             // echo "Order has been placed successfully."; die;
             return redirect('thanks');
