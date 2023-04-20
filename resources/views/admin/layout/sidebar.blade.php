@@ -37,7 +37,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a @if (Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="brands" || Session::get('page')=="products")
+            <a @if (Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="brands" || Session::get('page')=="products" || Session::get('page')=="coupons")
                 style="background:#4B49AC !important; color: #fff !important;"
                 @endif class="nav-link" data-toggle="collapse" href="#ui-catalogue" aria-expanded="false" aria-controls="ui-catalogue">
 
@@ -56,6 +56,23 @@
                     style="background:#4B49AC !important; color: #fff !important;"
                     @else style="background:#fff !important; color: #4B49AC !important;"
                     @endif class="nav-link" href="{{ url('admin/coupons') }}">Coupons</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a @if (Session::get('page')=="orders")
+            style="background:#4B49AC !important; color: #fff !important;"
+            @endif class="nav-link" data-toggle="collapse" href="#ui-orders" aria-expanded="false" aria-controls="ui-orders">
+            <i class="icon-layout menu-icon"></i>
+            <span class="menu-title">Manage Orders</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-orders">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B49AC !important;">
+                    <li class="nav-item"> <a @if (Session::get('page')=="orders")
+                    style="background:#4B49AC !important; color: #fff !important;"
+                    @else style="background:#fff !important; color: #4B49AC !important;"
+                    @endif class="nav-link" href="{{ url('admin/orders') }}">Orders</a></li>
                 </ul>
             </div>
         </li>
@@ -157,6 +174,23 @@
                     style="background:#4B49AC !important; color: #fff !important;"
                     @else style="background:#fff !important; color: #4B49AC !important;"
                     @endif class="nav-link" href="{{ url('admin/filters') }}">Filters</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a @if (Session::get('page')=="orders")
+            style="background:#4B49AC !important; color: #fff !important;"
+            @endif class="nav-link" data-toggle="collapse" href="#ui-orders" aria-expanded="false" aria-controls="ui-orders">
+            <i class="icon-layout menu-icon"></i>
+            <span class="menu-title">Manage Orders</span>
+            <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-orders">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important; color: #4B49AC !important;">
+                    <li class="nav-item"> <a @if (Session::get('page')=="orders")
+                    style="background:#4B49AC !important; color: #fff !important;"
+                    @else style="background:#fff !important; color: #4B49AC !important;"
+                    @endif class="nav-link" href="{{ url('admin/orders') }}">Orders</a></li>
                 </ul>
             </div>
         </li>
