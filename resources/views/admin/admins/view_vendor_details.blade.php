@@ -69,7 +69,7 @@
           <br><img style="width: 200px" src="{{ url('admin/images/photos/'.$vendorDetails['image']) }}">
         </div>
         @endif
-        </form>
+        
       </div>
     </div>
   </div>
@@ -137,7 +137,7 @@
           <br><img style="width: 200px" src="{{ url('admin/images/proofs/'.$vendorDetails['vendor_business']['address_proof_image']) }}">
         </div>
         @endif
-        </form>
+        
       </div>
     </div>
   </div>
@@ -163,7 +163,7 @@
           <label for="vendor_province">Bank SWIFT Code</label>
           <input type="text" class="form-control" @if(isset($vendorDetails['vendor_bank']['bank_swift_code'])) value="{{ $vendorDetails['vendor_bank']['bank_swift_code'] }}" @endif readonly="">
         </div>
-        </form>
+        
       </div>
     </div>
   </div>
