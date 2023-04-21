@@ -398,6 +398,7 @@ class AdminController extends Controller
             }
             $adminType = Auth::guard('admin')->user()->type;
             return response()->json(['status'=>$status, 'admin_id'=>$data['admin_id']]);
+            // return response()->json(['status'=>$status, 'admin_id'=>$data['admin_id'], 'admin_type'=>$adminType]);
         }
     }
 
