@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\OrderItemStatus;
+use App\Models\OrdersLog;
 use App\Models\OrdersProduct;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -64,15 +65,23 @@ class OrderController extends Controller
         $userDetails = User::where('id', $orderDetails['user_id'])->first()->toArray();
         $orderStatuses = OrderStatus::where('status', 1)->get()->toArray();
         $orderItemStatuses = OrderItemStatus::where('status', 1)->get()->toArray();
-        return view('admin.orders.order_details')->with(compact('orderDetails', 'userDetails', 'orderStatuses', 'orderItemStatuses'));
+        $orderLog = OrdersLog::where('order_id', $id)->get()->toArray();
+        return view('admin.orders.order_details')->with(compact('orderDetails', 'userDetails', 'orderStatuses', 'orderItemStatuses', 'orderLog'));
     }
 
     public function updateOrderStatus(Request $request){
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
+
             // Update Order Status
             Order::where('id', $data['order_id'])->update(['order_status'=>$data['order_status']]);
+
+            // Update Order Log
+            $log = new OrdersLog;
+            $log->order_id = $data['order_id'];
+            $log->order_status = $data['order_status'];
+            $log->save();
 
             // Get Delivery Details
             $deliveryDetails = Order::select('mobile', 'email', 'name')->where('id', $data['order_id'])->first()->toArray();

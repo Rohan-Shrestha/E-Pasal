@@ -202,6 +202,12 @@ use App\Models\Product;
                 </select>
                 <button type="submit" class="btn btn-outline-primary mr-2">Update</button>
             </form>
+            <br>
+            @foreach ($orderLog as $log)
+              <strong>{{ $log['order_status'] }}</strong><br>
+              {{ date('Y-m-d h:i:s', strtotime($log['created_at'])); }}<br>
+              <hr>
+            @endforeach
         @else
             This feature is restricted !
         @endif
