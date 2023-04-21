@@ -103,6 +103,27 @@ class OrderController extends Controller
             // echo "<pre>"; print_r($data); die;
             // Update Order Item Status
             OrdersProduct::where('id', $data['order_item_id'])->update(['item_status'=>$data['order_item_status']]);
+
+            $getOrderId = OrdersProduct::select('order_id')->where('id', $data['order_item_id'])->first()->toArray();
+
+            // Get Delivery Details
+            $deliveryDetails = Order::select('mobile', 'email', 'name')->where('id', $getOrderId['order_id'])->first()->toArray();
+
+            $orderDetails = Order::with('orders_products')->where('id', $getOrderId['order_id'])->first()->toArray();
+
+            // Send Order Status Update Email
+            $email = $deliveryDetails['email'];
+            $messageData = [
+                'email' => $email,
+                'name' => $deliveryDetails['name'],
+                'order_id' => $getOrderId['order_id'],
+                'orderDetails' => $orderDetails,
+                'order_status' => $data['order_item_status'],
+            ];
+            Mail::send('emails.order_status', $messageData, function($message)use($email){
+                $message->to($email)->subject("Order Status Updated - E-Pasal");
+            });
+
             $message = "Order Item Status has been updated successfully !";
             return redirect()->back()->with('success_message', $message);
         }
