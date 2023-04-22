@@ -1,18 +1,3 @@
-@if(count($deliveryAddresses)>0)
-    <h4 class="section-h4">Delivery Addresses</h4>
-    @foreach ($deliveryAddresses as $address)
-    <div class="control-group" style="float: left; margin-right: 10px;">
-        <input type="radio" name="address_id" id="address{{ $address['id'] }}" value="{{ $address['id'] }}">
-    </div>
-    <div>
-        <label class="control-label">
-            {{ $address['name'] }}, {{ $address['address'] }}, {{ $address['city'] }}, {{ $address['province'] }}, {{ $address['country'] }} <br>({{ $address['mobile'] }})
-        </label>
-        <a href="javascript:;" data-addressid="{{ $address['id'] }}" class="removeAddress" style="float: right; margin-left: 15px;">Remove</a>
-        <a href="javascript:;" data-addressid="{{ $address['id'] }}" class="editAddress" style="float: right;">Edit</a>&nbsp;
-    </div>
-    @endforeach<br>
-@endif
 <h4 class="section-h4 deliveryText">Add New Delivery Address</h4>
 <div class="u-s-m-b-24">
     <input type="checkbox" class="check-box" id="ship-to-different-address" data-toggle="collapse" data-target="#showdifferent">

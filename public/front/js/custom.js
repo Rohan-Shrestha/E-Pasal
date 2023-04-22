@@ -373,6 +373,7 @@ $(document).ready(function () {
                     });
                 } else {
                     $("#deliveryAddresses").html(resp.view);
+                    window.location.href = "checkout";
                 }
             },error:function(){
                 alert('Error');
@@ -395,6 +396,7 @@ $(document).ready(function () {
                 success:function(resp){
                     // alert(resp);
                     $("#deliveryAddresses").html(resp.view);
+                    window.location.href = "checkout";
                 },error:function(){
                     alert("Error");
                 }

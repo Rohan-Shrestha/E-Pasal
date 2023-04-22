@@ -27,24 +27,42 @@ use Illuminate\Support\Facades\Session;
 <div class="page-checkout u-s-p-t-80 bg-light">
     <div class="container">
         @if(Session::has('error_message'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <li><?php echo Session::get('error_message'); ?></li>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-            </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <li><?php echo Session::get('error_message'); ?></li>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         @endif
-        <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout') }}" method="post">@csrf
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="row">
-                        <!-- Billing-&-Shipping-Details -->
-                        <div class="col-lg-6" id="deliveryAddresses">
-                            @include('front.products.delivery_addresses')
-                        </div>
-                        <!-- Billing-&-Shipping-Details /- -->
-                        <!-- Checkout -->
-                        <div class="col-lg-6">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    <!-- Billing-&-Shipping-Details -->
+                    <div class="col-lg-6" id="deliveryAddresses">
+                        @include('front.products.delivery_addresses')
+                    </div>
+                    <!-- Billing-&-Shipping-Details /- -->
+                    <!-- Checkout -->
+                    <div class="col-lg-6">
+                        <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout') }}" method="post">@csrf
+
+                            @if(count($deliveryAddresses)>0)
+                                <h4 class="section-h4">Delivery Addresses</h4>
+                                @foreach ($deliveryAddresses as $address)
+                                <div class="control-group" style="float: left; margin-right: 10px;">
+                                    <input type="radio" name="address_id" id="address{{ $address['id'] }}" value="{{ $address['id'] }}">
+                                </div>
+                                <div>
+                                    <label class="control-label">
+                                        {{ $address['name'] }}, {{ $address['address'] }}, {{ $address['city'] }}, {{ $address['province'] }}, {{ $address['country'] }} <br>({{ $address['mobile'] }})
+                                    </label>
+                                    <a href="javascript:;" data-addressid="{{ $address['id'] }}" class="removeAddress" style="float: right; margin-left: 15px;">Remove</a>
+                                    <a href="javascript:;" data-addressid="{{ $address['id'] }}" class="editAddress" style="float: right;">Edit</a>&nbsp;
+                                </div>
+                                @endforeach<br>
+                            @endif
+
                             <h4 class="section-h4">Your Order</h4>
                             <div class="order-table">
                                 <table class="u-s-m-b-13">
@@ -57,25 +75,25 @@ use Illuminate\Support\Facades\Session;
                                     <tbody>
                                         @php $total_price = 0; @endphp
                                         @foreach($getCartItems as $item)
-                                            <?php
-                                            $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
-                                            // echo "<pre>"; print_r($getDiscountAttributePrice); die;
-                                            ?>
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ url('product/'.$item['product_id']) }}">
-                                                        <img width="50px" src="{{ asset('front/images/product_images/small/'.$item['product']['product_image']) }}" alt="Product">
-                                                        <h6 class="order-h6">{{ $item['product']['product_name'] }}<br>{{ $item['size'] }}/ {{ $item['product']['product_color'] }}</h6>
-                                                    </a>&nbsp;
-                                                    <span class="order-span-quantity">x {{ $item['quantity'] }}</span>
-                                                </td>
-                                                <td>
-                                                    <h6 class="order-h6">Rs.{{ $getDiscountAttributePrice['final_price'] * $item['quantity'] }}</h6>
-                                                </td>
-                                            </tr>
-                                            @php
-                                                $total_price = $total_price + ($getDiscountAttributePrice['final_price'] * $item['quantity'])
-                                            @endphp
+                                        <?php
+                                        $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
+                                        // echo "<pre>"; print_r($getDiscountAttributePrice); die;
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <a href="{{ url('product/'.$item['product_id']) }}">
+                                                    <img width="50px" src="{{ asset('front/images/product_images/small/'.$item['product']['product_image']) }}" alt="Product">
+                                                    <h6 class="order-h6">{{ $item['product']['product_name'] }}<br>{{ $item['size'] }}/ {{ $item['product']['product_color'] }}</h6>
+                                                </a>&nbsp;
+                                                <span class="order-span-quantity">x {{ $item['quantity'] }}</span>
+                                            </td>
+                                            <td>
+                                                <h6 class="order-h6">Rs.{{ $getDiscountAttributePrice['final_price'] * $item['quantity'] }}</h6>
+                                            </td>
+                                        </tr>
+                                        @php
+                                        $total_price = $total_price + ($getDiscountAttributePrice['final_price'] * $item['quantity'])
+                                        @endphp
                                         @endforeach
                                         <tr>
                                             <td>
@@ -99,11 +117,11 @@ use Illuminate\Support\Facades\Session;
                                             </td>
                                             <td>
                                                 <h6 class="order-h6">
-                                                @if (Session::has('couponAmount'))
+                                                    @if (Session::has('couponAmount'))
                                                     Rs.{{ Session::get('couponAmount') }}
-                                                @else
+                                                    @else
                                                     Rs.0
-                                                @endif
+                                                    @endif
                                                 </h6>
                                             </td>
                                         </tr>
@@ -133,12 +151,12 @@ use Illuminate\Support\Facades\Session;
                                 </div>
                                 <button type="submit" class="button button-outline-secondary">Place Order</button>
                             </div>
-                        </div>
-                        <!-- Checkout /- -->
+                        </form>
                     </div>
+                    <!-- Checkout /- -->
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <!-- Checkout-Page /- -->
