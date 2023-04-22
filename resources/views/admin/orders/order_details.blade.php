@@ -1,5 +1,6 @@
 <?php
 use App\Models\Product;
+use App\Models\OrdersLog;
 ?>
 @extends('admin.layout.layout')
 @section('content')
@@ -205,16 +206,30 @@ use App\Models\Product;
                 <button type="submit" class="btn btn-outline-primary mr-2 mt-2 mb-2">Update</button>
             </form>
             <br>
-            @foreach ($orderLog as $log)
+            @foreach ($orderLog as $key => $log)
+            <?php /* echo "<pre>"; print_r($log['orders_products'][$key]['product_code']); die; */ ?>
               <strong>{{ $log['order_status'] }}</strong>
-              @if ($log['order_status']=="Shipped")
-                @if (!empty($orderDetails['courier_name']))
-                  <br><span>Courier Name: {{ $orderDetails['courier_name'] }}</span>
+              <?php /* @if ($log['order_status']=="Shipped") */ ?>
+                @if(isset($log['order_item_id']) && $log['order_item_id']>0)
+                  @php $getItemDetails = OrdersLog::getItemDetails($log['order_item_id']); @endphp
+                    - for item {{ $getItemDetails['product_code'] }}
+                    @if (!empty($getItemDetails['courier_name']))
+                      <br><span>Courier Name: {{ $getItemDetails['courier_name'] }}</span>
+                    @endif
+                    @if (!empty($getItemDetails['tracking_number']))
+                      <br><span>Tracking Number: {{ $getItemDetails['tracking_number'] }}</span>
+                    @endif
+                  <?php /*
+                  @else
+                    @if (!empty($orderDetails['courier_name']))
+                      <br><span>Courier Name: {{ $orderDetails['courier_name'] }}</span>
+                    @endif
+                    @if (!empty($orderDetails['tracking_number']))
+                      <br><span>Tracking Number: {{ $orderDetails['tracking_number'] }}</span>
+                    @endif
+                  */ ?>
                 @endif
-                @if (!empty($orderDetails['tracking_number']))
-                  <br><span>Tracking Number: {{ $orderDetails['tracking_number'] }}</span>
-                @endif
-              @endif
+              <?php /* @endif */ ?>
               <br>{{ date('Y-m-d h:i:s', strtotime($log['created_at'])); }}<br>
               <hr>
             @endforeach

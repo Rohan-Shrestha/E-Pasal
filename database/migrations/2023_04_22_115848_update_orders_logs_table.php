@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('orders_logs', function(Blueprint $table){
-            $table->integer('order_item_id')->after('order_id');
+            $table->integer('order_item_id')->nullable()->after('order_id');
         });
     }
 
