@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('orders_products', function (Blueprint $table) {
-            $table->string('courier_name')->after('item_status');
-            $table->string('tracking_number')->after('courier_name');
+            $table->string('courier_name')->nullable()->after('item_status');
+            $table->string('tracking_number')->nullable()->after('courier_name');
         });
     }
 

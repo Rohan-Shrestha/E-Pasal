@@ -91,9 +91,12 @@
             </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
+        <tr><td>Download Order Invoice at: <a href="{{ url('orders/invoice/download/'.$orderDetails['id'].'') }}">{{ url('orders/invoice/download/'.$orderDetails['id'].'') }}</a></td></tr>
+        <tr><td>&nbsp;</td></tr>
         <tr>
             <td>
-                For any queries, you can contact us at <a href="mailto:rohanstha232@gmail.com">rohanstha232@gmail.com</a>
+                For any queries, you can contact us at <a href="mailto:rohanstha232@gmail.com">rohanstha232@gmail.com</a><br>
+                (If the link doesn't work, copy and paste the link in your browser.)
             </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
