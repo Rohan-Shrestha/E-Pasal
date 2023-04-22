@@ -115,8 +115,14 @@ class OrderController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
+
             // Update Order Item Status
             OrdersProduct::where('id', $data['order_item_id'])->update(['item_status'=>$data['order_item_status']]);
+
+            // Update Courier Name and Courier Tracking Number
+            if(!empty($data['item_courier_name']) && !empty($data['item_tracking_number'])){
+                Order::where('id', $data['order_item_id'])->update(['courier_name'=>$data['item_courier_name'], 'tracking_number'=>$data['item_tracking_number']]);
+            }
 
             $getOrderId = OrdersProduct::select('order_id')->where('id', $data['order_item_id'])->first()->toArray();
 

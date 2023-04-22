@@ -254,13 +254,15 @@ use App\Models\Product;
                         <td>
                             <form action="{{ url('admin/update-order-item-status') }}" method="post">@csrf
                                 <input type="hidden" name="order_item_id" value="{{ $product['id'] }}">
-                                <select name="order_item_status" required="">
+                                <select name="order_item_status" id="order_item_status" class="mt-2 mb-2" required="">
                                     <option value="">Select</option>
                                     @foreach ($orderItemStatuses as $status)
                                         <option value="{{ $status['name'] }}" @if(!empty($product['item_status']) && $product['item_status'] == $status['name']) selected="" @endif>{{ $status['name'] }}</option>
                                     @endforeach
-                                </select>
-                                <button type="submit" class="btn btn-outline-primary mr-2">Update</button>
+                                </select><br>
+                                <input style="width: 120px;" type="text" name="item_courier_name" id="item_courier_name" class="mt-2 mb-2" placeholder="Courier Name" @if(!empty($product['courier_name'])) value="{{ $product['courier_name'] }}" @endif>
+                                <input style="width: 120px;" type="text" name="item_tracking_number" id="item_tracking_number" class="mt-2 mb-2" placeholder="Tracking Number" @if(!empty($product['tracking_number'])) value="{{ $product['tracking_number'] }}" @endif>
+                                <button type="submit" class="mt-2 mb-2">Update</button>
                             </form>
                         </td>
                     </tr>
