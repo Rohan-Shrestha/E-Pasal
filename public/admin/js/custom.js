@@ -479,4 +479,17 @@ $(document).ready(function () {
         $("#couponField").hide();
     });
 
+    // Show Courier Name and Tracking if the Order Status is set to "Shipped" by the admin
+    $("#courier_name").hide();
+    $("#tracking_number").hide();
+    $("#order_status").on("change", function(){
+        if(this.value=="Shipped"){
+            $("#courier_name").show();
+            $("#tracking_number").show();
+        } else {
+            $("#courier_name").hide();
+            $("#tracking_number").hide();
+        }
+    });
+
 });
