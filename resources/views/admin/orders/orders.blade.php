@@ -71,6 +71,7 @@
                                         </td>
                                         <td>
                                             <a title="View Order Details" href="{{ url('admin/orders/'.$order['id']) }}"><i style="font-size: 25px;" class="mdi mdi-file-document"></i></a>
+                                            <a target="_blank" title="View Order Invoice" href="{{ url('admin/orders/invoice/'.$order['id']) }}"><i style="font-size: 25px;" class="mdi mdi-printer"></i></a>
                                         </td>
                                     </tr>
                                 @endif
