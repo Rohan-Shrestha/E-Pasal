@@ -55,6 +55,16 @@ use App\Models\Product;
                         <td>Rs. {{ $orderDetails['coupon_amount'] }}</td>
                     </tr>
                 @endif
+                @if($orderDetails['courier_name']!="")
+                    <tr>
+                        <td>Courier Name</td>
+                        <td>{{ $orderDetails['courier_name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tracking Number</td>
+                        <td>{{ $orderDetails['tracking_number'] }}</td>
+                    </tr>
+                @endif
                 <tr>
                     <td>Payment Method</td>
                     <td>{{ $orderDetails['payment_method'] }}</td>
@@ -81,6 +91,9 @@ use App\Models\Product;
                         <td>{{ $product['product_color'] }}</td>
                         <td>{{ $product['product_qty'] }}</td>
                     </tr>
+                    @if ($product['courier_name']!="")
+                        <tr><td colspan="6">Courier Name: {{ $product['courier_name'] }}, Tracking Number: {{ $product['tracking_number'] }}</td></tr>
+                    @endif
                 @endforeach
             </table>
             <table class="table table-striped">
