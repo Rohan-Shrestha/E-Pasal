@@ -87,6 +87,11 @@ $(document).ready(function () {
         }
     });
 
+    // Show Loading animation while Order Placement
+    $(document).on('click', '#placeOrder', function(){
+        $(".loader").show();
+    });
+
     // User Registration Form Validation
     $("#registerForm").submit(function(){
         $(".loader").show();
