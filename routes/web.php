@@ -234,6 +234,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
         // Orders as well as Order Details of Customers
         Route::get('user/orders/{id?}', 'OrderController@orders');
+
+        // PAYPAL
+        Route::get('paypal', 'PaypalController@paypal');
     });
     
     // User Forgot Password (update password)

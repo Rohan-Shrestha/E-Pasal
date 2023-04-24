@@ -637,8 +637,11 @@ class ProductsController extends Controller
                     $message->to($email)->subject("Order Placed - E-Pasal");
                 });
 
+            } elseif ($data['payment_gateway']=="Paypal"){
+                // if payment gateway is paypal, redirect the customer to Paypal page after saving the Order
+                return redirect("/paypal");
             } else {
-                echo "Online Payment Methods remaining !!";
+                echo "Other Online Payment Methods remaining !!";
             }
 
             // echo "Order has been placed successfully."; die;
