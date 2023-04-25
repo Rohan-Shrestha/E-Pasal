@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 <div class="page-style-a">
     <div class="container">
         <div class="page-intro">
-            <h2>Cart</h2>
+            <h2>Payment</h2>
             <ul class="bread-crumb">
                 <li class="has-separator">
                     <i class="ion ion-md-home"></i>
@@ -28,8 +28,9 @@ use Illuminate\Support\Facades\Session;
     <div class="container">
         <div class="row">
             <div class="col-lg-12" align="center">
-                <h3>YOUR ORDER HAS BEEN PLACED SUCCESSFULLY !</h3>
-                <p>Your order number is <strong>{{ Session::get('order_id') }}</strong> and Total Price is <strong>Rs. {{ Session::get('grand_total') }}</strong></p>
+                <h3>YOUR PAYMENT HAS BEEN CONFIRMED</h3>
+                <p>Thank You for the payment. We will process your order very soon.</p>
+                <p>Your order number is <strong>{{ Session::get('order_id') }}</strong> and total amount paid is <strong>Rs. {{ Session::get('grand_total') }}</strong></p>
             </div>
         </div>
     </div>

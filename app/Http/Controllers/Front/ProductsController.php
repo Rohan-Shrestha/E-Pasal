@@ -541,6 +541,9 @@ class ProductsController extends Controller
             if($data['payment_gateway']=="COD"){
                 $payment_method = "COD";
                 $order_status = "New";
+            } elseif($data['payment_gateway']=="Paypal"){
+                $payment_method = "PayPal";
+                $order_status = "Pending";
             } else {
                 $payment_method = "Prepaid";
                 $order_status = "Pending";
