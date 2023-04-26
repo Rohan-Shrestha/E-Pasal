@@ -613,6 +613,8 @@ class ProductsController extends Controller
                 $cartItem->product_price = $getDiscountAttributePrice['final_price'];
                 $cartItem->product_qty = $item['quantity'];
                 $cartItem->save();
+
+                
             }
 
             // Insert Order ID in session variable
@@ -639,6 +641,14 @@ class ProductsController extends Controller
                 Mail::send('emails.order', $messageData, function($message)use($email){
                     $message->to($email)->subject("Order Placed - E-Pasal");
                 });
+
+                foreach ($getCartItems as $item) {
+                    // Reduce Product Stock every time a customer makes a purchase or orders a product
+                    $getProductStock = ProductsAttribute::getProductStock($item['product_id'], $item['size']);
+                    $newStock = $getProductStock - $item['quantity'];
+                    ProductsAttribute::where(['product_id'=>$item['product_id'], 'size'=>$item['size']])->update(['stock'=>$newStock]);
+                    // Reduce Product Stock Ends
+                }
 
             } elseif ($data['payment_gateway']=="Paypal"){
                 // if payment gateway is paypal, redirect the customer to Paypal page after saving the Order

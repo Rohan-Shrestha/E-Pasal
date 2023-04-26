@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\ProductsAttribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -58,7 +59,7 @@ class PaypalController extends Controller
         // redirecting customer to cart page,
         // if the customer tries to access/refresh the Payment Success page again after a successful Payment.
         if(!Session::has('order_id')){
-            redirect('cart');
+            return redirect('cart');
         }
 
         if($request->input('paymentId') && $request->input('PayerID')){
@@ -101,6 +102,14 @@ class PaypalController extends Controller
                 Mail::send('emails.order', $messageData, function($message)use($email){
                     $message->to($email)->subject("Order Placed - E-Pasal");
                 });
+
+                foreach ($orderDetails['orders_products'] as $key => $order) {
+                    // Reduce Product Stock every time a customer makes a purchase or orders a product
+                    $getProductStock = ProductsAttribute::getProductStock($order['product_id'], $order['product_size']);
+                    $newStock = $getProductStock - $order['product_qty'];
+                    ProductsAttribute::where(['product_id'=>$order['product_id'], 'size'=>$order['product_size']])->update(['stock'=>$newStock]);
+                    // Reduce Product Stock Ends
+                }
 
                 // Empty the cart after the successful transaction
                 Cart::where('user_id', Auth::user()->id)->delete();
