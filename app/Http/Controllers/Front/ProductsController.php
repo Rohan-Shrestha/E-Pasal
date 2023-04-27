@@ -512,6 +512,26 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
+            // WEBSITE SECURITY END
+            foreach($getCartItems as $item){
+                // Prevent disabled products from being ordered
+                $product_status = Product::getProductStatus($item['product_id']);
+                if($product_status==0){
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of the Product is disabled by the seller. Please try again with another product.";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+
+                // Preventing sold out products from being ordered by the customers
+                $getProductStock = ProductsAttribute::getProductStock($item['product_id'], $item['size']);
+                if($getProductStock==0){
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of the Product is Sold Out.";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+            }
+            // WEBSITE SECURITY END
+
             // Validation for not selecting a delivery address
             if(empty($data['address_id'])){
                 $message = "Please add or select a Delivery Address!";
