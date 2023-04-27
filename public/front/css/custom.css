@@ -26,3 +26,15 @@
   position: relative;
   bottom: -140px;
 }
+
+.v-menu > .v-title {
+  padding-left: 30px;
+  height: 45px;
+  /* margin-left: 30px; */
+  border-radius: 3px 3px 3px 3px;
+  line-height: 45px;
+}
+
+.fas {
+  line-height: 0.2;
+}

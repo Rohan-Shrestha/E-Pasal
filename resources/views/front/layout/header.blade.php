@@ -17,6 +17,9 @@ $getCartItems = getCartItems();
         <div class="container clearfix">
             <nav>
                 <ul class="primary-nav g-nav">
+                    <li>
+                        <h4 style="margin-top: 10px;"><strong><a href="{{ url('/') }}" style="color: #1E3A8A; margin-top: 10px; margin-left: 90px;">e-pasal</a></strong></h4>
+                    </li>
                     <!-- <li>
                         <a href="tel:+977 9825934121">
                             <i class="fas fa-phone u-c-brand u-s-m-r-9"></i>
@@ -82,32 +85,6 @@ $getCartItems = getCartItems();
                             @endif
                         </ul>
                     </li>
-                    <!-- <li>
-                        <a>USD
-                            <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:90px">
-                            <li>
-                                <a href="#" class="u-c-brand">($) USD</a>
-                            </li>
-                            <li>
-                                <a href="#">(£) GBP</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a>ENG
-                            <i class="fas fa-chevron-down u-s-m-l-9"></i>
-                        </a>
-                        <ul class="g-dropdown" style="width:70px">
-                            <li>
-                                <a href="#" class="u-c-brand">ENG</a>
-                            </li>
-                            <li>
-                                <a href="#">NEP</a>
-                            </li>
-                        </ul>
-                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -118,11 +95,56 @@ $getCartItems = getCartItems();
         <div class="container">
             <div class="row clearfix align-items-center">
                 <div class="col-lg-3 col-md-9 col-sm-6">
-                    <div class="brand-logo text-lg-center">
-                        <a href="javascript:void(0);">
-                            <h4 style="color: #1E3A8A"><strong>e-pasal</strong></h4>
-                            <!-- <img src="{{ asset('front/images/main-logo/epasal-logo.png') }}" alt="E-Pasal" class="app-brand-logo"> -->
-                        </a>
+                <div class="v-menu v-close">
+                        <span class="v-title">
+                            <i class="ion ion-md-menu"></i>
+                            All Categories
+                            <i class="fas fa-angle-down"></i>
+                        </span>
+                        <nav>
+                            <div class="v-wrapper">
+                                <ul class="v-list animated fadeIn">
+                                    @foreach ($sections as $section)
+                                    @if(count($section['categories'])>0)
+                                    <li class="js-backdrop">
+                                        <a href="javascript:void(0);">
+                                            <i class="ion-ios-add-circle"></i>
+                                            {{ $section['name'] }}
+                                            <i class="ion ion-ios-arrow-forward"></i>
+                                        </a>
+                                        <button class="v-button ion ion-md-add"></button>
+                                        <div class="v-drop-right" style="width: 700px;">
+                                            <div class="row">
+                                                @foreach ($section['categories'] as $category)
+                                                <div class="col-lg-4">
+                                                    <ul class="v-level-2">
+                                                        <li>
+                                                            <a href="{{ url($category['url']) }}">{{ $category['category_name'] }}</a>
+                                                            <ul>
+                                                                @foreach ($category['subcategories'] as $subcategory)
+                                                                <li>
+                                                                    <a href="{{ url($subcategory['url']) }}">{{ $subcategory['category_name'] }}</a>
+                                                                </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @endif
+                                    @endforeach
+                                    <li>
+                                        <a class="v-more">
+                                            <i class="ion ion-md-add"></i>
+                                            <span>View More</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
                 </div>
                 <div class="col-lg-6 u-d-none-lg">
@@ -199,57 +221,7 @@ $getCartItems = getCartItems();
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-3">
-                    <div class="v-menu v-close">
-                        <span class="v-title">
-                            <i class="ion ion-md-menu"></i>
-                            All Categories
-                            <i class="fas fa-angle-down"></i>
-                        </span>
-                        <nav>
-                            <div class="v-wrapper">
-                                <ul class="v-list animated fadeIn">
-                                    @foreach ($sections as $section)
-                                    @if(count($section['categories'])>0)
-                                    <li class="js-backdrop">
-                                        <a href="javascript:void(0);">
-                                            <i class="ion-ios-add-circle"></i>
-                                            {{ $section['name'] }}
-                                            <i class="ion ion-ios-arrow-forward"></i>
-                                        </a>
-                                        <button class="v-button ion ion-md-add"></button>
-                                        <div class="v-drop-right" style="width: 700px;">
-                                            <div class="row">
-                                                @foreach ($section['categories'] as $category)
-                                                <div class="col-lg-4">
-                                                    <ul class="v-level-2">
-                                                        <li>
-                                                            <a href="{{ url($category['url']) }}">{{ $category['category_name'] }}</a>
-                                                            <ul>
-                                                                @foreach ($category['subcategories'] as $subcategory)
-                                                                <li>
-                                                                    <a href="{{ url($subcategory['url']) }}">{{ $subcategory['category_name'] }}</a>
-                                                                </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </li>
-                                    @endif
-                                    @endforeach
-                                    <li>
-                                        <a class="v-more">
-                                            <i class="ion ion-md-add"></i>
-                                            <span>View More</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
+                    
                 </div>
                 <div class="col-lg-9">
                     <ul class="bottom-nav g-nav u-d-none-lg">

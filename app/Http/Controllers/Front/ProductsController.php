@@ -535,7 +535,15 @@ class ProductsController extends Controller
                 $getAttributeStatus = ProductsAttribute::getAttributeStatus($item['product_id'], $item['size']);
                 if($getAttributeStatus==0){
                     Product::deleteCartProduct($item['product_id']);
-                    $message = "One of the Product's Attribute/Size is disabled.";
+                    $message = "One of the Product's Attribute/Size is disabled. Please try again with another product.";
+                    return redirect('/cart')->with('error_message', $message);
+                }
+
+                // Preventing a prodcut from being ordered if that product's category is disabled.
+                $getCategoryStatus = Category::getCategoryStatus($item['product']['category_id']);
+                if($getCategoryStatus==0){
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of the Product is disabled. Please try again with another product.";
                     return redirect('/cart')->with('error_message', $message);
                 }
             }
