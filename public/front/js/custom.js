@@ -1,3 +1,5 @@
+document.getElementById("users-email").focus();
+
 $(document).ready(function () {
     // $(".loader").show();
     $("#getPrice").change(function () {

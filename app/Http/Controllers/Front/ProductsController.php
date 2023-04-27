@@ -236,6 +236,11 @@ class ProductsController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
+            // if user adds a product with '0' quantity
+            if($data['quantity']<=0){
+                $data['quantity'] = 1;
+            }
+
             // Check either Product Stock is available or not
             $getProductStock = ProductsAttribute::getProductStock($data['product_id'], $data['size']);
             if($getProductStock<$data['quantity']){
@@ -517,16 +522,18 @@ class ProductsController extends Controller
                 // Prevent disabled products from being ordered
                 $product_status = Product::getProductStatus($item['product_id']);
                 if($product_status==0){
-                    Product::deleteCartProduct($item['product_id']);
-                    $message = "One of the Product is disabled by the seller. Please try again with another product.";
+                    // Product::deleteCartProduct($item['product_id']);
+                    // $message = "One of the Product is disabled by the seller. Please try again with another product.";
+                    $message = $item['product']['product_name']." with".$item['size']."Size is not available. Please remove it from cart and choose another product.";
                     return redirect('/cart')->with('error_message', $message);
                 }
 
                 // Preventing sold out products from being ordered by the customers
                 $getProductStock = ProductsAttribute::getProductStock($item['product_id'], $item['size']);
                 if($getProductStock==0){
-                    Product::deleteCartProduct($item['product_id']);
-                    $message = "One of the Product is Sold Out.";
+                    // Product::deleteCartProduct($item['product_id']);
+                    // $message = "One of the Product is Sold Out.";
+                    $message = $item['product']['product_name']." with".$item['size']."Size is not available. Please remove it from cart and choose another product.";
                     return redirect('/cart')->with('error_message', $message);
                 }
                 
@@ -534,16 +541,18 @@ class ProductsController extends Controller
                 // for e.g., Among small, medium and large sized T-Shirt, the "small" sized T-Shirt is disabled by admin.
                 $getAttributeStatus = ProductsAttribute::getAttributeStatus($item['product_id'], $item['size']);
                 if($getAttributeStatus==0){
-                    Product::deleteCartProduct($item['product_id']);
-                    $message = "One of the Product's Attribute/Size is disabled. Please try again with another product.";
+                    // Product::deleteCartProduct($item['product_id']);
+                    // $message = "One of the Product's Attribute/Size is disabled. Please try again with another product.";
+                    $message = $item['product']['product_name']." with".$item['size']."Size is not available. Please remove it from the cart and choose another product.";
                     return redirect('/cart')->with('error_message', $message);
                 }
 
                 // Preventing a prodcut from being ordered if that product's category is disabled.
                 $getCategoryStatus = Category::getCategoryStatus($item['product']['category_id']);
                 if($getCategoryStatus==0){
-                    Product::deleteCartProduct($item['product_id']);
-                    $message = "One of the Product is disabled. Please try again with another product.";
+                    // Product::deleteCartProduct($item['product_id']);
+                    // $message = "One of the Product is disabled. Please try again with another product.";
+                    $message = $item['product']['product_name']." with".$item['size']."Size is not available. Please remove it from cart and choose another product.";
                     return redirect('/cart')->with('error_message', $message);
                 }
             }
