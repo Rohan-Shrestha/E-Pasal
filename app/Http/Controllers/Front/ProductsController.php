@@ -529,6 +529,15 @@ class ProductsController extends Controller
                     $message = "One of the Product is Sold Out.";
                     return redirect('/cart')->with('error_message', $message);
                 }
+                
+                // Preventing products which has it's attribute disabled by admin/vendor from being ordered by the customers
+                // for e.g., Among small, medium and large sized T-Shirt, the "small" sized T-Shirt is disabled by admin.
+                $getAttributeStatus = ProductsAttribute::getAttributeStatus($item['product_id'], $item['size']);
+                if($getAttributeStatus==0){
+                    Product::deleteCartProduct($item['product_id']);
+                    $message = "One of the Product's Attribute/Size is disabled.";
+                    return redirect('/cart')->with('error_message', $message);
+                }
             }
             // WEBSITE SECURITY END
 
