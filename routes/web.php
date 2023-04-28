@@ -206,6 +206,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     // Register Users
     Route::post('user/register','UserController@userRegister');
 
+    // SEARCH PRODUCTS
+    Route::get('search-products', 'ProductsController@listing');
+
     // Protecting the account routes with middleware
     Route::group(['middleware'=>['auth']],function(){
         // User Account

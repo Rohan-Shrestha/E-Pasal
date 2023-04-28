@@ -126,36 +126,59 @@ class ProductsController extends Controller
                 abort(404);
             }
         } else {
-            // echo $url = Route::getFacadeRoot()->current()->uri(); die;
-            $url = Route::getFacadeRoot()->current()->uri();
-            $categoryCount = Category::where(['url' => $url, 'status' => 1])->count();
-            if ($categoryCount > 0) {
-                // Getting Category Details
-                $categoryDetails = Category::categoryDetails($url);
-                // dd($categoryDetails);
-                $categoryProducts = Product::with('brand')->whereIn('category_id', $categoryDetails['catIds'])->where('status', 1);
+            if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])){
+                $search_products = $_REQUEST['search'];
+                $categoryDetails['breadcrumbs'] = $search_products;
+                $categoryDetails['categoryDetails']['category_name'] = $search_products;
+                $categoryDetails['categoryDetails']['description'] = "Search Product for ". $search_products;
 
-                // Checking for Sort
-                if (isset($_GET['sort']) && !empty($_GET['sort'])) {
-                    if ($_GET['sort'] == "product_latest") {
-                        $categoryProducts->orderby('products.id', 'Desc');
-                    } else if ($_GET['sort'] == "price_lowest") {
-                        $categoryProducts->orderby('products.product_price', 'Asc');
-                    } else if ($_GET['sort'] == "price_highest") {
-                        $categoryProducts->orderby('products.product_price', 'Desc');
-                    } else if ($_GET['sort'] == "name_a_z") {
-                        $categoryProducts->orderby('products.product_name', 'Asc');
-                    } else if ($_GET['sort'] == "name_z_a") {
-                        $categoryProducts->orderby('products.product_name', 'Desc');
-                    }
+                $categoryProducts = Product::select('products.id', 'products.section_id', 'products.category_id', 'products.brand_id', 'products.vendor_id', 'products.product_name', 'products.product_code', 'products.product_color', 'products.product_price', 'products.product_discount', 'products.product_image', 'products.description',)
+                ->with('brand')->join('categories', 'categories.id', '=', 'products.category_id')->where(function($query)use($search_products){
+                    $query->where('products.product_name', 'like', '%'.$search_products.'%')
+                    ->orWhere('products.product_code', 'like', '%'.$search_products.'%')
+                    ->orWhere('products.product_color', 'like', '%'.$search_products.'%')
+                    ->orWhere('products.description', 'like', '%'.$search_products.'%')
+                    ->orWhere('categories.category_name', 'like', '%'.$search_products.'%');
+                })->where('products.status', 1);
+
+                if(isset($_REQUEST['section_id']) && !empty($_REQUEST['section_id'])){
+                    $categoryProducts = $categoryProducts->where('products.section_id', $_REQUEST['section_id']);
                 }
+                $categoryProducts = $categoryProducts->get();
 
-                $categoryProducts = $categoryProducts->Paginate(30);
-                // dd($categoryProducts);
-                // echo "Category exists"; die;
-                return view('front.products.listing')->with(compact('categoryDetails', 'categoryProducts', 'url'));
+                return view('front.products.listing')->with(compact('categoryDetails', 'categoryProducts'));
             } else {
-                abort(404);
+                // echo $url = Route::getFacadeRoot()->current()->uri(); die;
+                $url = Route::getFacadeRoot()->current()->uri();
+                $categoryCount = Category::where(['url' => $url, 'status' => 1])->count();
+                if ($categoryCount > 0) {
+                    // Getting Category Details
+                    $categoryDetails = Category::categoryDetails($url);
+                    // dd($categoryDetails);
+                    $categoryProducts = Product::with('brand')->whereIn('category_id', $categoryDetails['catIds'])->where('status', 1);
+
+                    // Checking for Sort
+                    if (isset($_GET['sort']) && !empty($_GET['sort'])) {
+                        if ($_GET['sort'] == "product_latest") {
+                            $categoryProducts->orderby('products.id', 'Desc');
+                        } else if ($_GET['sort'] == "price_lowest") {
+                            $categoryProducts->orderby('products.product_price', 'Asc');
+                        } else if ($_GET['sort'] == "price_highest") {
+                            $categoryProducts->orderby('products.product_price', 'Desc');
+                        } else if ($_GET['sort'] == "name_a_z") {
+                            $categoryProducts->orderby('products.product_name', 'Asc');
+                        } else if ($_GET['sort'] == "name_z_a") {
+                            $categoryProducts->orderby('products.product_name', 'Desc');
+                        }
+                    }
+
+                    $categoryProducts = $categoryProducts->Paginate(30);
+                    // dd($categoryProducts);
+                    // echo "Category exists"; die;
+                    return view('front.products.listing')->with(compact('categoryDetails', 'categoryProducts', 'url'));
+                } else {
+                    abort(404);
+                }
             }
         }
     }
