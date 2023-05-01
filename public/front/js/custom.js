@@ -1,4 +1,4 @@
-document.getElementById("users-email").focus();
+// document.getElementById("users-email").focus();
 
 $(document).ready(function () {
     // $(".loader").show();
@@ -63,7 +63,7 @@ $(document).ready(function () {
             },error:function(){
                 alert('Error');
             }
-        })
+        });
     });
 
     // Delete Cart Item

@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Session;
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
-<div class="page-style-a">
+<div class="page-style">
     <div class="container">
         <div class="page-intro">
-            <h2>Checkout</h2>
+            <!-- <h3>Checkout</h3> -->
             <ul class="bread-crumb">
                 <li class="has-separator">
-                    <i class="ion ion-md-home"></i>
+                    <i class="ion ion-md-home mr-2"></i>
                     <a href="javascript:;">Home</a>
                 </li>
                 <li class="is-marked">
@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Session;
         </div>
     </div>
 </div>
+<hr>
 <!-- Page Introduction Wrapper /- -->
 <!-- Checkout-Page -->
 <div class="page-checkout u-s-p-t-80 bg-light">
@@ -138,6 +139,10 @@ use Illuminate\Support\Facades\Session;
                                 <div class="u-s-m-b-13">
                                     <input type="radio" class="radio-box" name="payment_gateway" id="cash-on-delivery" value="COD">
                                     <label class="label-text" for="cash-on-delivery">Cash on Delivery</label>
+                                </div>
+                                <div class="u-s-m-b-13">
+                                    <input type="radio" class="radio-box" name="payment_gateway" id="khalti" value="Khalti">
+                                    <label class="label-text" for="khalti">Khalti</label>
                                 </div>
                                 <div class="u-s-m-b-13">
                                     <input type="radio" class="radio-box" name="payment_gateway" id="paypal" value="Paypal">

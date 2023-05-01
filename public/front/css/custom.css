@@ -27,14 +27,44 @@
   bottom: -140px;
 }
 
+.full-layer-mid-header {
+  padding: 25px;
+  margin-top: 15px;
+}
+
+.page-style {
+  padding: 15px;
+}
+
+hr {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 .v-menu > .v-title {
-  padding-left: 30px;
+  padding-left: 0px;
   height: 45px;
   /* margin-left: 30px; */
-  border-radius: 3px 3px 3px 3px;
+  /* border-radius: 3px 3px 3px 3px; */
   line-height: 45px;
+  background: none;
+  color: #1E3A8A;
+  font-size: 14px;
 }
 
 .fas {
   line-height: 0.2;
+}
+
+.v-menu.v-close > .v-title > i.fas.fa-angle-down {
+  margin-right: 50px;
+}
+
+.v-menu > .v-title > i.fas.fa-angle-down {
+  margin-right: 50px;
+}
+
+#payment-button {
+  background-color: #5e338d;
+  color: white;
 }

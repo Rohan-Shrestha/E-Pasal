@@ -610,9 +610,15 @@ class ProductsController extends Controller
             if($data['payment_gateway']=="COD"){
                 $payment_method = "COD";
                 $order_status = "New";
+
             } elseif($data['payment_gateway']=="Paypal"){
                 $payment_method = "PayPal";
                 $order_status = "Pending";
+
+            } elseif($data['payment_gateway']=="Khalti"){
+                $payment_method = "Khalti";
+                $order_status = "Pending";
+
             } else {
                 $payment_method = "Prepaid";
                 $order_status = "Pending";
@@ -722,6 +728,11 @@ class ProductsController extends Controller
             } elseif ($data['payment_gateway']=="Paypal"){
                 // if payment gateway is paypal, redirect the customer to Paypal page after saving the Order
                 return redirect("/paypal");
+
+            } elseif ($data['payment_gateway']=="Khalti"){
+                // if payment gateway is khalti, redirect the customer to Khalti page after saving the Order
+                return redirect("/khalti");
+
             } else {
                 echo "Other Online Payment Methods remaining !!";
             }

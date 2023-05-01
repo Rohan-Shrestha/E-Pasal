@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="{{ url('front/css/bundle.css') }}">
     <!-- Custom -->
     <link rel="stylesheet" href="{{ url('front/css/custom.css') }}">
+
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 </head>
 
 <body>
@@ -105,6 +107,8 @@
     <script type="text/javascript" src="{{ url('front/js/custom.js') }}"></script>
 
     @include('front.layout.scripts')
+
+    
 </body>
 
 </html>

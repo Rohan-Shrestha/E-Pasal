@@ -243,6 +243,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         Route::post('/pay', 'PaypalController@pay')->name('payment');
         Route::get('/success', 'PaypalController@success');
         Route::get('/error', 'PaypalController@error');
+
+        // KHALTI
+        Route::get('/khalti', 'KhaltiController@khalti');
     });
     
     // User Forgot Password (update password)

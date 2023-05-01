@@ -18,7 +18,7 @@ $getCartItems = getCartItems();
             <nav>
                 <ul class="primary-nav g-nav">
                     <li>
-                        <h4 style="margin-top: 10px;"><strong><a href="{{ url('/') }}" style="color: #1E3A8A; margin-top: 10px; margin-left: 90px;">e-pasal</a></strong></h4>
+                        <h4 style="margin-top: 10px;"><strong><a href="{{ url('/') }}" style="color: #1E3A8A; margin-top: 10px;">E-Pasal</a></strong></h4>
                     </li>
                     <!-- <li>
                         <a href="tel:+977 9825934121">
