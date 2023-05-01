@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\KhaltiController;
 use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -244,9 +245,13 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         Route::get('/success', 'PaypalController@success');
         Route::get('/error', 'PaypalController@error');
 
-        // KHALTI
-        Route::get('/khalti', 'KhaltiController@khalti');
+        
     });
+
+    // KHALTI
+    Route::get('/khalti', 'KhaltiController@khalti');
+    Route::post('/verify', 'KhaltiController@verifyPayment')->name('verifyKhaltiPayment');
+    Route::post('/store', 'KhaltiController@storePayment')->name('storeKhaltiPayment');
     
     // User Forgot Password (update password)
     Route::match(['get','post'], 'user/forgot-password', 'UserController@forgotPassword');

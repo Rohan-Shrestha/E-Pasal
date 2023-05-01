@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Session;
             <div class="col-lg-12" align="center">
                 <h3>Please make payment for your order</h3><br>
                 <!-- <form action="" method="post">@csrf -->
+                    <!-- this form and hidden input was for paypal payment -->
                     <input type="hidden" name="amount" value="{{ round(Session::get('grand_total')*0.0076, 2) }}">
                     <!-- Khalti Payment Button -->
                     <button id="payment-button" class="btn">Pay with Khalti</button>
@@ -41,6 +42,8 @@ use Illuminate\Support\Facades\Session;
 </div>
 
 <script>
+    var amount = "{{ round(Session::get('grand_total'), 2) }}";
+
     var config = {
         // replace the publicKey with yours
         "publicKey": "{{ config('app.khalti_public_key') }}",
@@ -57,20 +60,36 @@ use Illuminate\Support\Facades\Session;
         "eventHandler": {
             onSuccess (payload) {
                 // hit merchant api for initiating verfication
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data:{},
-                    url:'',
-                    type:'POST',
-                    success:function(resp){
-                        
-                    },error:function(){
-                        alert('Error');
-                    }
-                });
-                console.log(payload);
+                if(payload.idx) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type:'POST',
+                        url: "{{ route('verifyKhaltiPayment') }}",
+                        data:{
+                            token: payload.token,
+                            amount: payload.amount,
+                        },
+                        success:function(response){
+                            $.ajax({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                type:'POST',
+                                url: "{{ route('storeKhaltiPayment') }}",
+                                data:{
+                                    response: response,
+                                },
+                            });
+                            console.log("Payment Successful");
+                            console.log(response);
+                        },error:function(err){
+                            console.log(err.response);
+                        }
+                    });
+                }
+                // console.log(payload);
             },
             onError (error) {
                 console.log(error);
