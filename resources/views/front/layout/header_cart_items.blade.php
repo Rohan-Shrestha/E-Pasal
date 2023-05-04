@@ -33,7 +33,7 @@ $getCartItems = getCartItems();
         </ul>
         <div class="mini-shop-total clearfix">
             <span class="mini-total-heading float-left">Total:</span>
-            <span class="mini-total-price float-right">Rs.{{ $total_price }}</span>
+            <span class="mini-total-price float-right grand_total">Rs.{{ $total_price }}</span>
         </div>
         <div class="mini-action-anchors">
             <a href="{{ url('cart') }}" class="cart-anchor">View Cart</a>
@@ -43,7 +43,7 @@ $getCartItems = getCartItems();
 </div>
 <!-- Mini Cart /- -->
 <script>
-    // $('#mini-cart-close').on('click', function() {
-    //     $('.mini-cart-wrapper').removeClass('mini-cart-open');
-    // });
+    $('#mini-cart-close').on('click', function() {
+        $('.mini-cart-wrapper').removeClass('mini-cart-open');
+    });
 </script>

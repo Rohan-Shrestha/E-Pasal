@@ -325,7 +325,7 @@ class ProductsController extends Controller
 
             // echo "<pre>"; print_r($availableStock); die;
 
-            // Checking if the stock required by the user is available
+            // Checking if the stock required by the user is not available
             if ($data['qty'] > $availableStock['stock']) {
                 $getCartItems = Cart::getCartItems();
                 return response()->json([
@@ -352,12 +352,29 @@ class ProductsController extends Controller
             // Update the quantity
             Cart::where('id',$data['cartid'])->update(['quantity'=>$data['qty']]);
             $getCartItems = Cart::getCartItems();
+
+            // logic to update the cart price in mini cart and header cart icon after a product quantity is updated in the cart by the customer
+            $totalAmount = 0;
+            foreach ($getCartItems as $key => $item) {
+                $attrPrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
+                // echo "<pre>"; print_r($attrPrice); die;
+                $totalAmount = $totalAmount + ($attrPrice['final_price'] * $item['quantity']);
+            }
+            if(Session::has('couponAmount')){
+                $couponAmount = Session::get('couponAmount');
+                $grand_total = $totalAmount - $couponAmount;
+
+            } else {
+                $grand_total = $totalAmount;
+            }
+            
             $totalCartItems = totalCartItems();
             Session::forget('couponAmount');
             Session::forget('couponCode');
             return response()->json([
                 'status'=>true,
                 'totalCartItems'=>$totalCartItems,
+                'grand_total'=>$grand_total,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
                 'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
             ]);
@@ -373,10 +390,20 @@ class ProductsController extends Controller
             Session::forget('couponCode');
             Cart::where('id',$data['cartid'])->delete();
             $getCartItems = Cart::getCartItems();
+            // logic to reduce the cart price in mini cart and header cart icon after a product is deleted from the cart by the customer
+            $totalAmount = 0;
+            foreach ($getCartItems as $key => $item) {
+                $attrPrice = Product::getDiscountAttributePrice($item['product_id'], $item['size']);
+                // echo "<pre>"; print_r($attrPrice); die;
+                $totalAmount = $totalAmount + ($attrPrice['final_price'] * $item['quantity']);
+            }
+            $grand_total = $totalAmount;
+
             // getting the total no. of items in cart
             $totalCartItems = totalCartItems();
             return response()->json([
                 'totalCartItems'=>$totalCartItems,
+                'grand_total' => $grand_total,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
                 'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
             ]);

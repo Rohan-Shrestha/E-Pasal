@@ -1,25 +1,26 @@
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
-<div class="page-style-a">
+<div class="page-style">
     <div class="container">
         <div class="page-intro">
-            <h2>Shop</h2>
+            <!-- <h2>Shop</h2> -->
             <ul class="bread-crumb">
                 <li class="has-separator">
-                    <i class="ion ion-md-home"></i>
-                    <a href="index.html">Home</a>
+                    <i class="ion ion-md-home mr-2"></i>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="listing.html">Shop</a>
+                    <a href="javascript:;">Shop</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<hr>
 <!-- Page Introduction Wrapper /- -->
 <!-- Shop-Page -->
-<div class="page-shop u-s-p-t-80">
+<div class="page-shop u-s-p-t-80 bg-light">
     <div class="container">
         <!-- Shop-Intro -->
         <div class="shop-intro">
@@ -36,7 +37,7 @@
             @include('front.products.filters')
             <!-- Shop-Left-Side-Bar-Wrapper /- -->
             <!-- Shop-Right-Wrapper -->
-            <div class="col-lg-9 col-md-9 col-sm-12">
+            <div id="categoryDescription" class="col-lg-9 col-md-9 col-sm-12">
                 <!-- Page-Bar -->
                 <div class="page-bar clearfix">
                     <!-- <div class="shop-settings">

@@ -1,13 +1,13 @@
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
-<div class="page-style-a">
+<div class="page-style">
     <div class="container">
         <div class="page-intro">
-            <h2>Account</h2>
+            <!-- <h2>Account</h2> -->
             <ul class="bread-crumb">
                 <li class="has-separator">
-                    <i class="ion ion-md-home"></i>
+                    <i class="ion ion-md-home mr-2"></i>
                     <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
@@ -17,9 +17,10 @@
         </div>
     </div>
 </div>
+<hr>
 <!-- Page Introduction Wrapper /- -->
 <!-- Account-Page -->
-<div class="page-account u-s-p-t-80">
+<div class="page-account u-s-p-t-80 bg-light">
     <div class="container">
         @if(Session::has('success_message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">

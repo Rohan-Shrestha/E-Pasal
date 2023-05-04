@@ -49,7 +49,7 @@ use Illuminate\Support\Facades\Session;
                         <form name="checkoutForm" id="checkoutForm" action="{{ url('/checkout') }}" method="post">@csrf
 
                             @if(count($deliveryAddresses)>0)
-                                <h4 class="section-h4">Delivery Addresses</h4>
+                                <h4 class="section-h4">Shipping Addresses</h4>
                                 @foreach ($deliveryAddresses as $address)
                                 <div class="control-group" style="float: left; margin-right: 10px;">
                                     <input type="radio" name="address_id" id="address{{ $address['id'] }}" value="{{ $address['id'] }}">

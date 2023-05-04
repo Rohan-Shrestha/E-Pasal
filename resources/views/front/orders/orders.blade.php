@@ -1,14 +1,14 @@
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
-<div class="page-style-a">
+<div class="page-style">
     <div class="container">
         <div class="page-intro">
-            <h2>My Orders</h2>
+            <!-- <h2>My Orders</h2> -->
             <ul class="bread-crumb">
                 <li class="has-separator">
-                    <i class="ion ion-md-home"></i>
-                    <a href="javascript:;">Home</a>
+                    <i class="ion ion-md-home mr-2"></i>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
                     <a href="#">Orders</a>
@@ -17,9 +17,10 @@
         </div>
     </div>
 </div>
+<hr>
 <!-- Page Introduction Wrapper /- -->
 <!-- Cart-Page -->
-<div class="page-cart u-s-p-t-80">
+<div class="page-cart u-s-p-t-80 bg-light">
     <div class="container">
         <div class="row">
             <table class="table table-striped table-borderless">

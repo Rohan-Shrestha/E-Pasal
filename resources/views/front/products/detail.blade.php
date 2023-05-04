@@ -11,25 +11,26 @@ $productFilters = ProductsFilter::productFilters();
 @extends('front.layout.layout')
 @section('content')
 <!-- Page Introduction Wrapper -->
-<div class="page-style-a">
+<div class="page-style">
     <div class="container">
         <div class="page-intro">
-            <h2>Detail</h2>
+            <!-- <h2>Detail</h2> -->
             <ul class="bread-crumb">
                 <li class="has-separator">
-                    <i class="ion ion-md-home"></i>
+                    <i class="ion ion-md-home mr-2"></i>
                     <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="javascript:(0);">Detail</a>
+                    <a href="javascript:;">Product Detail</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<hr>
 <!-- Page Introduction Wrapper /- -->
 <!-- Single-Product-Full-Width-Page -->
-<div class="page-detail u-s-p-t-80">
+<div class="page-detail u-s-p-t-80 bg-light">
     <div class="container">
         <!-- Product-Detail -->
         <div class="row">

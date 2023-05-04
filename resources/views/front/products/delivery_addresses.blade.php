@@ -1,10 +1,10 @@
-<h4 class="section-h4 deliveryText">Add New Delivery Address</h4>
+<h4 class="section-h4 deliveryText">Add New Shipping Address</h4>
 <div class="u-s-m-b-24">
     <input type="checkbox" class="check-box" id="ship-to-different-address" data-toggle="collapse" data-target="#showdifferent">
     @if(count($deliveryAddresses)>0)
         <label class="label-text newAddress" for="ship-to-different-address">Ship to a different address?</label>
     @else
-        <label class="label-text newAddress" for="ship-to-different-address">Check to add Delivery address?</label>
+        <label class="label-text newAddress" for="ship-to-different-address">Check to add Shipping address?</label>
     @endif
 </div>
 <div class="collapse" id="showdifferent">
@@ -78,7 +78,7 @@
     
     <!-- Form-Fields /- -->
 </div>
-<div>
+<!-- <div>
     <label for="order-notes">Order Notes</label>
     <textarea class="text-area" id="order-notes" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-</div>
+</div> -->

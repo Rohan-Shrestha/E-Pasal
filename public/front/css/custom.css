@@ -68,3 +68,18 @@ hr {
   background-color: #5e338d;
   color: white;
 }
+
+/* Content Section padding at the top for all pages*/
+.u-s-p-t-80 {
+  padding-top: 60px;
+  padding-bottom: 30px;
+}
+
+/* Padding for the Contact Us footer */
+.u-s-p-b-80 {
+  padding-top: 80px;
+}
+
+#categoryDescription {
+  padding-bottom: 20px;
+}

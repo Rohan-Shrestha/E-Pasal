@@ -2,7 +2,7 @@
 <footer class="footer">
     <div class="container">
         <!-- Outer-Footer -->
-        <div class="outer-footer-wrapper u-s-p-y-80">
+        <!-- <div class="outer-footer-wrapper u-s-p-y-80">
             <h6>
                 For special offers and other discount information
             </h6>
@@ -17,7 +17,7 @@
                 <input type="text" id="newsletter-field" placeholder="Your Email Address">
                 <button type="submit" class="button">SUBMIT</button>
             </form>
-        </div>
+        </div> -->
         <!-- Outer-Footer /- -->
         <!-- Mid-Footer -->
         <div class="mid-footer-wrapper u-s-p-b-80">
