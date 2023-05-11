@@ -55,7 +55,7 @@ $(document).ready(function () {
             type:'post',
             success:function(resp){
                 $(".totalCartItems").html(resp.totalCartItems);
-                $(".grand_total").text("Rs."+resp.grand_total);
+                // $(".grand_total").text("Rs."+resp.grand_total);
                 if(resp.status==false){
                     alert(resp.message);
                 }
@@ -81,7 +81,7 @@ $(document).ready(function () {
                 type:'post',
                 success:function(resp){
                     $(".totalCartItems").html(resp.totalCartItems);
-                    $(".grand_total").text("Rs."+resp.grand_total);
+                    // $(".grand_total").text("Rs."+resp.grand_total);
                     $('#appendCartItems').html(resp.view);
                     $('#appendHeaderCartItems').html(resp.headerview);
                 },error:function(){

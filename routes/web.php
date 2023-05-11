@@ -252,6 +252,13 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::get('/khalti', 'KhaltiController@khalti');
     Route::post('/verify', 'KhaltiController@verifyPayment')->name('verifyKhaltiPayment');
     Route::post('/store', 'KhaltiController@storePayment')->name('storeKhaltiPayment');
+
+    // Route::get('/khalti/success', function () {
+    //     return view('front.khalti.success');
+    // });
+
+    Route::get('/khalti/success', 'KhaltiController@success');
+    
     
     // User Forgot Password (update password)
     Route::match(['get','post'], 'user/forgot-password', 'UserController@forgotPassword');

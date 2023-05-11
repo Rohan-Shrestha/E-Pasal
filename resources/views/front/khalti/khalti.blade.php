@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Session;
 </div>
 
 <script>
-    var amount = "{{ round(Session::get('grand_total'), 2) }}";
+    var amount = "{{ round(Session::get('grand_total'), 2)*100 }}";
 
     var config = {
         // replace the publicKey with yours
@@ -60,7 +60,7 @@ use Illuminate\Support\Facades\Session;
         "eventHandler": {
             onSuccess (payload) {
                 // hit merchant api for initiating verfication
-                if(payload.idx) {
+                // if(payload.idx) {
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -81,6 +81,9 @@ use Illuminate\Support\Facades\Session;
                                 data:{
                                     response: response,
                                 },
+                                success:function(response){
+                                    window.location.href = "/khalti/success";
+                                }
                             });
                             console.log("Payment Successful");
                             console.log(response);
@@ -88,7 +91,7 @@ use Illuminate\Support\Facades\Session;
                             console.log(err.response);
                         }
                     });
-                }
+                // }
                 // console.log(payload);
             },
             onError (error) {
@@ -104,7 +107,7 @@ use Illuminate\Support\Facades\Session;
     var btn = document.getElementById("payment-button");
     btn.onclick = function () {
         // minimum transaction amount must be 10, i.e 1000 in paisa.
-        checkout.show({amount: 1000});
+        checkout.show({amount});
     }
 </script>
 <!-- Cart-Page /- -->

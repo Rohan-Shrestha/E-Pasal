@@ -33,10 +33,11 @@ class KhaltiController extends Controller
     public function verifyPayment(Request $request)
     {
         $token = $request->token;
+        $amount = $request->amount;
 
         $args = http_build_query(array(
             'token' => $token,
-            'amount'  => 1000
+            'amount'  => $amount
         ));
 
         $url = "https://khalti.com/api/v2/payment/verify/";
@@ -97,6 +98,7 @@ class KhaltiController extends Controller
             Order::where('id', $order_id)->update(['order_status'=>'Paid']);
 
             $orderDetails = Order::with('orders_products')->where('id', $order_id)->first()->toArray();
+            $order_id = Session::get('grand_total');
 
             // Send Order Email
             $email = Auth::user()->email;
@@ -121,10 +123,15 @@ class KhaltiController extends Controller
             // Empty the cart after the successful transaction
             Cart::where('user_id', Auth::user()->id)->delete();
 
-            return view('front.khalti.success');
+            // return view('front.khalti.success')->with(compact($orderDetails));
 
         } else {
             return $response->getMessage();
         }   
+    }
+
+    public function success()
+    {
+        return view('front.khalti.success');
     }
 }

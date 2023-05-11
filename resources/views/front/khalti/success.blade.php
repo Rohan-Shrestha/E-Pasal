@@ -12,22 +12,23 @@ use Illuminate\Support\Facades\Session;
             <!-- <h2>Payment</h2> -->
             <ul class="bread-crumb">
                 <li class="has-separator">
-                    <i class="ion ion-md-home"></i>
+                    <i class="ion ion-md-home mr-2"></i>
                     <a href="javascript:;">Home</a>
                 </li>
                 <li class="has-separator">
                     <a href="javascript:;">Payment</a>
                 </li>
                 <li class="is-marked">
-                    <a href="#">Thank You</a>
+                    <a href="javascript:;">Thank You</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<hr>
 <!-- Page Introduction Wrapper /- -->
 <!-- Cart-Page -->
-<div class="page-cart u-s-p-t-80">
+<div class="page-cart u-s-p-t-80 bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-12" align="center">
