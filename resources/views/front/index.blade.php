@@ -10,7 +10,7 @@ use App\Models\Product; ?>
         <div class="bg-image">
             <div class="slide-content">
                 <h1>
-                    <a @if(!empty($banner['link'])) href="{{ url($banner['link']) }}" @else href="javascript:;" @endif><img title="{{ $banner['title'] }}" src="{{ asset('front/images/banner_images/'.$banner['image']) }}" alt="{{ $banner['title'] }}"></a>
+                    <a @if(!empty($banner['link'])) href="{{ url('men') }}" @else href="javascript:;" @endif><img title="{{ $banner['title'] }}" src="{{ asset('front/images/banner_images/'.$banner['image']) }}" alt="{{ $banner['title'] }}"></a>
                 </h1>
                 <h2>{{ $banner['title'] }}</h2>
             </div>
@@ -23,11 +23,11 @@ use App\Models\Product; ?>
 <!-- Banner Layer -->
 <div class="banner-layer">
     <div class="container">
-        <div class="image-banner">
+        <!-- <div class="image-banner">
             <a target="_blank" rel="nofollow" href="{{ url($fixedBanners[0]['link']) }}" class="mx-auto banner-hover effect-dark-opacity">
                 <img class="img-fluid" src="{{ asset('front/images/banner_images/'.$fixedBanners[0]['image']) }}" alt="{{ $fixedBanners[0]['alt'] }}" title="{{ $fixedBanners[0]['title'] }}">
             </a>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- Banner Layer /- -->
@@ -89,12 +89,12 @@ use App\Models\Product; ?>
                                             <h6 class="item-title">
                                                 <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a>
                                             </h6>
-                                            <div class="item-stars">
+                                            <!-- <div class="item-stars">
                                                 <div class='star' title="0 out of 5 - based on 0 Reviews">
                                                     <span style='width:0'></span>
                                                 </div>
                                                 <span>(0)</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <?php $getDiscountPrice = Product::getDiscountPrice($product['id']); ?>
                                         @if($getDiscountPrice>0)
@@ -159,12 +159,12 @@ use App\Models\Product; ?>
                                             <h6 class="item-title">
                                                 <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a>
                                             </h6>
-                                            <div class="item-stars">
+                                            <!-- <div class="item-stars">
                                                 <div class='star' title="0 out of 5 - based on 0 Reviews">
                                                     <span style='width:0'></span>
                                                 </div>
                                                 <span>(0)</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <?php $getDiscountPrice = Product::getDiscountPrice($product['id']); ?>
                                         @if($getDiscountPrice>0)
@@ -226,12 +226,12 @@ use App\Models\Product; ?>
                                             <h6 class="item-title">
                                                 <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a>
                                             </h6>
-                                            <div class="item-stars">
+                                            <!-- <div class="item-stars">
                                                 <div class='star' title="0 out of 5 - based on 0 Reviews">
                                                     <span style='width:0'></span>
                                                 </div>
                                                 <span>(0)</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <?php $getDiscountPrice = Product::getDiscountPrice($product['id']); ?>
                                         @if($getDiscountPrice>0)
@@ -293,12 +293,12 @@ use App\Models\Product; ?>
                                             <h6 class="item-title">
                                                 <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a>
                                             </h6>
-                                            <div class="item-stars">
+                                            <!-- <div class="item-stars">
                                                 <div class='star' title="0 out of 5 - based on 0 Reviews">
                                                     <span style='width:0'></span>
                                                 </div>
                                                 <span>(0)</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <?php $getDiscountPrice = Product::getDiscountPrice($product['id']); ?>
                                         @if($getDiscountPrice>0)
@@ -336,11 +336,11 @@ use App\Models\Product; ?>
 <!-- Banner Layer -->
 <div class="banner-layer">
     <div class="container">
-        <div class="image-banner">
+        <!-- <div class="image-banner">
             <a target="_blank" rel="nofollow" href="{{ url($fixedBanners[1]['link']) }}" class="mx-auto banner-hover effect-dark-opacity">
                 <img class="img-fluid" src="{{ asset('front/images/banner_images/'.$fixedBanners[1]['image']) }}" alt="{{ $fixedBanners[1]['alt'] }}" title="{{ $fixedBanners[1]['title'] }}">
             </a>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- Banner Layer /- -->

@@ -77,11 +77,11 @@ $getCartItems = getCartItems();
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Customer Login</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="{{ url('vendor/login-register') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Vendor Login</a>
-                            </li>
+                            </li> -->
                             @endif
                         </ul>
                     </li>

@@ -68,7 +68,7 @@ class CategoryController extends Controller
                 'category_name.required' => 'Please fill out the Category Name.',
                 'category_name.regex' => 'The category name must be valid.',
                 'section_id.required' => 'Please select the Section.',
-                'url.required' => 'Pleas fill out the Category URL.',
+                'url.required' => 'Please fill out the Category URL.',
             ];
 
             $this->validate($request, $rules, $customMessages);

@@ -100,7 +100,7 @@ class PaypalController extends Controller
                     'orderDetails' => $orderDetails
                 ];
                 Mail::send('emails.order', $messageData, function($message)use($email){
-                    $message->to($email)->subject("Order Placed - E-Pasal");
+                    $message->to($email)->subject("Order Placed - Payment Successful via PayPal - E-Pasal");
                 });
 
                 foreach ($orderDetails['orders_products'] as $key => $order) {

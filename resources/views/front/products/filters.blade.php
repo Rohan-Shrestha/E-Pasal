@@ -5,49 +5,7 @@ $productFilters = ProductsFilter::productFilters();
 ?>
 <!-- Shop-Left-Side-Bar-Wrapper -->
 <div class="col-lg-3 col-md-3 col-sm-12">
-    <!-- Fetch-Categories-from-Root-Category  -->
-    <div class="fetch-categories">
-        <h3 class="title-name">Browse Categories</h3>
-        <!-- Level 1 -->
-        <h3 class="fetch-mark-category">
-            <a href="listing.html">T-Shirts
-                <span class="total-fetch-items">(5)</span>
-            </a>
-        </h3>
-        <ul>
-            <li>
-                <a href="shop-v3-sub-sub-category.html">Casual T-Shirts
-                    <span class="total-fetch-items">(3)</span>
-                </a>
-            </li>
-            <li>
-                <a href="listing.html">Formal T-Shirts
-                    <span class="total-fetch-items">(2)</span>
-                </a>
-            </li>
-        </ul>
-        <!-- //end Level 1 -->
-        <!-- Level 2 -->
-        <h3 class="fetch-mark-category">
-            <a href="listing.html">Shirts
-                <span class="total-fetch-items">(5)</span>
-            </a>
-        </h3>
-        <ul>
-            <li>
-                <a href="shop-v3-sub-sub-category.html">Casual Shirts
-                    <span class="total-fetch-items">(3)</span>
-                </a>
-            </li>
-            <li>
-                <a href="listing.html">Formal Shirts
-                    <span class="total-fetch-items">(2)</span>
-                </a>
-            </li>
-        </ul>
-        <!-- //end Level 2 -->
-    </div>
-    <!-- Fetch-Categories-from-Root-Category  /- -->
+    
     
     @if(!isset($_REQUEST['search']))
         <!-- Filters -->
