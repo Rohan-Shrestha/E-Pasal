@@ -1,3 +1,46 @@
+## Running this project (E-Pasal)
+
+First of all, create a database named "epasalfyp" in your localhost phpmyadmin.
+
+Then, import the sql file named as epasalfyp.sql into that database.
+
+Now, you may run your project with "php artisan serve" in the project's command line
+
+### Admin Login
+username = admin@admin.com
+password = 12345
+
+### User Logins
+### User 1
+username = ramesh123@gmail.com
+password = ramesh123
+
+#### User 2
+username = ankit@gmail.com
+password = ankit123
+
+#### User 3
+username = netramahato@gmail.com
+password = netra123
+
+
+If you register an account, the system sends a confirmation email to my account at "mailtrap email testing service".
+So, to login with the registered account, the account needs to be confirmed from mailtrap from my account.
+However, the confirmation can be made from your account.
+You need to create an account in the mailtrap service.
+Then, change the following information in the ".env" file with your mailtrap account information.
+At mailtrap.io, these information can be found at inboxes > smtp settings and setting the integrations to "Laravel 7+"
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=79b220ef0d446f
+MAIL_PASSWORD=c887d2ec265770
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="rohanstha232@gmail.com"
+
+The order emails and invoices are also sent to the mailtrap account.
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
