@@ -10,20 +10,24 @@ Then, import the sql file named as "epasalfyp.sql" in this project into that dat
 Now, you may run your project with "php artisan serve" in the project's command line
 
 ### Admin Login
-username = admin@admin.com<br>
+username = admin@admin.com
+
 password = 12345
 
 ### User Logins
 #### User 1
-username = ramesh123@gmail.com<br>
+username = ramesh123@gmail.com
+
 password = ramesh123
 
 #### User 2
-username = ankit@gmail.com<br>
+username = ankit@gmail.com
+
 password = ankit123
 
 #### User 3
 username = netramahato@gmail.com
+
 password = netra123
 
 
